@@ -1,0 +1,92 @@
+form {
+  background: #f2f2f2;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/*========= checkbox ===============*/
+/* チェックボックスを隠す */
+.custom-checkbox {
+  display: none;
+}
+
+/* カスタムチェックボックスのスタイル */
+.custom-checkbox+label {
+  position: relative;
+  user-select: none;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 15px;
+}
+
+/* チェックボックスの見た目を作成 */
+.custom-checkbox+label::before {
+  content: '';
+  cursor: pointer;
+  position: absolute;
+  left: 10px;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* チェックが入ったときのスタイル */
+.custom-checkbox:checked+label::before {
+  background-color: darkgray;
+  border-color: darkgray;
+}
+
+/* チェックマークの見た目 */
+.custom-checkbox:checked+label::after {
+  content: '';
+  position: absolute;
+  left: 16.5px;
+  top: 3px;
+  width: 7px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/*========= selectbox ===============*/
+/* セレクトボックス全体のスタイル */
+.custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select select {
+  appearance: none;
+  cursor: pointer;
+}
+
+/* トグルアイコンのスタイル */
+.custom-select::after {
+  content: '▼';
+  /* ここでアイコンを定義 */
+  position: absolute;
+  top: 50%;
+  /* 縦中央揃え */
+  right: 10px;
+  /* 右からの距離 */
+  transform: translateY(-50%);
+  /* 縦中央揃え */
+  pointer-events: none;
+  /* アイコンがクリックされないようにする */
+  font-size: 13px;
+  /* アイコンのサイズを調整 */
+  color: #333;
+  /* アイコンの色を調整 */
+}
+
+/*========= input ===============*/
+.auto-input {
+  // pointer-events: none;
+  background-color: transparent;
+  color: gray;
+}

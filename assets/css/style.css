@@ -1,0 +1,799 @@
+@charset "UTF-8";
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fcfcfc;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  overflow-y: hidden;
+}
+
+main {
+  width: calc(100% - 140px);
+  color: #37352f;
+}
+
+h2 {
+  color: #333;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 7px 10px;
+  margin: 2px 0 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/*========= width ===============*/
+.w-100px {
+  width: 100px;
+}
+
+.w-150px {
+  width: 150px;
+}
+
+.w-200px {
+  width: 200px;
+}
+
+.w-250px {
+  width: 250px;
+}
+
+.w-300px {
+  width: 300px;
+}
+
+.w-70 {
+  width: 70%;
+}
+
+/*========= text ===============*/
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0 !important;
+}
+
+ul[role=list],
+ol[role=list] {
+  list-style: none;
+}
+
+body {
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+a:not([class]) {
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+textarea:not([rows]) {
+  min-height: 2em;
+}
+
+:target {
+  scroll-margin-block: 5ex;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button a {
+  font-size: 0.7rem;
+  text-decoration: none;
+}
+
+/*========= login ===============*/
+button.login {
+  padding: 7px 30px 8px;
+  background: darkgray;
+  color: #fff;
+  border: 1px solid darkgray;
+  margin: 20px auto 0;
+  display: block;
+}
+
+button.login:hover {
+  background: #fff;
+  color: darkgray;
+  border: 1px solid darkgray;
+}
+
+/*========= logout ===============*/
+button.logout {
+  padding: 2px 15px 4px;
+  background: #fff;
+  color: darkgray;
+  border: 1px solid #fff;
+}
+
+button.logout:hover {
+  background: darkgray;
+  color: #fff;
+  border: 1px solid darkgray;
+}
+
+/*========= modal ===============*/
+button.modal-btn {
+  display: block;
+  background: darkgray;
+  color: #fff;
+  border: 1px solid darkgray;
+  margin: 10px 0 0;
+  width: 110px;
+  height: 45px;
+  line-height: 44px;
+}
+
+button.modal-btn:hover {
+  background: #fff;
+  color: darkgray;
+  border: 1px solid darkgray;
+}
+
+/*========= index ===============*/
+.add-btn {
+  border-radius: 50%;
+  border: 2px solid cadetblue;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5em;
+  color: cadetblue;
+  background-color: #fff;
+}
+
+.add-btn:hover {
+  border: 2px solid cadetblue;
+  color: #fff;
+  background-color: cadetblue;
+}
+
+/*========= calendar ===============*/
+/* primarycolor : #fcfcfc */
+/* 透過primarycolor : #f5f5f542 */
+#calendar .add-btn {
+  position: absolute;
+}
+
+.fc-license-message {
+  display: none;
+}
+
+.fc-event {
+  border-radius: 2px;
+  background-color: #d5d5d5;
+  border: 1.5px solid #736d6d;
+  border-left: 7px solid #736d6d;
+  border-right: 7px solid #736d6d;
+  padding: 0;
+}
+
+.fc-view-harness-passive {
+  background-color: #fff;
+}
+
+/* カレンダー内コンテンツ */
+.fc .fc-timeline-events {
+  line-height: 15px;
+}
+
+.fc-h-event .fc-event-main {
+  color: #37352f;
+  font-size: 0.7rem;
+}
+
+.fc .fc-scrollgrid-section-sticky > * {
+  background: #fff;
+}
+
+/* カレンダー上の線 */
+.fc-theme-standard th {
+  border: none;
+}
+
+/* カレンダー下の線 */
+.fc-theme-standard td {
+  border: 1px solid #e7e7e7;
+}
+
+/* カレンダー下の線 */
+.fc .fc-scrollgrid-section-header.fc-scrollgrid-section-sticky > * {
+  border-bottom: 1px solid #e7e7e7;
+  border-right: 1px solid #e7e7e7;
+}
+
+/* カレンダーの中身がグレー */
+body {
+  background-color: #fff;
+}
+
+.fc .fc-timeline-slots > table {
+  background-color: rgba(245, 245, 245, 0.26);
+}
+
+/* 日にち */
+.fc .fc-timeline-slot-cushion {
+  color: #9a9a9a;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+/* 年月 */
+/* .fc .fc-timeline-slot-frame {
+  align-items: end;
+  display: flex;
+  justify-content: left;
+}
+.fc .fc-timeline-slot-cushion {
+  left: 8px;
+  right: 379.258px;
+  top: 0px;
+  text-align: left;
+  color: #403f3b;
+  font-weight: bold;
+  font-size: 15px;
+} */
+/* HDD No. タイトル */
+.fc .fc-datagrid-header .fc-datagrid-cell-frame {
+  color: #9a9a9a;
+}
+
+/* HDD No. 内容 */
+.fc-datagrid-cell-main {
+  /* color: $main-text-color; */
+}
+
+.fc-theme-standard .fc-scrollgrid {
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.fc-event-main {
+  padding-left: 10px;
+}
+
+form {
+  background: #f2f2f2;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/*========= checkbox ===============*/
+/* チェックボックスを隠す */
+.custom-checkbox {
+  display: none;
+}
+
+/* カスタムチェックボックスのスタイル */
+.custom-checkbox + label {
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 15px;
+}
+
+/* チェックボックスの見た目を作成 */
+.custom-checkbox + label::before {
+  content: "";
+  cursor: pointer;
+  position: absolute;
+  left: 10px;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* チェックが入ったときのスタイル */
+.custom-checkbox:checked + label::before {
+  background-color: darkgray;
+  border-color: darkgray;
+}
+
+/* チェックマークの見た目 */
+.custom-checkbox:checked + label::after {
+  content: "";
+  position: absolute;
+  left: 16.5px;
+  top: 3px;
+  width: 7px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/*========= selectbox ===============*/
+/* セレクトボックス全体のスタイル */
+.custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select select {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  cursor: pointer;
+}
+
+/* トグルアイコンのスタイル */
+.custom-select::after {
+  content: "▼";
+  /* ここでアイコンを定義 */
+  position: absolute;
+  top: 50%;
+  /* 縦中央揃え */
+  right: 10px;
+  /* 右からの距離 */
+  transform: translateY(-50%);
+  /* 縦中央揃え */
+  pointer-events: none;
+  /* アイコンがクリックされないようにする */
+  font-size: 13px;
+  /* アイコンのサイズを調整 */
+  color: #333;
+  /* アイコンの色を調整 */
+}
+
+/*========= input ===============*/
+.auto-input {
+  background-color: transparent;
+  color: gray;
+}
+
+/*========= login-page ===============*/
+body.page-login {
+  background-color: #b8b8b8;
+}
+body.page-login .login-wrap {
+  width: 400px;
+  margin: 15vh auto 0;
+}
+body.page-login .login-wrap h1 {
+  font-size: 1.6rem;
+  color: #fff;
+  text-align: center;
+  padding-bottom: 30px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  line-height: normal;
+}
+body.page-login .login-wrap h1 span {
+  font-size: 1.4rem;
+}
+body.page-login .login-wrap form {
+  background-color: #fff;
+}
+body.page-login .login-wrap .register-info {
+  padding: 20px 0;
+  text-align: center;
+  color: #333;
+}
+body.page-login .login-wrap .error-message {
+  font-size: small;
+  color: #ff3d00;
+}
+
+.verification_message {
+  text-align: center;
+  margin: 20vh auto 0;
+}
+.verification_message h2 {
+  font-weight: normal;
+  font-size: 1.1rem;
+}
+
+/*========= modal ===============*/
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  margin: 8vh auto 0;
+  width: 60%;
+}
+
+/* 閉じるボタン */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 5px 15px;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.required::after {
+  content: "*";
+  color: red;
+  padding-left: 3px;
+}
+
+/*========= modal info ===============*/
+.modal-content h3 {
+  padding-bottom: 40px;
+  color: cadetblue;
+}
+
+.modal-content label {
+  font-size: 0.9rem;
+}
+
+.modal-content .form-content {
+  display: grid;
+  margin-bottom: 10px;
+}
+
+.modal-content .flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+/*========= aside ===============*/
+aside {
+  width: 140px;
+  height: 100vh;
+  background-color: #cacaca;
+}
+
+aside nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+aside nav li {
+  list-style: none;
+}
+
+aside nav li.nav_home {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  background-color: #4a4a4a;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+aside nav li a {
+  text-decoration: none;
+  display: block;
+}
+
+/* aside nav li.nav_home a {}
+
+
+aside nav li.nav_list a {
+    font-size: 13px;
+    text-align: center;
+    margin: 20px 0;
+} */
+.header-nav {
+  background-color: cadetblue;
+  padding: 10px 20px;
+  color: #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.header-nav h1 {
+  font-size: 1.5rem;
+}
+
+.header-nav-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navigation {
+  position: relative;
+  height: 100vh;
+  background-color: #cacaca;
+  box-shadow: 10px 0 0 #fff;
+  border-left: 10px solid #cacaca;
+  overflow-x: hidden;
+  transition: all 0.5s;
+}
+
+.navigation ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 20px;
+  padding-left: 5px;
+}
+
+.navigation ul li {
+  list-style: none;
+  display: block;
+  position: relative;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.navigation ul li:hover {
+  background-color: rgba(137, 140, 143, 0.368627451);
+}
+
+.navigation ul li.active {
+  background-color: #fff;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.navigation ul li a {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  width: 100%;
+  display: flex;
+  font-size: 13px;
+  padding-left: 10px;
+}
+
+.navigation ul li a:hover {
+  opacity: 1;
+}
+
+/* あとで */
+.navigation ul li.active a::before {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: -30px;
+  right: 0;
+  border-radius: 50%;
+  box-shadow: 15px 15px 0 #fff;
+}
+
+.navigation ul li.active a::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50px;
+  right: 0;
+  border-radius: 50%;
+  box-shadow: 15px -15px 0 #fff;
+}
+
+.navigation ul li a .icon {
+  display: block;
+  min-width: 45px;
+  height: 50px;
+  line-height: 53px;
+}
+
+/*========= index ===============*/
+.container {
+  position: relative;
+  max-width: 90vw;
+  margin: 40px 40px 0;
+}
+
+/*========= rental_list pafe ===============*/
+.list-container {
+  position: relative;
+  max-width: 90vw;
+  margin: 23px 40px 40px;
+}
+
+.list-container table {
+  border-collapse: collapse;
+  width: 100%;
+  /* width: auto; */
+}
+
+.list-container table th,
+.list-container table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.list-container th,
+.list-container td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* テキストが長すぎる場合に省略記号を表示 */
+}
+
+.list-container th {
+  background-color: #f2f2f2;
+  /* ヘッダーの背景色 */
+}
+
+.list-container td {
+  width: auto;
+  /* 各列が内容に基づいて自動調整されるように設定 */
+}
+
+/* ID */
+.rental-list th:nth-child(1),
+.rental-list td:nth-child(1) {
+  width: 3%;
+}
+
+/* 番組名 */
+.rental-list th:nth-child(2),
+.rental-list td:nth-child(2) {
+  width: 3%;
+}
+
+/* 担当者 */
+.rental-list th:nth-child(3),
+.rental-list td:nth-child(3) {
+  width: 15%;
+}
+
+/* HDD No */
+.rental-list th:nth-child(4),
+.rental-list td:nth-child(4) {
+  width: 10%;
+}
+
+/* 開始予定日 */
+.rental-list th:nth-child(5),
+.rental-list td:nth-child(5) {
+  width: auto;
+}
+
+/* 終了予定日 */
+.rental-list th:nth-child(6),
+.rental-list td:nth-child(6) {
+  width: auto;
+}
+
+/* 使用場所 */
+.rental-list th:nth-child(7),
+.rental-list td:nth-child(7) {
+  width: auto;
+}
+
+/* 返却済 */
+.rental-list th:nth-child(8),
+.rental-list td:nth-child(8) {
+  width: auto;
+}
+
+/* 返却日 */
+.rental-list th:nth-child(9),
+.rental-list td:nth-child(9) {
+  width: 5%;
+}
+
+.rental-list th:nth-child(10),
+.rental-list td:nth-child(10) {
+  width: auto;
+}
+
+.rental-list th:nth-child(11),
+.rental-list td:nth-child(11) {
+  width: auto;
+}
+
+.rental-list th:nth-child(12),
+.rental-list td:nth-child(12) {
+  width: auto;
+}
+
+.rental-list th:nth-child(13),
+.rental-list td:nth-child(13) {
+  width: 20%;
+}
+
+/* editボタン */
+.edit-btn {
+  color: #939393;
+}
+
+/*========= hdd_list pafe ===============*/
+/* ID */
+.hdd-list th:nth-child(1),
+.hdd-list td:nth-child(1) {
+  width: 3%;
+}
+
+/* HDD名 */
+.hdd-list th:nth-child(2),
+.hdd-list td:nth-child(2) {
+  width: 3%;
+}

@@ -1,0 +1,116 @@
+/*========= rental_list pafe ===============*/
+.list-container {
+  position: relative;
+  max-width: 90vw;
+  margin: 23px 40px 40px;
+}
+
+.list-container table {
+  border-collapse: collapse;
+  width: 100%;
+  /* width: auto; */
+}
+
+.list-container table th,
+.list-container table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.list-container th,
+.list-container td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* テキストが長すぎる場合に省略記号を表示 */
+}
+
+.list-container th {
+  background-color: #f2f2f2;
+  /* ヘッダーの背景色 */
+}
+
+.list-container td {
+  width: auto;
+  /* 各列が内容に基づいて自動調整されるように設定 */
+}
+
+/* ID */
+.rental-list th:nth-child(1),
+.rental-list td:nth-child(1) {
+  width: 3%;
+}
+
+/* 番組名 */
+.rental-list th:nth-child(2),
+.rental-list td:nth-child(2) {
+  width: 3%;
+}
+
+/* 担当者 */
+.rental-list th:nth-child(3),
+.rental-list td:nth-child(3) {
+  width: 15%;
+}
+
+/* HDD No */
+.rental-list th:nth-child(4),
+.rental-list td:nth-child(4) {
+  width: 10%;
+}
+
+/* 開始予定日 */
+.rental-list th:nth-child(5),
+.rental-list td:nth-child(5) {
+  width: auto;
+}
+
+/* 終了予定日 */
+.rental-list th:nth-child(6),
+.rental-list td:nth-child(6) {
+  width: auto;
+}
+
+/* 使用場所 */
+.rental-list th:nth-child(7),
+.rental-list td:nth-child(7) {
+  width: auto;
+}
+
+/* 返却済 */
+.rental-list th:nth-child(8),
+.rental-list td:nth-child(8) {
+  width: auto;
+}
+
+/* 返却日 */
+.rental-list th:nth-child(9),
+.rental-list td:nth-child(9) {
+  width: 5%;
+}
+
+.rental-list th:nth-child(10),
+.rental-list td:nth-child(10) {
+  width: auto
+}
+
+.rental-list th:nth-child(11),
+.rental-list td:nth-child(11) {
+  width: auto;
+}
+
+.rental-list th:nth-child(12),
+.rental-list td:nth-child(12) {
+  width: auto;
+}
+
+.rental-list th:nth-child(13),
+.rental-list td:nth-child(13) {
+  width: 20%;
+}
+
+/* editボタン */
+.edit-btn {
+  color: #939393;
+}

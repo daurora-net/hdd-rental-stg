@@ -1,0 +1,20 @@
+onfig.php
+db.php
+
+# キャッシュファイル
+*.log
+cache/
+tmp/
+
+# Xserver 特有のファイル
+error_log
+.htaccess
+
+# IDE関連ファイル
+*.idea/
+*.vscode/
+
+# 不要なシステムファイル
+.DS_Store
+Thumbs.db
+	

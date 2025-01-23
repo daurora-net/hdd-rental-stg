@@ -1,0 +1,38 @@
+/*========= aside ===============*/
+aside {
+    width: 140px;
+    height: 100vh;
+    background-color: #cacaca;
+}
+
+aside nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+aside nav li {
+    list-style: none;
+}
+
+aside nav li.nav_home {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #4a4a4a;
+    color: $body-color;
+    margin-bottom: 30px;
+}
+
+aside nav li a {
+    text-decoration: none;
+    display: block;
+}
+
+/* aside nav li.nav_home a {}
+
+
+aside nav li.nav_list a {
+    font-size: 13px;
+    text-align: center;
+    margin: 20px 0;
+} */

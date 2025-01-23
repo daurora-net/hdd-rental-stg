@@ -1,0 +1,105 @@
+/*========= calendar ===============*/
+/* primarycolor : #fcfcfc */
+/* 透過primarycolor : #f5f5f542 */
+
+#calendar .add-btn {
+  position: absolute;
+}
+
+.fc-license-message {
+  display: none;
+}
+
+.fc-event {
+  border-radius: 2px;
+  background-color: #d5d5d5;
+  border: 1.5px solid #736d6d;
+  border-left: 7px solid #736d6d;
+  border-right: 7px solid #736d6d;
+  padding: 0;
+}
+
+.fc-view-harness-passive {
+  background-color: $body-color;
+}
+
+/* カレンダー内コンテンツ */
+.fc .fc-timeline-events {
+  line-height: 15px;
+}
+
+.fc-h-event .fc-event-main {
+  color: $main-text-color;
+  @include fz(7);
+}
+
+.fc .fc-scrollgrid-section-sticky>* {
+  background: $body-color;
+}
+
+/* カレンダー上の線 */
+.fc-theme-standard th {
+  border: none;
+}
+
+/* カレンダー下の線 */
+.fc-theme-standard td {
+  border: 1px solid #e7e7e7;
+}
+
+/* カレンダー下の線 */
+.fc .fc-scrollgrid-section-header.fc-scrollgrid-section-sticky>* {
+  border-bottom: 1px solid #e7e7e7;
+  border-right: 1px solid #e7e7e7;
+}
+
+/* カレンダーの中身がグレー */
+body {
+  background-color: $body-color;
+}
+
+.fc .fc-timeline-slots>table {
+  background-color: rgba(245, 245, 245, 0.26);
+}
+
+/* 日にち */
+.fc .fc-timeline-slot-cushion {
+  color: #9a9a9a;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+/* 年月 */
+/* .fc .fc-timeline-slot-frame {
+  align-items: end;
+  display: flex;
+  justify-content: left;
+}
+.fc .fc-timeline-slot-cushion {
+  left: 8px;
+  right: 379.258px;
+  top: 0px;
+  text-align: left;
+  color: #403f3b;
+  font-weight: bold;
+  font-size: 15px;
+} */
+
+/* HDD No. タイトル */
+.fc .fc-datagrid-header .fc-datagrid-cell-frame {
+  color: #9a9a9a;
+}
+
+/* HDD No. 内容 */
+.fc-datagrid-cell-main {
+  /* color: $main-text-color; */
+}
+
+.fc-theme-standard .fc-scrollgrid {
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.fc-event-main {
+  padding-left: 10px;
+}

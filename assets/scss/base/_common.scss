@@ -1,0 +1,71 @@
+@import '../base/variables';
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fcfcfc;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  overflow-y: hidden;
+}
+
+main {
+  width: calc(100% - 140px);
+  color: $main-text-color;
+}
+
+h2 {
+  color: #333;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 7px 10px;
+  margin: 2px 0 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+/*========= width ===============*/
+.w-100px {
+  width: 100px;
+}
+
+.w-150px {
+  width: 150px;
+}
+
+.w-200px {
+  width: 200px;
+}
+
+.w-250px {
+  width: 250px;
+}
+
+.w-300px {
+  width: 300px;
+}
+
+.w-70 {
+  width: 70%;
+}
+
+
+
+
+/*========= text ===============*/
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
