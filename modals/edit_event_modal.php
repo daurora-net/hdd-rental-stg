@@ -2,7 +2,7 @@
   <div class="modal-content">
     <span class="close" onclick="document.getElementById('editEventModal').style.display='none'">&times;</span>
     <form method="post" action="actions/edit_event.php">
-      <h3>レンタル情報編集</h3>
+      <h3>スケジュール編集</h3>
       <input type="hidden" id="editEventId" name="eventId">
 
       <div class="flex">

@@ -10,7 +10,7 @@
           <input type="text" id="hddName" name="hddName" required>
         </div>
       </div>
-      <button type="submit" class="modal-btn">保存</button>
+      <button type="submit" class="modal-btn">追加</button>
     </form>
   </div>
 </div>

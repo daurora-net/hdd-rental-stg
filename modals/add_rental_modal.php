@@ -14,7 +14,7 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <div class="modal-content">
     <span class="close" onclick="document.getElementById('addRentalModal').style.display='none'">&times;</span>
     <form method="post" action="actions/add_rental.php">
-      <h3>HDDスケジュール</h3>
+      <h3>スケジュール追加</h3>
       <div class="flex">
         <div class="form-content w-300px">
           <label for="addRentalTitle" class="required">番組名</label>
@@ -46,9 +46,12 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php } ?>
           </select>
         </div>
-        <div class="form-content w-200px">
-          <label for="addRentalLocation">使用場所</label>
-          <input type="text" id="addRentalLocation" name="rentalLocation">
+        <div class="form-content w-200px custom-select">
+          <label for="addRentalLocation" class="required">使用場所</label>
+          <select id="addRentalLocation" name="rentalLocation">
+            <option value="外部">外部</option>
+            <option value="104">104</option>
+          </select>
         </div>
       </div>
 
