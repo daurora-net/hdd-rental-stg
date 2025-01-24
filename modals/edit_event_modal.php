@@ -33,7 +33,7 @@
           <select id="editRentalHdd" name="rentalHdd" required>
             <?php
             // 全てのHDDリソースを取得
-            $stmt = $conn->prepare("SELECT id, name FROM hdd_resources");
+            $stmt = $conn->prepare("SELECT id, name, notes FROM hdd_resources");
             $stmt->execute();
             $hddResourcesForEdit = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($hddResourcesForEdit as $resource) { ?>

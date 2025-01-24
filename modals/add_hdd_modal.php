@@ -10,6 +10,10 @@
           <input type="text" id="hddName" name="hddName" required>
         </div>
       </div>
+      <div class="form-content w-70">
+        <label for="hddNotes">メモ</label>
+        <textarea id="hddNotes" name="hddNotes" rows="3"></textarea>
+      </div>
       <button type="submit" class="modal-btn">追加</button>
     </form>
   </div>

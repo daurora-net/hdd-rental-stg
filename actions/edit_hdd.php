@@ -2,14 +2,30 @@
 include '../common/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // hdd_list のモーダルフォームから送られる値
-  $hddId = $_POST['hddId'];
-  $hddName = $_POST['hddName'];
+  // フォームから送信された値を取得
+  $hddId = isset($_POST['hddId']) ? $_POST['hddId'] : null;
+  $hddName = isset($_POST['hddName']) ? $_POST['hddName'] : null;
+  $hddNotes = isset($_POST['hddNotes']) ? $_POST['hddNotes'] : null;
 
-  // HDDリソース名を更新する
-  $stmt = $conn->prepare("UPDATE hdd_resources SET name = ? WHERE id = ?");
-  $stmt->execute([$hddName, $hddId]);
+  if ($hddId && $hddName !== null && $hddNotes !== null) {
+    try {
+      // HDDリソース名とメモを更新する
+      $stmt = $conn->prepare("UPDATE hdd_resources SET name = ?, notes = ? WHERE id = ?");
+      $stmt->execute([$hddName, $hddNotes, $hddId]);
 
-  header("Location: " . $_SERVER['HTTP_REFERER']);
-  exit();
+      // セッションフラグを設定（必要に応じて）
+      $_SESSION['reloaded'] = true;
+
+      header("Location: " . $_SERVER['HTTP_REFERER']);
+      exit();
+    } catch (PDOException $e) {
+      // エラーメッセージをログに記録
+      error_log("HDD編集エラー: " . $e->getMessage());
+      // エラーメッセージをユーザーに表示（開発環境のみ推奨）
+      echo "エラーが発生しました。管理者に連絡してください。";
+    }
+  } else {
+    echo "必要なデータが送信されていません。";
+  }
 }
+?>

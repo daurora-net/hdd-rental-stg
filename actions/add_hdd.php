@@ -2,10 +2,24 @@
 include '../common/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $hddName = $_POST['hddName'];
+  $hddName = isset($_POST['hddName']) ? $_POST['hddName'] : null;
+  $hddNotes = isset($_POST['hddNotes']) ? $_POST['hddNotes'] : null;
 
-    $stmt = $conn->prepare("INSERT INTO hdd_resources (name) VALUES (?)");
-    $stmt->execute([$hddName]);
+  if ($hddName !== null && $hddNotes !== null) {
+    try {
+      $stmt = $conn->prepare("INSERT INTO hdd_resources (name, notes) VALUES (?, ?)");
+      $stmt->execute([$hddName, $hddNotes]);
 
-    header("Location: ../hdd_list");
+      header("Location: ../hdd_list");
+      exit();
+    } catch (PDOException $e) {
+      // エラーメッセージをログに記録
+      error_log("HDD追加エラー: " . $e->getMessage());
+      // エラーメッセージをユーザーに表示（開発環境のみ推奨）
+      echo "エラーが発生しました。管理者に連絡してください。";
+    }
+  } else {
+    echo "必要なデータが送信されていません。";
+  }
 }
+?>

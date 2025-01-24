@@ -2,7 +2,7 @@
 include '../common/db.php';
 
 // HDDリソース情報を取得
-$stmt = $conn->prepare("SELECT id, name FROM hdd_resources");
+$stmt = $conn->prepare("SELECT id, name, notes FROM hdd_resources");
 $stmt->execute();
 $hddResources = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -72,6 +72,7 @@ include '../parts/head.php';
             <th></th>
             <th>ID</th>
             <th>HDD名</th>
+            <th>メモ</th>
           </tr>
         </thead>
         <tbody>
@@ -80,12 +81,14 @@ include '../parts/head.php';
               <td>
                 <button class="edit-btn edit-hdd-btn" data-bs-toggle="modal" data-bs-target="#editHddModal"
                   data-id="<?php echo htmlspecialchars($hddResource['id']); ?>"
-                  data-name="<?php echo htmlspecialchars($hddResource['name']); ?>">
+                  data-name="<?php echo htmlspecialchars($hddResource['name']); ?>"
+                  data-notes="<?php echo htmlspecialchars($hddResource['notes']); ?>">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
               </td>
               <td><?php echo htmlspecialchars($hddResource['id']); ?></td>
               <td><?php echo htmlspecialchars($hddResource['name']); ?></td>
+              <td><?php echo htmlspecialchars($hddResource['notes']); ?></td>
             </tr>
           <?php } ?>
         </tbody>

@@ -30,9 +30,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (editHddModal) {
           var hddId = editBtn.getAttribute("data-id");
           var hddName = editBtn.getAttribute("data-name");
+          var hddNotes = editBtn.getAttribute("data-notes");
 
           document.getElementById("editHddId").value = hddId;
           document.getElementById("editHddName").value = hddName;
+          document.getElementById("editHddNotes").value = hddNotes;
 
           editHddModal.style.display = "block";
         }
