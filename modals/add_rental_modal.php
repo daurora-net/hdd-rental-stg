@@ -47,8 +47,9 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
           </select>
         </div>
         <div class="form-content w-200px custom-select">
-          <label for="addRentalLocation" class="required">使用場所</label>
+          <label for="addRentalLocation">使用場所</label>
           <select id="addRentalLocation" name="rentalLocation">
+            <option value="" selected></option>
             <option value="外部">外部</option>
             <option value="104">104</option>
           </select>

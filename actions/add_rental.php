@@ -1,37 +1,44 @@
 <?php
 include '../common/db.php';
+session_start(); // セッションを開始
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $title = $_POST['rentalTitle'];
-  $manager = $_POST['rentalManager'];
-  $start = $_POST['rentalStart'];
-  $end = $_POST['rentalEnd'];
-  $hddId = $_POST['rentalHdd'];
-  $location = $_POST['rentalLocation'];
-  $notes = $_POST['rentalNotes'];
-  $returnDate = $_POST['returnDate'];
-  $actualStart = $_POST['actualStart'];
-  $created_by = $_SESSION['username'];
+  $title = trim($_POST['rentalTitle'] ?? '');
+  $manager = trim($_POST['rentalManager'] ?? '');
+  $start = $_POST['rentalStart'] ?? null;
+  $end = $_POST['rentalEnd'] ?? null;
+  $hddId = $_POST['rentalHdd'] ?? null;
+  $location = $_POST['rentalLocation'] ?? null;
+  $notes = trim($_POST['rentalNotes'] ?? '');
+  $returnDate = $_POST['returnDate'] ?? null;
+  $actualStart = $_POST['actualStart'] ?? null;
+  $created_by = $_SESSION['username'] ?? 'unknown';
 
-  // 日数計算
-  $diffDays = null;
-  if (!empty($returnDate) && !empty($actualStart)) {
-    $startDate = new DateTime($actualStart);
-    $endDate = new DateTime($returnDate);
-    $interval = $startDate->diff($endDate);
-    $diffDays = $interval->days + 1;  // 開始日を含める
+  // 必須項目のバリデーション
+  if ($title && $manager && $hddId) {
+    try {
+      // レンタルデータをhdd_rentalsテーブルに挿入
+      $stmt = $conn->prepare("INSERT INTO hdd_rentals 
+                  (title, manager, start, end, resource_id, location, notes, return_date, actual_start, created_by) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      $stmt->execute([$title, $manager, $start, $end, $hddId, $location, $notes, $returnDate, $actualStart, $created_by]);
+
+      // 挿入されたレンタルのIDを取得（必要に応じて使用）
+      $rentalId = $conn->lastInsertId();
+
+      header("Location: ../index");
+      exit();
+    } catch (PDOException $e) {
+      // エラーログに記録
+      error_log("レンタル追加エラー: " . $e->getMessage());
+      // エラーメッセージをユーザーに表示（開発環境のみ推奨）
+      echo "エラーが発生しました。管理者に連絡してください。";
+      exit();
+    }
+  } else {
+    // 必須項目が不足している場合の処理
+    echo "必要な項目が入力されていません。";
+    exit();
   }
-
-  // レンタルデータをhdd_rentalsテーブルに挿入（duration列を追加）
-  $stmt = $conn->prepare("INSERT INTO hdd_rentals 
-          (title, manager, start, end, resource_id, location, notes, return_date, actual_start, duration, created_by) 
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-  $stmt->execute([$title, $manager, $start, $end, $hddId, $location, $notes, $returnDate, $actualStart, $diffDays, $created_by]);
-
-  // 挿入されたレンタルのIDを取得（必要なら使用）
-  $rentalId = $conn->lastInsertId();
-
-  header("Location: ../index");
-  exit();
 }
 ?>

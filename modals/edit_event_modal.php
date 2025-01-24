@@ -43,9 +43,13 @@
             <?php } ?>
           </select>
         </div>
-        <div class="form-content w-200px">
+        <div class="form-content w-200px custom-select">
           <label for="editRentalLocation">使用場所</label>
-          <input type="text" id="editRentalLocation" name="rentalLocation">
+          <select id="editRentalLocation" name="rentalLocation">
+            <option value="" selected></option>
+            <option value="外部">外部</option>
+            <option value="104">104</option>
+          </select>
         </div>
       </div>
 
