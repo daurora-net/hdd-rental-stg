@@ -474,17 +474,20 @@ body.page-login .login-wrap .error-message {
 }
 
 .modal-content {
+  position: relative;
   margin: 8vh auto 0;
   width: 60%;
 }
 
 /* 閉じるボタン */
 .close {
+  position: absolute;
   color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  padding: 5px 15px;
+  font-size: 30px;
+  padding: 0;
+  right: 23px;
+  top: 10px;
+  height: 0;
 }
 
 .close:hover,

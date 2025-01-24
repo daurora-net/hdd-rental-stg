@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     editable: true,
     resourceAreaHeaderContent: 'HDD No.',
+    resourceOrder: 'name', // 追記
 
     resourceLabelContent: function (arg) {
       return resourcesData[arg.resource.id] ? resourcesData[arg.resource.id] : arg.resource.id;
@@ -22,6 +23,28 @@ document.addEventListener('DOMContentLoaded', function () {
       fetch('actions/fetch_resources.php')
         .then(response => response.json())
         .then(data => {
+          // 名前順（abc順）と番号順にソート
+          data.sort((a, b) => {
+            // 名前部分を抽出
+            const aNameMatch = a.name.match(/^([A-Za-z]+)(\d+)$/);
+            const bNameMatch = b.name.match(/^([A-Za-z]+)(\d+)$/);
+
+            const aPrefix = aNameMatch ? aNameMatch[1] : '';
+            const bPrefix = bNameMatch ? bNameMatch[1] : '';
+
+            // 名前のアルファベット順を比較
+            const prefixCompare = aPrefix.localeCompare(bPrefix);
+            if (prefixCompare !== 0) {
+              return prefixCompare;
+            }
+
+            // 数字部分を取得し、数値に変換して比較
+            const aNum = aNameMatch ? parseInt(aNameMatch[2], 10) : 0;
+            const bNum = bNameMatch ? parseInt(bNameMatch[2], 10) : 0;
+
+            return aNum - bNum;
+          });
+
           resourcesData = data.reduce((acc, resource) => {
             acc[resource.id] = resource.name;
             return acc;
@@ -69,16 +92,9 @@ document.addEventListener('DOMContentLoaded', function () {
       return { domNodes: [eventTitle, eventManager, eventResource] };
     },
     eventClick: function (info) {
-      console.log("eventClick triggered");
       var eventObj = info.event;
       var resources = eventObj.getResources(); // リソースを取得
       var resourceId = resources.length > 0 ? resources[0].id : undefined;
-
-      // デバッグ用にデータを出力
-      console.log('Event Object:', eventObj);
-      console.log('Resource ID:', resourceId);
-      console.log('Resources Data:', resourcesData);
-      console.log('Selected HDD Name:', resourcesData[resourceId]);
 
       // 編集モーダルを開く
       var modal = document.getElementById("editEventModal");

@@ -119,20 +119,15 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!actualStartEl || !returnDateEl || !durationEl) return;
 
     function updateDuration() {
-      console.log('updateDuration呼び出し'); // デバッグ用ログ
       var actualStartValue = actualStartEl.value;
       var returnDateValue = returnDateEl.value;
-      console.log('実際の開始日:', actualStartValue, '返却日:', returnDateValue); // 入力値ログ
       if (actualStartValue && returnDateValue) {
         var actualStart = new Date(actualStartValue);
         var returnDate = new Date(returnDateValue);
         if (!isNaN(actualStart) && !isNaN(returnDate)) {
           var diffTime = returnDate - actualStart;
           var diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
-          console.log('計算結果（日数）:', diffDays); // 計算結果ログ
-          console.log('durationEl.value 設定前:', durationEl.value);
           durationEl.value = diffDays;
-          console.log('durationEl.value 設定後:', durationEl.value);
         } else {
           durationEl.value = '';
         }
