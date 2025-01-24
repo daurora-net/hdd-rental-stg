@@ -92,15 +92,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (event.target === addHddModal) {
       addHddModal.style.display = "none";
+      addHddModal.querySelector('form').reset();
     }
     if (event.target === addRentalModal) {
       addRentalModal.style.display = "none";
+      addRentalModal.querySelector('form').reset();
     }
     if (editHddModal && event.target === editHddModal) {
       editHddModal.style.display = "none";
+      editHddModal.querySelector('form').reset();
     }
     if (editEventModal && event.target === editEventModal) {
       editEventModal.style.display = "none";
+      editEventModal.querySelector('form').reset();
     }
   });
 
