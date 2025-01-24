@@ -116,7 +116,7 @@ include '../parts/head.php';
               <td><?php echo htmlspecialchars($rental['start']); ?></td>
               <td><?php echo htmlspecialchars($rental['end']); ?></td>
               <td><?php echo htmlspecialchars($rental['location']); ?></td>
-              <td><?php echo $rental['is_returned'] ? 'Yes' : 'No'; ?></td>
+              <td class="text-center"><?php echo $rental['is_returned'] ? '✔︎' : ''; ?></td>
               <td><?php echo htmlspecialchars($rental['return_date']); ?></td>
               <td><?php echo htmlspecialchars($rental['actual_start']); ?></td>
               <td><?php echo htmlspecialchars($rental['duration']); ?></td>
