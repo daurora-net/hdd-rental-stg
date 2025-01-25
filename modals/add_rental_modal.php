@@ -56,6 +56,15 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
 
+      <div class="form-content w-200px custom-select">
+        <label for="addRentalCable">ケーブル</label>
+        <select id="addRentalCable" name="rentalCable">
+          <option value="" selected></option>
+          <option value="USB3.0">USB3.0</option>
+          <option value="Thunderbolt">Thunderbolt</option>
+        </select>
+      </div>
+
       <div class="form-content">
         <label for="addIsReturned">返却済</label>
         <input type="checkbox" id="addIsReturned" name="isReturned" class="custom-checkbox">

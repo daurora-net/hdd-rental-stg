@@ -10,8 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $start = $_POST['eventStart'] ?? null;
   $end = $_POST['eventEnd'] ?? null;
   $resource_id = $_POST['rentalHdd'] ?? null;
-  $location = $_POST['rentalLocation'] ?? null; // 必須ではない
-  $isReturned = isset($_POST['isReturned']) ? 1 : 0; // チェックボックスはissetで十分
+  $location = $_POST['rentalLocation'] ?? null;
+  $cable = $_POST['rentalCable'] ?? null;
+  $isReturned = isset($_POST['isReturned']) ? 1 : 0;
   $returnDate = $_POST['returnDate'] ?? null;
   $actualStart = $_POST['actualStart'] ?? null;
   $notes = trim($_POST['eventNotes'] ?? '');
@@ -22,9 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
       // データベースの更新
       $stmt = $conn->prepare("UPDATE hdd_rentals 
-                SET title = ?, manager = ?, start = ?, end = ?, resource_id = ?, location = ?, is_returned = ?, return_date = ?, actual_start = ?, notes = ?, updated_by = ? 
+                SET title = ?, manager = ?, start = ?, end = ?, resource_id = ?, location = ?, cable = ?, is_returned = ?, return_date = ?, actual_start = ?, notes = ?, updated_by = ? 
                 WHERE id = ?");
-      $stmt->execute([$title, $manager, $start, $end, $resource_id, $location, $isReturned, $returnDate, $actualStart, $notes, $updated_by, $eventId]);
+      $stmt->execute([$title, $manager, $start, $end, $resource_id, $location, $cable, $isReturned, $returnDate, $actualStart, $notes, $updated_by, $eventId]);
 
       // セッションフラグを設定
       $_SESSION['reloaded'] = true;

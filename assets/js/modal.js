@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
           var end = editBtn.getAttribute('data-end');
           var resourceId = editBtn.getAttribute('data-resource-id');
           var location = editBtn.getAttribute('data-location');
+          var cable = editBtn.getAttribute('data-cable');
           var isReturned = editBtn.getAttribute('data-is-returned') == '1' || editBtn.getAttribute('data-is-returned') == 'true';
           var returnDate = editBtn.getAttribute('data-return-date');
           var actualStart = editBtn.getAttribute('data-actual-start');
@@ -70,10 +71,25 @@ document.addEventListener('DOMContentLoaded', function () {
           document.getElementById('editEventEnd').value = end;
           document.getElementById('editRentalHdd').value = resourceId;
           document.getElementById('editRentalLocation').value = location;
+          document.getElementById('editRentalCable').value = cable;
           document.getElementById('editIsReturned').checked = isReturned;
           document.getElementById('editReturnDate').value = returnDate;
           document.getElementById('editActualStart').value = actualStart;
           document.getElementById('editEventNotes').value = notes;
+
+          console.log("【edit_event_modal】フォームにセットされたデータ:", {
+            id: rentalId,
+            title: title,
+            manager: manager,
+            start: start,
+            end: end,
+            resourceId: resourceId,
+            location: location,
+            isReturned: isReturned,
+            returnDate: returnDate,
+            actualStart: actualStart,
+            notes: notes
+          });
 
           // モーダルを表示
           editEventModal.style.display = 'block';

@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $end = $_POST['rentalEnd'] ?? null;
   $hddId = $_POST['rentalHdd'] ?? null;
   $location = $_POST['rentalLocation'] ?? null;
+  $cable = $_POST['rentalCable'] ?? null;
   $notes = trim($_POST['rentalNotes'] ?? '');
   $returnDate = $_POST['returnDate'] ?? null;
   $actualStart = $_POST['actualStart'] ?? null;
@@ -19,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
       // レンタルデータをhdd_rentalsテーブルに挿入
       $stmt = $conn->prepare("INSERT INTO hdd_rentals 
-                  (title, manager, start, end, resource_id, location, notes, return_date, actual_start, created_by) 
+                  (title, manager, start, end, resource_id, location, cable, notes, return_date, actual_start, created_by) 
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      $stmt->execute([$title, $manager, $start, $end, $hddId, $location, $notes, $returnDate, $actualStart, $created_by]);
+      $stmt->execute([$title, $manager, $start, $end, $hddId, $location, $cable, $notes, $returnDate, $actualStart, $created_by]);
 
       // 挿入されたレンタルのIDを取得（必要に応じて使用）
       $rentalId = $conn->lastInsertId();
