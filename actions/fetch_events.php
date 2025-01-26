@@ -2,7 +2,7 @@
 include '../common/db.php';
 
 // レンタル情報を取得
-$stmt = $conn->prepare("SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.cable, hr.is_returned, hr.return_date, hr.actual_start, hr.duration, hr.notes, hr.resource_id 
+$stmt = $conn->prepare("SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.is_returned, hr.return_date, hr.actual_start, hr.duration, hr.notes, hr.resource_id 
                         FROM hdd_rentals hr");
 $stmt->execute();
 $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -20,8 +20,6 @@ foreach ($events as $event) {
       'is_returned' => (int) $event['is_returned'],
       'return_date' => $event['return_date'],
       'actual_start' => $event['actual_start'],
-      'location' => $event['location'],
-      'cable' => $event['cable'],
       'notes' => $event['notes'],
       'duration' => $event['duration']
     ]

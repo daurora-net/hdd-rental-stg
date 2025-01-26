@@ -2,7 +2,7 @@
 include '../common/db.php';
 
 // レンタル情報を取得（resource_id を含める）
-$stmt = $conn->prepare("SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.cable, hr.is_returned, hr.return_date, hr.actual_start, hr.duration, hr.notes, hr.resource_id, r.name as hdd_name 
+$stmt = $conn->prepare("SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.is_returned, hr.return_date, hr.actual_start, hr.duration, hr.notes, hr.resource_id, r.name as hdd_name 
                         FROM hdd_rentals hr 
                         JOIN hdd_resources r ON hr.resource_id = r.id");
 $stmt->execute();
@@ -83,7 +83,6 @@ include '../parts/head.php';
             <th>開始予定日</th>
             <th>終了予定日</th>
             <th>使用場所</th>
-            <th>ケーブル</th>
             <th>返却済</th>
             <th>返却日</th>
             <th>実際の開始日</th>
@@ -103,7 +102,6 @@ include '../parts/head.php';
                   data-end="<?php echo htmlspecialchars($rental['end']); ?>"
                   data-resource-id="<?php echo htmlspecialchars($rental['resource_id']); ?>"
                   data-location="<?php echo htmlspecialchars($rental['location']); ?>"
-                  data-cable="<?php echo htmlspecialchars($rental['cable']); ?>"
                   data-is-returned="<?php echo htmlspecialchars($rental['is_returned']); ?>"
                   data-return-date="<?php echo htmlspecialchars($rental['return_date']); ?>"
                   data-actual-start="<?php echo htmlspecialchars($rental['actual_start']); ?>"
@@ -118,7 +116,6 @@ include '../parts/head.php';
               <td><?php echo htmlspecialchars($rental['start']); ?></td>
               <td><?php echo htmlspecialchars($rental['end']); ?></td>
               <td><?php echo htmlspecialchars($rental['location']); ?></td>
-              <td><?php echo htmlspecialchars($rental['cable']); ?></td>
               <td class="text-center"><?php echo $rental['is_returned'] ? '✔︎' : ''; ?></td>
               <td><?php echo htmlspecialchars($rental['return_date']); ?></td>
               <td><?php echo htmlspecialchars($rental['actual_start']); ?></td>

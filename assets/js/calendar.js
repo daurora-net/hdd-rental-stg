@@ -93,74 +93,43 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     eventClick: function (info) {
       var eventObj = info.event;
-      var resources = eventObj.getResources();
+      var resources = eventObj.getResources(); // リソースを取得
       var resourceId = resources.length > 0 ? resources[0].id : undefined;
 
-      // editEventModal がちゃんと取得できることを確認
+      // 編集モーダルを開く
       var modal = document.getElementById("editEventModal");
-      if (!modal) {
-        console.log("editEventModal がページに存在しません。");
-        return;
-      }
       modal.style.display = "block";
 
       // フォームにデータをセットする
       document.getElementById("editEventTitle").value = eventObj.title;
       document.getElementById("editEventManager").value = eventObj.extendedProps.manager;
-      document.getElementById("editEventStart").value = eventObj.start
-        ? eventObj.start.toISOString().slice(0, 10)
-        : "";
-      document.getElementById("editEventEnd").value = eventObj.end
-        ? eventObj.end.toISOString().slice(0, 10)
-        : "";
+      document.getElementById("editEventStart").value = eventObj.start ? eventObj.start.toISOString().slice(0, 10) : '';
+      document.getElementById("editEventEnd").value = eventObj.end ? eventObj.end.toISOString().slice(0, 10) : '';
       document.getElementById("editEventId").value = eventObj.id;
-      document.getElementById("editIsReturned").checked =
-        eventObj.extendedProps.is_returned === 1;
+      document.getElementById("editIsReturned").checked = (eventObj.extendedProps.is_returned == 1);
 
-      // 返却日・実際の開始日をセット
-      document.getElementById("editReturnDate").value =
-        eventObj.extendedProps.return_date
-          ? eventObj.extendedProps.return_date.slice(0, 10)
-          : "";
-      document.getElementById("editActualStart").value =
-        eventObj.extendedProps.actual_start
-          ? eventObj.extendedProps.actual_start.slice(0, 10)
-          : "";
+      // 返却日と実際の開始日をセット
+      document.getElementById("editReturnDate").value = eventObj.extendedProps.return_date ? eventObj.extendedProps.return_date.slice(0, 10) : '';
+      document.getElementById("editActualStart").value = eventObj.extendedProps.actual_start ? eventObj.extendedProps.actual_start.slice(0, 10) : '';
 
-      // location をセット
-      document.getElementById("editRentalLocation").value =
-        eventObj.extendedProps.location || "";
+      // フォームにデータをセットする
+      document.getElementById("editEventNotes").value = eventObj.extendedProps.notes || '';
 
-      // cable をセット
-      document.getElementById("editRentalCable").value =
-        eventObj.extendedProps.cable || "";
-
-      // duration が必要なら
       var durationField = document.getElementById("editRentalDuration");
       if (durationField) {
-        durationField.value = eventObj.extendedProps.duration || "";
+        durationField.value = eventObj.extendedProps.duration || '';
+        console.log("editRentalDurationに値を設定しました:", durationField.value);
+      } else {
+        console.log("editRentalDuration要素が見つかりませんでした。");
       }
 
-      // HDD No (resourceId) の表示
+      // HDD Noの表示
       if (resourceId) {
         document.getElementById("editRentalHdd").value = resourceId;
+        console.log('Set HDD No to:', document.getElementById("editRentalHdd").value);
+      } else {
+        console.log('resourceId is undefined or null');
       }
-
-      // コンソール出力
-      console.log("【カレンダーイベントクリック時】セットしたデータ:", {
-        id: eventObj.id,
-        title: eventObj.title,
-        manager: eventObj.extendedProps.manager,
-        start: document.getElementById("editEventStart").value,
-        end: document.getElementById("editEventEnd").value,
-        resourceId: resourceId,
-        location: eventObj.extendedProps.location,
-        cable: eventObj.extendedProps.cable,
-        isReturned: eventObj.extendedProps.is_returned === 1,
-        returnDate: document.getElementById("editReturnDate").value,
-        actualStart: document.getElementById("editActualStart").value,
-        notes: eventObj.extendedProps.notes
-      });
     }
   });
 
