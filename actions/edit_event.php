@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $isReturned = isset($_POST['isReturned']) ? 1 : 0;
   $returnDate = $_POST['returnDate'] ?? null;
   $actualStart = $_POST['actualStart'] ?? null;
+  $duration = $_POST['rentalDuration'] ?? null;
   $notes = trim($_POST['eventNotes'] ?? '');
   $updated_by = $_SESSION['username'] ?? 'unknown';
 
@@ -23,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
       // データベースの更新
       $stmt = $conn->prepare("UPDATE hdd_rentals 
-                SET title = ?, manager = ?, start = ?, end = ?, resource_id = ?, location = ?, cable = ?, is_returned = ?, return_date = ?, actual_start = ?, notes = ?, updated_by = ? 
+                SET title = ?, manager = ?, start = ?, end = ?, resource_id = ?, location = ?, cable = ?, is_returned = ?, return_date = ?, actual_start = ?, duration = ?, notes = ?, updated_by = ? 
                 WHERE id = ?");
-      $stmt->execute([$title, $manager, $start, $end, $resource_id, $location, $cable, $isReturned, $returnDate, $actualStart, $notes, $updated_by, $eventId]);
+      $stmt->execute([$title, $manager, $start, $end, $resource_id, $location, $cable, $isReturned, $returnDate, $actualStart, $duration, $notes, $updated_by, $eventId]);
 
       // セッションフラグを設定
       $_SESSION['reloaded'] = true;

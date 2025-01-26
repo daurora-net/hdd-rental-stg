@@ -141,6 +141,10 @@ document.addEventListener('DOMContentLoaded', function () {
         durationField.value = eventObj.extendedProps.duration || "";
       }
 
+      // notes をセット
+      document.getElementById("editEventNotes").value =
+        eventObj.extendedProps.notes || "";
+
       // HDD No (resourceId) の表示
       if (resourceId) {
         document.getElementById("editRentalHdd").value = resourceId;
