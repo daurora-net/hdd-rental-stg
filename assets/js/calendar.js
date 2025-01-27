@@ -104,6 +104,29 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       modal.style.display = "block";
 
+      // 利用可能なHDDリソースを取得してセレクトボックスを更新
+      if (resourceId) {
+        fetch(`actions/fetch_available_resources.php?current_rental_id=${eventObj.id}`)
+          .then(response => response.json())
+          .then(data => {
+            var hddSelect = document.getElementById("editRentalHdd");
+            hddSelect.innerHTML = ''; // 既存のオプションをクリア
+
+            data.forEach(function (resource) {
+              var option = document.createElement("option");
+              option.value = resource.id;
+              option.textContent = resource.name;
+              hddSelect.appendChild(option);
+            });
+
+            // 現在のリソースを選択状態にする
+            hddSelect.value = resourceId;
+          })
+          .catch(error => {
+            console.error("利用可能なHDDリソースの取得エラー:", error);
+          });
+      }
+
       // フォームにデータをセットする
       document.getElementById("editEventTitle").value = eventObj.title;
       document.getElementById("editEventManager").value = eventObj.extendedProps.manager;
@@ -144,11 +167,6 @@ document.addEventListener('DOMContentLoaded', function () {
       // notes をセット
       document.getElementById("editEventNotes").value =
         eventObj.extendedProps.notes || "";
-
-      // HDD No (resourceId) の表示
-      if (resourceId) {
-        document.getElementById("editRentalHdd").value = resourceId;
-      }
 
       // コンソール出力
       console.log("【カレンダーイベントクリック時】セットしたデータ:", {

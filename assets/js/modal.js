@@ -69,7 +69,28 @@ document.addEventListener('DOMContentLoaded', function () {
           document.getElementById('editEventManager').value = manager;
           document.getElementById('editEventStart').value = start;
           document.getElementById('editEventEnd').value = end;
-          document.getElementById('editRentalHdd').value = resourceId;
+          // 利用可能なHDDリソースを取得してセレクトボックスを更新
+          if (resourceId) {
+            fetch(`actions/fetch_available_resources.php?current_rental_id=${rentalId}`)
+              .then(response => response.json())
+              .then(data => {
+                var hddSelect = document.getElementById("editRentalHdd");
+                hddSelect.innerHTML = ''; // 既存のオプションをクリア
+
+                data.forEach(function (resource) {
+                  var option = document.createElement("option");
+                  option.value = resource.id;
+                  option.textContent = resource.name;
+                  hddSelect.appendChild(option);
+                });
+
+                // 現在のリソースを選択状態にする
+                hddSelect.value = resourceId;
+              })
+              .catch(error => {
+                console.error("利用可能なHDDリソースの取得エラー:", error);
+              });
+          }
           document.getElementById('editRentalLocation').value = location;
           document.getElementById('editRentalCable').value = cable;
           document.getElementById('editIsReturned').checked = isReturned;

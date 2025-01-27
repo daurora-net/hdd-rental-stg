@@ -31,16 +31,7 @@
         <div class="form-content w-200px custom-select">
           <label for="editRentalHdd" class="required">HDD No</label>
           <select id="editRentalHdd" name="rentalHdd" required>
-            <?php
-            // 全てのHDDリソースを取得
-            $stmt = $conn->prepare("SELECT id, name, notes FROM hdd_resources");
-            $stmt->execute();
-            $hddResourcesForEdit = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($hddResourcesForEdit as $resource) { ?>
-              <option value="<?php echo htmlspecialchars($resource['id']); ?>">
-                <?php echo htmlspecialchars($resource['name']); ?>
-              </option>
-            <?php } ?>
+            <!-- オプションはJavaScriptで動的に設定 -->
           </select>
         </div>
         <div class="form-content w-200px custom-select">
