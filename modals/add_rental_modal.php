@@ -59,9 +59,9 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <div class="form-content w-200px custom-select">
         <label for="addRentalCable">ケーブル</label>
         <select id="addRentalCable" name="rentalCable">
-          <option value="" selected></option>
-          <option value="USB3.0">USB3.0</option>
+        <option value="USB3.0" selected>USB</option>
           <option value="Thunderbolt">Thunderbolt</option>
+          <option value=""></option>
         </select>
       </div>
 
