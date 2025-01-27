@@ -14,11 +14,18 @@ include 'parts/head.php';
   <aside>
     <nav>
       <ul>
-        <li class="nav_home"><a href="/hdd-rental/"><i class="fa-solid fa-house"></i></a></li>
+        <!-- <li class="nav_home"><a href="/hdd-rental/"><i class="fa-solid fa-house"></i></a></li> -->
+        <li class="nav_home"></li>
       </ul>
     </nav>
     <div class="navigation">
       <ul>
+        <li class="list active">
+          <a href="/hdd-rental/">
+            <!-- <span class="icon"><i class="fa-solid fa-bars-staggered"></i></span> -->
+            <span class="icon"><i class="fa-solid fa-house"></i></span>
+          </a>
+        </li>
         <li class="list">
           <a href="hdd_list">
             <span class="icon">HDD</span>
