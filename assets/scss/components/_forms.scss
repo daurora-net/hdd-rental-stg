@@ -1,4 +1,4 @@
-form {
+form.form {
   background: #f2f2f2;
   padding: 40px;
   border-radius: 10px;
@@ -82,6 +82,9 @@ form {
   /* アイコンのサイズを調整 */
   color: #333;
   /* アイコンの色を調整 */
+}
+.custom-select.billing-select::after {
+  top: 55%;
 }
 
 /*========= input ===============*/

@@ -323,7 +323,7 @@ body {
   padding-left: 10px;
 }
 
-form {
+form.form {
   background: #f2f2f2;
   padding: 40px;
   border-radius: 10px;
@@ -413,6 +413,10 @@ form {
   /* アイコンの色を調整 */
 }
 
+.custom-select.billing-select::after {
+  top: 55%;
+}
+
 /*========= input ===============*/
 .auto-input {
   background-color: transparent;
@@ -438,7 +442,7 @@ body.page-login .login-wrap h1 {
 body.page-login .login-wrap h1 span {
   font-size: 1.4rem;
 }
-body.page-login .login-wrap form {
+body.page-login .login-wrap form.form {
   background-color: #fff;
 }
 body.page-login .login-wrap .register-info {
@@ -799,4 +803,4 @@ aside nav li.nav_list a {
 .hdd-list th:nth-child(2),
 .hdd-list td:nth-child(2) {
   width: 3%;
-}
+}/*# sourceMappingURL=style.css.map */

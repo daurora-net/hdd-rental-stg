@@ -51,7 +51,7 @@ if (!isset($_GET['code']) && !isset($_POST['provider'])) {
     ?>
 <html>
 <body>
-<form method="post">
+<form method="post" class="form">
     <h1>Select Provider</h1>
     <input type="radio" name="provider" value="Google" id="providerGoogle">
     <label for="providerGoogle">Google</label><br>

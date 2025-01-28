@@ -62,7 +62,7 @@ include 'parts/head.php';
   <div class="login-wrap">
     <h1 class="text-center">株式会社いちまるよん<br><span>編集部 HDD管理</span></h1>
     <!-- <h2>Register</h2> -->
-    <form method="post">
+    <form method="post" class="form">
       ログイン名<input type="text" name="username" required><br>
       メールアドレス<input type="email" name="email" required><br>
       パスワード<input type="password" name="password" required><br>

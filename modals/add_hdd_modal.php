@@ -1,7 +1,7 @@
 <div id="addHddModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="document.getElementById('addHddModal').style.display='none'">&times;</span>
-    <form method="post" action="actions/add_hdd.php">
+    <form method="post" class="form" action="actions/add_hdd.php">
       <h3>HDD追加</h3>
 
       <div class="flex">

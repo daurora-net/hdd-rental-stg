@@ -1,7 +1,7 @@
 <div id="editHddModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="document.getElementById('editHddModal').style.display='none'">&times;</span>
-    <form method="post" action="actions/edit_hdd.php">
+    <form method="post" class="form" action="actions/edit_hdd.php">
       <h3>HDD編集</h3>
       <input type="hidden" id="editHddId" name="hddId">
 

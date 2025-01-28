@@ -1,7 +1,7 @@
 <div id="editEventModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="document.getElementById('editEventModal').style.display='none'">&times;</span>
-    <form method="post" action="actions/edit_event.php">
+    <form method="post" class="form" action="actions/edit_event.php">
       <h3>スケジュール編集</h3>
       <input type="hidden" id="editEventId" name="eventId">
 

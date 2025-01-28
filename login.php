@@ -37,7 +37,7 @@ include 'parts/head.php';
 <body class="page-login">
   <div class="login-wrap">
     <h1>株式会社いちまるよん<br><span>編集部 HDD管理</span></h1>
-    <form method="post">
+    <form method="post" class="form">
       <div class="form-group">
         <label for="email">メールアドレス</label>
         <input type="email" id="email" name="email" required>

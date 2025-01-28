@@ -55,102 +55,109 @@ $billingList = $stmtMain->fetchAll(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html>
+
 <?php
 $pageTitle = 'BILLING';
 include '../parts/head.php';
 ?>
+
 <body>
-<aside>
-  <nav>
-    <ul>
-      <li class="nav_home"></li>
-    </ul>
-  </nav>
-  <div class="navigation">
-    <ul>
-      <li class="list">
-        <a href="/hdd-rental/">
-          <span class="icon"><i class="fa-solid fa-house"></i></span>
-        </a>
-      </li>
-      <li class="list">
-        <a href="hdd_list">
-          <span class="icon">HDD</span>
-        </a>
-      </li>
-      <li class="list">
-        <a href="rental_list">
-          <span class="icon">SCHEDULE</span>
-        </a>
-      </li>
-      <li class="list active">
-        <a href="billing_list">
-          <span class="icon">BILLING</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  </aside>
-<main>
-  <div class="header-nav">
-    <h1></h1>
-    <div class="header-nav-info">
-      <p>id: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
-      <button class="logout">
-        <a href="logout.php">LOGOUT</a>
-      </button>
+  <aside>
+    <nav>
+      <ul>
+        <li class="nav_home"></li>
+      </ul>
+    </nav>
+    <div class="navigation">
+      <ul>
+        <li class="list">
+          <a href="/hdd-rental/">
+            <span class="icon"><i class="fa-solid fa-house"></i></span>
+          </a>
+        </li>
+        <li class="list">
+          <a href="hdd_list">
+            <span class="icon">HDD</span>
+          </a>
+        </li>
+        <li class="list">
+          <a href="rental_list">
+            <span class="icon">SCHEDULE</span>
+          </a>
+        </li>
+        <li class="list active">
+          <a href="billing_list">
+            <span class="icon">BILLING</span>
+          </a>
+        </li>
+      </ul>
     </div>
-  </div>
+  </aside>
+  <main>
+    <div class="header-nav">
+      <h1></h1>
+      <div class="header-nav-info">
+        <p>id: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
+        <button class="logout">
+          <a href="logout.php">LOGOUT</a>
+        </button>
+      </div>
+    </div>
 
-  <!-- ▼ 年月セレクト (実際にある返却日のみ) -->
-  <form method="get" action="" style="margin: 20px;">
-    <label>返却月:
-      <select name="ym" onchange="this.form.submit()">
-        <!-- すべて(未選択)用オプション -->
-        <option value="">すべて</option>
-        <?php foreach ($monthList as $ym): ?>
-          <?php
-          // 例 "2024-12" -> [2024, 12]
-          list($y, $m) = explode('-', $ym);
-          // 月先頭の0を外して整数に
-          $mInt = (int)$m; 
-          // ラベル例: "2024年12月"
-          $label = $y . '年' . $mInt . '月';
-          ?>
-          <option value="<?php echo htmlspecialchars($ym); ?>"
-            <?php if ($ym === $selectedYm) echo 'selected'; ?>>
-            <?php echo htmlspecialchars($label); ?>
-          </option>
-        <?php endforeach; ?>
-      </select>
-    </label>
-  </form>
+    <div class="container">
+      <!-- ▼ 年月セレクト (実際にある返却日のみ) -->
+      <div class="form-content w-200px custom-select billing-select">
+        <form method="get" action="">
+          <label>返却月:</label>
+            <select name="ym" onchange="this.form.submit()">
+              <!-- すべて(未選択)用オプション -->
+              <option value="">すべて</option>
+              <?php foreach ($monthList as $ym): ?>
+                <?php
+                // 例 "2024-12" -> [2024, 12]
+                list($y, $m) = explode('-', $ym);
+                // 月先頭の0を外して整数に
+                $mInt = (int)$m; 
+                // ラベル例: "2024年12月"
+                $label = $y . '年' . $mInt . '月';
+                ?>
+                <option value="<?php echo htmlspecialchars($ym); ?>"
+                  <?php if ($ym === $selectedYm) echo 'selected'; ?>>
+                  <?php echo htmlspecialchars($label); ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+        </form>
+      </div>
+    </div>
 
-  <!-- ▼ テーブル表示 -->
-  <div class="billing-list list-container">
-    <table>
-      <thead>
-        <tr>
-          <th>番組名</th>
-          <th>担当者</th>
-          <th>HDD名</th>
-          <th>返却日</th>
-          <th>時間計算</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($billingList as $row): ?>
+    <!-- ▼ テーブル表示 -->
+    <div class="billing-list list-container">
+      <table>
+        <thead>
           <tr>
-            <td><?php echo htmlspecialchars($row['title']); ?></td>
-            <td><?php echo htmlspecialchars($row['manager']); ?></td>
-            <td><?php echo htmlspecialchars($row['hdd_name']); ?></td>
-            <td><?php echo htmlspecialchars($row['return_date']); ?></td>
-            <td><?php echo htmlspecialchars($row['duration']); ?></td>
+            <th>番組名</th>
+            <th>担当者</th>
+            <th>HDD名</th>
+            <th>返却日</th>
+            <th>時間計算</th>
           </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-  </div>
-</main>
+        </thead>
+        <tbody>
+          <?php foreach ($billingList as $row): ?>
+            <tr>
+              <td><?php echo htmlspecialchars($row['title']); ?></td>
+              <td><?php echo htmlspecialchars($row['manager']); ?></td>
+              <td><?php echo htmlspecialchars($row['hdd_name']); ?></td>
+              <td><?php echo htmlspecialchars($row['return_date']); ?></td>
+              <td><?php echo htmlspecialchars($row['duration']); ?></td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
 </body>
+
 </html>

@@ -13,7 +13,7 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div id="addRentalModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="document.getElementById('addRentalModal').style.display='none'">&times;</span>
-    <form method="post" action="actions/add_rental.php">
+    <form method="post" class="form" action="actions/add_rental.php">
       <h3>スケジュール追加</h3>
       <div class="flex">
         <div class="form-content w-300px">
