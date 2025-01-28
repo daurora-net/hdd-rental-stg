@@ -19,6 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $notes = trim($_POST['eventNotes'] ?? '');
   $updated_by = $_SESSION['username'] ?? 'unknown';
 
+  if (empty($returnDate)) {
+    $returnDate = null;
+  }
+
   // 必須項目のバリデーション（必要に応じて）
   if ($eventId && $title && $manager && $resource_id) {
     try {

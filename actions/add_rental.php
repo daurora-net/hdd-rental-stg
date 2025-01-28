@@ -16,6 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $actualStart = $_POST['actualStart'] ?? null;
   $created_by = $_SESSION['username'] ?? 'unknown';
 
+  if (empty($returnDate)) {
+    $returnDate = null;
+  }
+
   // 必須項目のバリデーション
   if ($title && $manager && $hddId) {
     try {

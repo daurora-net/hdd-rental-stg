@@ -36,6 +36,11 @@ include 'parts/head.php';
             <span class="icon">SCHEDULE</span>
           </a>
         </li>
+        <li class="list">
+          <a href="billing_list">
+            <span class="icon">BILLING</span>
+          </a>
+        </li>
       </ul>
     </div>
   </aside>

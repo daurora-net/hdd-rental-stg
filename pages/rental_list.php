@@ -53,6 +53,11 @@ include '../parts/head.php';
             <span class="icon">SCHEDULE</span>
           </a>
         </li>
+        <li class="list">
+        <a href="billing_list">
+          <span class="icon">BILLING</span>
+        </a>
+      </li>
       </ul>
     </div>
   </aside>
@@ -127,7 +132,7 @@ include '../parts/head.php';
               <td><?php echo htmlspecialchars($rental['location']); ?></td>
               <td><?php echo htmlspecialchars($rental['cable']); ?></td>
               <td class="text-center"><?php echo $rental['is_returned'] ? '✔︎' : ''; ?></td>
-              <td><?php echo htmlspecialchars($rental['return_date']); ?></td>
+              <td><?php echo htmlspecialchars($rental['return_date']) ? : ''; ?></td>
               <td><?php echo htmlspecialchars($rental['actual_start']); ?></td>
               <td><?php echo htmlspecialchars($rental['duration']); ?></td>
               <td><?php echo htmlspecialchars($rental['notes']); ?></td>
