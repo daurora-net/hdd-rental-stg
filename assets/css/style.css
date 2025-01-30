@@ -784,6 +784,11 @@ aside nav li.nav_list a {
 
 .rental-list th:nth-child(13),
 .rental-list td:nth-child(13) {
+  width: 3%;
+}
+
+.rental-list th:nth-child(14),
+.rental-list td:nth-child(14) {
   width: 20%;
 }
 
@@ -803,4 +808,4 @@ aside nav li.nav_list a {
 .hdd-list th:nth-child(2),
 .hdd-list td:nth-child(2) {
   width: 3%;
-}/*# sourceMappingURL=style.css.map */
+}

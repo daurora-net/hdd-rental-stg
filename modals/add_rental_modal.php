@@ -65,12 +65,6 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </select>
       </div>
 
-      <div class="form-content">
-        <label for="addIsReturned">返却済</label>
-        <input type="checkbox" id="addIsReturned" name="isReturned" class="custom-checkbox">
-        <label for="addIsReturned"></label>
-      </div>
-
       <div class="flex">
         <div class="form-content w-150px">
           <label for="addReturnDate">返却日</label>

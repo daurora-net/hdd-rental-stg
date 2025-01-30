@@ -24,10 +24,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($title && $manager && $hddId) {
     try {
       // レンタルデータをhdd_rentalsテーブルに挿入
+      // 返却日が入力されているか確認し、is_returnedを設定
+      $isReturned = !empty($returnDate) ? 1 : 0;
+
+      // 修正後のINSERT文にis_returnedを追加
+      // 返却日が入力されているか確認し、is_returnedを設定
+      $isReturned = !empty($returnDate) ? 1 : 0;
+
+      // 修正後のINSERT文にis_returnedを追加
       $stmt = $conn->prepare("INSERT INTO hdd_rentals 
-                  (title, manager, start, end, resource_id, location, cable, duration, notes, return_date, actual_start, created_by) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      $stmt->execute([$title, $manager, $start, $end, $hddId, $location, $cable, $duration, $notes, $returnDate, $actualStart, $created_by]);
+                  (title, manager, start, end, resource_id, location, cable, duration, notes, return_date, actual_start, is_returned, created_by) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      $stmt->execute([$title, $manager, $start, $end, $hddId, $location, $cable, $duration, $notes, $returnDate, $actualStart, $isReturned, $created_by]);
 
       // 挿入されたレンタルのIDを取得（必要に応じて使用）
       $rentalId = $conn->lastInsertId();

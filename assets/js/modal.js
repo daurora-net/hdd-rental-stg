@@ -187,8 +187,44 @@ document.addEventListener('DOMContentLoaded', function () {
     updateDuration();
   }
 
+  // 返却済自動チェック：新規レンタル追加モーダル用
+  var addReturnDateEl = document.getElementById('addReturnDate');
+  var addIsReturnedContainer = document.getElementById('addIsReturnedContainer');
+  var addIsReturnedEl = document.getElementById('addIsReturned');
+
+  if (addReturnDateEl) {
+    addReturnDateEl.addEventListener('input', function() {
+      if (this.value) {
+        addIsReturnedContainer.style.display = 'block';
+        addIsReturnedEl.checked = true;
+        addIsReturnedEl.disabled = true;
+      } else {
+        addIsReturnedContainer.style.display = 'none';
+        addIsReturnedEl.checked = false;
+        addIsReturnedEl.disabled = false;
+      }
+    });
+  }
+
+  // 返却済自動チェック：イベント編集モーダル用
+  var editReturnDateEl = document.getElementById('editReturnDate');
+  var editIsReturnedEl = document.getElementById('editIsReturned');
+
+  if (editReturnDateEl) {
+    editReturnDateEl.addEventListener('input', function() {
+      if (this.value) {
+        editIsReturnedEl.checked = true;
+        editIsReturnedEl.disabled = true;
+      } else {
+        editIsReturnedEl.checked = false;
+        editIsReturnedEl.disabled = false;
+      }
+    });
+  }
+
   // 新規レンタル追加モーダル用
   calculateDuration('addActualStart', 'addReturnDate', 'addRentalDuration');
   // イベント編集モーダル用
   calculateDuration('editActualStart', 'editReturnDate', 'editRentalDuration');
+
 });

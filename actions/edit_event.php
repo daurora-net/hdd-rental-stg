@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $resource_id = $_POST['rentalHdd'] ?? null;
   $location = $_POST['rentalLocation'] ?? null;
   $cable = $_POST['rentalCable'] ?? null;
-  $isReturned = isset($_POST['isReturned']) ? 1 : 0;
+  $isReturned = !empty($returnDate) ? 1 : 0;
   $returnDate = $_POST['returnDate'] ?? null;
   $actualStart = $_POST['actualStart'] ?? null;
   $duration = $_POST['rentalDuration'] ?? null;
@@ -27,9 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($eventId && $title && $manager && $resource_id) {
     try {
       // データベースの更新
+      // 修正後のUPDATE文にis_returnedを追加
       $stmt = $conn->prepare("UPDATE hdd_rentals 
-                SET title = ?, manager = ?, start = ?, end = ?, resource_id = ?, location = ?, cable = ?, is_returned = ?, return_date = ?, actual_start = ?, duration = ?, notes = ?, updated_by = ? 
-                WHERE id = ?");
+                  SET title = ?, manager = ?, start = ?, end = ?, resource_id = ?, location = ?, cable = ?, is_returned = ?, return_date = ?, actual_start = ?, duration = ?, notes = ?, updated_by = ? 
+                  WHERE id = ?");
       $stmt->execute([$title, $manager, $start, $end, $resource_id, $location, $cable, $isReturned, $returnDate, $actualStart, $duration, $notes, $updated_by, $eventId]);
 
       // セッションフラグを設定
