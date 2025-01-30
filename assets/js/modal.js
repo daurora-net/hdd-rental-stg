@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
           }
           document.getElementById('editRentalLocation').value = location;
           document.getElementById('editRentalCable').value = cable;
-          document.getElementById('editIsReturned').checked = isReturned;
+          // document.getElementById('editIsReturned').checked = isReturned;
           document.getElementById('editReturnDate').value = returnDate;
           document.getElementById('editActualStart').value = actualStart;
           document.getElementById('editEventNotes').value = notes;

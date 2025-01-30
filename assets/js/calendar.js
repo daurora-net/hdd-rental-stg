@@ -137,8 +137,10 @@ document.addEventListener('DOMContentLoaded', function () {
         ? eventObj.end.toISOString().slice(0, 10)
         : "";
       document.getElementById("editEventId").value = eventObj.id;
-      document.getElementById("editIsReturned").checked =
-        eventObj.extendedProps.is_returned === 1;
+
+      // 返却済表示
+      // document.getElementById("editIsReturned").checked =
+      //   eventObj.extendedProps.is_returned === 1;
 
       // 返却日・実際の開始日をセット
       document.getElementById("editReturnDate").value =

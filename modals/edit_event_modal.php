@@ -53,11 +53,11 @@
         </select>
       </div>
 
-      <div class="form-content">
+      <!-- <div class="form-content">
         <label for="editIsReturned">返却済</label>
         <input type="checkbox" id="editIsReturned" name="isReturned" class="custom-checkbox">
         <label for="editIsReturned"></label>
-      </div>
+      </div> -->
 
       <div class="flex">
         <div class="form-content w-150px">

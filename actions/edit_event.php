@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $resource_id = $_POST['rentalHdd'] ?? null;
   $location = $_POST['rentalLocation'] ?? null;
   $cable = $_POST['rentalCable'] ?? null;
-  $isReturned = !empty($returnDate) ? 1 : 0;
   $returnDate = $_POST['returnDate'] ?? null;
+  $isReturned = !empty($returnDate) ? 1 : 0;
   $actualStart = $_POST['actualStart'] ?? null;
   $duration = $_POST['rentalDuration'] ?? null;
   $notes = trim($_POST['eventNotes'] ?? '');
