@@ -28,7 +28,7 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <div class="flex">
         <div class="form-content w-150px">
-          <label for="addRentalStart">開始予定日</label>
+          <label for="addRentalStart">開始日</label>
           <input type="date" id="addRentalStart" name="rentalStart">
         </div>
         <div class="form-content w-150px">
@@ -59,7 +59,7 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <div class="form-content w-200px custom-select">
         <label for="addRentalCable">ケーブル</label>
         <select id="addRentalCable" name="rentalCable">
-        <option value="USB3.0" selected>USB</option>
+          <option value="USB3.0" selected>USB</option>
           <option value="Thunderbolt">Thunderbolt</option>
           <option value=""></option>
         </select>
@@ -71,11 +71,7 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <input type="date" id="addReturnDate" name="returnDate">
         </div>
         <div class="form-content w-150px">
-          <label for="addActualStart">実際の開始日</label>
-          <input type="date" id="addActualStart" name="actualStart">
-        </div>
-        <div class="form-content w-150px">
-          <label for="addRentalDuration">時間計算（日単位）</label>
+          <label for="addRentalDuration">使用日数</label>
           <input type="number" id="addRentalDuration" name="rentalDuration" class="auto-input text-right" readonly>
         </div>
       </div>

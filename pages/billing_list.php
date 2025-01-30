@@ -45,8 +45,8 @@ $sqlMain .= " ORDER BY hr.return_date ASC";
 $stmtMain = $conn->prepare($sqlMain);
 
 if (!empty($selectedYm)) {
-  $stmtMain->bindValue(':year',  (int)$year,  PDO::PARAM_INT);
-  $stmtMain->bindValue(':month', (int)$month, PDO::PARAM_INT);
+  $stmtMain->bindValue(':year', (int) $year, PDO::PARAM_INT);
+  $stmtMain->bindValue(':month', (int) $month, PDO::PARAM_INT);
 }
 
 $stmtMain->execute();
@@ -109,24 +109,24 @@ include '../parts/head.php';
       <div class="form-content w-200px custom-select billing-select">
         <form method="get" action="">
           <label>返却月:</label>
-            <select name="ym" onchange="this.form.submit()">
-              <!-- すべて(未選択)用オプション -->
-              <option value="">すべて</option>
-              <?php foreach ($monthList as $ym): ?>
-                <?php
-                // 例 "2024-12" -> [2024, 12]
-                list($y, $m) = explode('-', $ym);
-                // 月先頭の0を外して整数に
-                $mInt = (int)$m; 
-                // ラベル例: "2024年12月"
-                $label = $y . '年' . $mInt . '月';
-                ?>
-                <option value="<?php echo htmlspecialchars($ym); ?>"
-                  <?php if ($ym === $selectedYm) echo 'selected'; ?>>
-                  <?php echo htmlspecialchars($label); ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
+          <select name="ym" onchange="this.form.submit()">
+            <!-- すべて(未選択)用オプション -->
+            <option value="">すべて</option>
+            <?php foreach ($monthList as $ym): ?>
+              <?php
+              // 例 "2024-12" -> [2024, 12]
+              list($y, $m) = explode('-', $ym);
+              // 月先頭の0を外して整数に
+              $mInt = (int) $m;
+              // ラベル例: "2024年12月"
+              $label = $y . '年' . $mInt . '月';
+              ?>
+              <option value="<?php echo htmlspecialchars($ym); ?>" <?php if ($ym === $selectedYm)
+                   echo 'selected'; ?>>
+                <?php echo htmlspecialchars($label); ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
         </form>
       </div>
     </div>
@@ -140,7 +140,7 @@ include '../parts/head.php';
             <th>担当者</th>
             <th>HDD名</th>
             <th>返却日</th>
-            <th>時間計算</th>
+            <th>使用日数</th>
           </tr>
         </thead>
         <tbody>

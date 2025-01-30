@@ -18,7 +18,7 @@
 
       <div class="flex">
         <div class="form-content w-150px">
-          <label for="editEventStart">開始予定日</label>
+          <label for="editEventStart">開始日</label>
           <input type="date" id="editEventStart" name="eventStart">
         </div>
         <div class="form-content w-150px">
@@ -65,11 +65,7 @@
           <input type="date" id="editReturnDate" name="returnDate">
         </div>
         <div class="form-content w-150px">
-          <label for="editActualStart">実際の開始日</label>
-          <input type="date" id="editActualStart" name="actualStart">
-        </div>
-        <div class="form-content w-150px">
-          <label for="editRentalDuration">時間計算（日単位）</label>
+          <label for="editRentalDuration">使用日数</label>
           <input type="number" id="editRentalDuration" name="rentalDuration" class="auto-input text-right" readonly>
         </div>
       </div>

@@ -60,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
           var cable = editBtn.getAttribute('data-cable');
           var isReturned = editBtn.getAttribute('data-is-returned') == '1' || editBtn.getAttribute('data-is-returned') == 'true';
           var returnDate = editBtn.getAttribute('data-return-date');
-          var actualStart = editBtn.getAttribute('data-actual-start');
           var notes = editBtn.getAttribute('data-notes');
 
           // モーダル内のフォームにデータをセット
@@ -95,28 +94,13 @@ document.addEventListener('DOMContentLoaded', function () {
           document.getElementById('editRentalCable').value = cable;
           // document.getElementById('editIsReturned').checked = isReturned;
           document.getElementById('editReturnDate').value = returnDate;
-          document.getElementById('editActualStart').value = actualStart;
           document.getElementById('editEventNotes').value = notes;
-
-          console.log("【edit_event_modal】フォームにセットされたデータ:", {
-            id: rentalId,
-            title: title,
-            manager: manager,
-            start: start,
-            end: end,
-            resourceId: resourceId,
-            location: location,
-            isReturned: isReturned,
-            returnDate: returnDate,
-            actualStart: actualStart,
-            notes: notes
-          });
 
           // モーダルを表示
           editEventModal.style.display = 'block';
 
-          // 時間計算を初期化
-          calculateDuration('editActualStart', 'editReturnDate', 'editRentalDuration');
+          // 使用日数を初期化（開始日: editEventStart を使用）
+          calculateDuration('editEventStart', 'editReturnDate', 'editRentalDuration');
         }
       });
     });
@@ -154,21 +138,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // 時間計算（日単位）自動挿入
-  function calculateDuration(actualStartId, returnDateId, durationId) {
-    var actualStartEl = document.getElementById(actualStartId);
+  // 使用日数を自動挿入
+  function calculateDuration(startId, returnDateId, durationId) {
+    var startEl = document.getElementById(startId);
     var returnDateEl = document.getElementById(returnDateId);
     var durationEl = document.getElementById(durationId);
-    if (!actualStartEl || !returnDateEl || !durationEl) return;
+    if (!startEl || !returnDateEl || !durationEl) return;
 
     function updateDuration() {
-      var actualStartValue = actualStartEl.value;
+      var startValue = startEl.value;
       var returnDateValue = returnDateEl.value;
-      if (actualStartValue && returnDateValue) {
-        var actualStart = new Date(actualStartValue);
+      if (startValue && returnDateValue) {
+        var startDate = new Date(startValue);
         var returnDate = new Date(returnDateValue);
-        if (!isNaN(actualStart) && !isNaN(returnDate)) {
-          var diffTime = returnDate - actualStart;
+        if (!isNaN(startDate) && !isNaN(returnDate)) {
+          var diffTime = returnDate - startDate;
           var diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
           durationEl.value = diffDays;
         } else {
@@ -180,8 +164,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 修正点: 'change' に加え 'input' イベントを追加し、初期計算を実行
-    actualStartEl.addEventListener('change', updateDuration);
-    actualStartEl.addEventListener('input', updateDuration);
+    startEl.addEventListener('change', updateDuration);
+    startEl.addEventListener('input', updateDuration);
     returnDateEl.addEventListener('change', updateDuration);
     returnDateEl.addEventListener('input', updateDuration);
     updateDuration();
@@ -193,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var addIsReturnedEl = document.getElementById('addIsReturned');
 
   if (addReturnDateEl) {
-    addReturnDateEl.addEventListener('input', function() {
+    addReturnDateEl.addEventListener('input', function () {
       if (this.value) {
         addIsReturnedContainer.style.display = 'block';
         addIsReturnedEl.checked = true;
@@ -211,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var editIsReturnedEl = document.getElementById('editIsReturned');
 
   if (editReturnDateEl) {
-    editReturnDateEl.addEventListener('input', function() {
+    editReturnDateEl.addEventListener('input', function () {
       if (this.value) {
         editIsReturnedEl.checked = true;
         editIsReturnedEl.disabled = true;
@@ -223,8 +207,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // 新規レンタル追加モーダル用
-  calculateDuration('addActualStart', 'addReturnDate', 'addRentalDuration');
+  calculateDuration('addRentalStart', 'addReturnDate', 'addRentalDuration');
   // イベント編集モーダル用
-  calculateDuration('editActualStart', 'editReturnDate', 'editRentalDuration');
+  calculateDuration('editEventStart', 'editReturnDate', 'editRentalDuration');
 
 });

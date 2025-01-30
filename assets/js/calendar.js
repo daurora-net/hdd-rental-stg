@@ -133,23 +133,26 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("editEventStart").value = eventObj.start
         ? eventObj.start.toISOString().slice(0, 10)
         : "";
-      document.getElementById("editEventEnd").value = eventObj.end
-        ? eventObj.end.toISOString().slice(0, 10)
-        : "";
+      // 終了日が null なら「同日イベント」として、開始日を代用
+      var eventEnd = eventObj.end;
+      if (!eventEnd) {
+        eventEnd = eventObj.start;
+      }
+
+      document.getElementById("editEventEnd").value =
+        eventEnd
+          ? eventEnd.toISOString().slice(0, 10)
+          : "";
       document.getElementById("editEventId").value = eventObj.id;
 
       // 返却済表示
       // document.getElementById("editIsReturned").checked =
       //   eventObj.extendedProps.is_returned === 1;
 
-      // 返却日・実際の開始日をセット
+      // 返却日をセット
       document.getElementById("editReturnDate").value =
         eventObj.extendedProps.return_date
           ? eventObj.extendedProps.return_date.slice(0, 10)
-          : "";
-      document.getElementById("editActualStart").value =
-        eventObj.extendedProps.actual_start
-          ? eventObj.extendedProps.actual_start.slice(0, 10)
           : "";
 
       // location をセット
@@ -169,22 +172,6 @@ document.addEventListener('DOMContentLoaded', function () {
       // notes をセット
       document.getElementById("editEventNotes").value =
         eventObj.extendedProps.notes || "";
-
-      // コンソール出力
-      console.log("【カレンダーイベントクリック時】セットしたデータ:", {
-        id: eventObj.id,
-        title: eventObj.title,
-        manager: eventObj.extendedProps.manager,
-        start: document.getElementById("editEventStart").value,
-        end: document.getElementById("editEventEnd").value,
-        resourceId: resourceId,
-        location: eventObj.extendedProps.location,
-        cable: eventObj.extendedProps.cable,
-        isReturned: eventObj.extendedProps.is_returned === 1,
-        returnDate: document.getElementById("editReturnDate").value,
-        actualStart: document.getElementById("editActualStart").value,
-        notes: eventObj.extendedProps.notes
-      });
     }
   });
 

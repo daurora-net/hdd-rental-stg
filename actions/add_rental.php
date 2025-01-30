@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $duration = $_POST['rentalDuration'] ?? null;
   $notes = trim($_POST['rentalNotes'] ?? '');
   $returnDate = $_POST['returnDate'] ?? null;
-  $actualStart = $_POST['actualStart'] ?? null;
   $created_by = $_SESSION['username'] ?? 'unknown';
 
   if (empty($returnDate)) {
@@ -33,9 +32,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       // 修正後のINSERT文にis_returnedを追加
       $stmt = $conn->prepare("INSERT INTO hdd_rentals 
-                  (title, manager, start, end, resource_id, location, cable, duration, notes, return_date, actual_start, is_returned, created_by) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      $stmt->execute([$title, $manager, $start, $end, $hddId, $location, $cable, $duration, $notes, $returnDate, $actualStart, $isReturned, $created_by]);
+      (title, manager, start, end, resource_id, location, cable, duration, notes, return_date, is_returned, created_by) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      $stmt->execute([
+        $title,
+        $manager,
+        $start,
+        $end,
+        $hddId,
+        $location,
+        $cable,
+        $duration,
+        $notes,
+        $returnDate,
+        $isReturned,
+        $created_by
+      ]);
 
       // 挿入されたレンタルのIDを取得（必要に応じて使用）
       $rentalId = $conn->lastInsertId();

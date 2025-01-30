@@ -60,7 +60,7 @@
   width: 10%;
 }
 
-/* 開始予定日 */
+/* 開始日 */
 .rental-list th:nth-child(5),
 .rental-list td:nth-child(5) {
   width: auto;
@@ -102,16 +102,11 @@
 
 .rental-list th:nth-child(12),
 .rental-list td:nth-child(12) {
-  width: auto;
+  width: 3%;
 }
 
 .rental-list th:nth-child(13),
 .rental-list td:nth-child(13) {
-  width: 3%;
-}
-
-.rental-list th:nth-child(14),
-.rental-list td:nth-child(14) {
   width: 20%;
 }
 
