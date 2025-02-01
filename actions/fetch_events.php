@@ -25,34 +25,38 @@ try {
   $formatted_events = [];
 
   foreach ($events as $event) {
-    // 1) DB上の終了日をそのまま保持
-    $originalEnd = $event['end'];
+    // DB上の終了予定日
+    $dbEnd = $event['end'];
+    // 2) DBに保存されている返却日
+    $dbReturn = $event['return_date'];
 
-    // 2) FullCalendar へ渡す終了日は +1日して排他的表示を回避
-    //    例：DBに「2025-01-02」⇒ FC用は「2025-01-03」
+    // ▼ 修正点: 「返却日が入力されていれば返却日優先、返却日が無ければ終了予定日」
+    $displayEnd = !empty($dbReturn) ? $dbReturn : $dbEnd;
+    
+    // FullCalendarはall-dayイベントを「endの前日まで」塗りつぶすため+1日する
     $calendarEnd = null;
-    if (!empty($originalEnd)) {
-      $calendarEnd = date('Y-m-d', strtotime($originalEnd . ' +1 day'));
+    if (!empty($displayEnd)) {
+      $calendarEnd = date('Y-m-d', strtotime($displayEnd . ' +1 day'));
     }
 
     $formatted_events[] = [
       'id' => $event['id'],
       'title' => $event['title'],
-      'start' => $event['start'],      // DBの値をそのまま
-      'end' => $calendarEnd,         // +1日後の値をFullCalendarに渡す
+      'start' => $event['start'],
+      'end' => $calendarEnd,  // 「返却日 or 終了予定日」のどちらか +1日
       'resourceId' => $event['resource_id'],
 
       'extendedProps' => [
         'manager' => $event['manager'],
         'is_returned' => (int) $event['is_returned'],
-        'return_date' => $event['return_date'],
+        'return_date' => $dbReturn,
         'location' => $event['location'],
         'cable' => $event['cable'],
         'notes' => $event['notes'],
         'duration' => $event['duration'],
 
-        // 編集フォーム用に、本来の終了日も保持
-        'real_end' => $originalEnd
+        // フォーム編集時に「本来の終了予定日」を表示したいなら保管しておく
+        'real_end' => $dbEnd
       ]
     ];
   }
