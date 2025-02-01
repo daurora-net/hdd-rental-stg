@@ -133,16 +133,18 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("editEventStart").value = eventObj.start
         ? eventObj.start.toISOString().slice(0, 10)
         : "";
-      // 終了日が null なら「同日イベント」として、開始日を代用
-      var eventEnd = eventObj.end;
-      if (!eventEnd) {
-        eventEnd = eventObj.start;
+      // DBから取った本来の終了日
+      var realEnd = eventObj.extendedProps.real_end;
+
+      // もし DB の終了日が無い場合は、開始日と同じにするなど
+      if (!realEnd) {
+        realEnd = eventObj.start
+          ? eventObj.start.toISOString().slice(0, 10)
+          : "";
       }
 
-      document.getElementById("editEventEnd").value =
-        eventEnd
-          ? eventEnd.toISOString().slice(0, 10)
-          : "";
+      // ここでフォームにセット
+      document.getElementById("editEventEnd").value = realEnd;
       document.getElementById("editEventId").value = eventObj.id;
 
       // 返却済表示
