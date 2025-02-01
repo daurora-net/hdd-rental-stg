@@ -19,6 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $returnDate = null;
   }
 
+  if (!empty($returnDate)) {
+    $end = $returnDate;
+  }
+
   // 必須項目のバリデーション
   if ($title && $manager && $hddId) {
     try {
