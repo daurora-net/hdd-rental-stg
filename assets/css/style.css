@@ -668,6 +668,19 @@ aside nav li.nav_list a {
   line-height: 53px;
 }
 
+/*========= hdd_list page ===============*/
+/* ID */
+.hdd-list th:nth-child(1),
+.hdd-list td:nth-child(1) {
+  width: 3%;
+}
+
+/* HDD名 */
+.hdd-list th:nth-child(2),
+.hdd-list td:nth-child(2) {
+  width: 3%;
+}
+
 /*========= index ===============*/
 .container {
   position: relative;
@@ -675,7 +688,7 @@ aside nav li.nav_list a {
   margin: 40px 40px 0;
 }
 
-/*========= rental_list pafe ===============*/
+/*========= rental_list page ===============*/
 .list-container {
   position: relative;
   max-width: 90vw;
@@ -792,15 +805,7 @@ aside nav li.nav_list a {
   color: #939393;
 }
 
-/*========= hdd_list pafe ===============*/
-/* ID */
-.hdd-list th:nth-child(1),
-.hdd-list td:nth-child(1) {
-  width: 3%;
-}
-
-/* HDD名 */
-.hdd-list th:nth-child(2),
-.hdd-list td:nth-child(2) {
-  width: 3%;
+/*========= hdd_list page ===============*/
+.user-list {
+  margin-top: 103px;
 }
