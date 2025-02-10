@@ -4,6 +4,16 @@
 // ---------------------------------------------
 include '../common/db.php';
 
+$stmtRole = $conn->prepare("SELECT role FROM users WHERE username = ?");
+$stmtRole->execute([$_SESSION['username']]);
+$currentUserRole = $stmtRole->fetchColumn();
+
+// role=3のみアクセス可能
+if ($currentUserRole != 3) {
+  header("Location: /hdd-rental/");
+  exit();
+}
+
 // ▼ 「year-month」パラメータ (例: "2024-12", "2025-01") を取得
 $selectedYm = isset($_GET['ym']) ? $_GET['ym'] : '';
 
@@ -62,37 +72,10 @@ include '../parts/head.php';
 ?>
 
 <body>
-  <aside>
-    <nav>
-      <ul>
-        <li class="nav_home"></li>
-      </ul>
-    </nav>
-    <div class="navigation">
-      <ul>
-        <li class="list">
-          <a href="/hdd-rental/">
-            <span class="icon"><i class="fa-solid fa-house"></i></span>
-          </a>
-        </li>
-        <li class="list">
-          <a href="hdd_list">
-            <span class="icon">HDD</span>
-          </a>
-        </li>
-        <li class="list">
-          <a href="rental_list">
-            <span class="icon">SCHEDULE</span>
-          </a>
-        </li>
-        <li class="list active">
-          <a href="billing_list">
-            <span class="icon">BILLING</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </aside>
+  <?php
+  $activePage = 'billing_list';
+  include '../parts/nav.php';
+  ?>
   <main>
     <div class="header-nav">
       <h1></h1>

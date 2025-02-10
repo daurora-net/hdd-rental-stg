@@ -1,7 +1,19 @@
 <?php
 include 'common/db.php';
-?>
 
+$stmtRole = $conn->prepare("SELECT role FROM users WHERE username = ?");
+$stmtRole->execute([$_SESSION['username']]);
+$currentUserRole = $stmtRole->fetchColumn();
+
+// role=1,2のみアクセス可能
+if (!in_array($currentUserRole, [1, 2])) {
+  header("Location: /hdd-rental/billing_list");
+  exit();
+}
+?>
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -11,39 +23,10 @@ include 'parts/head.php';
 ?>
 
 <body>
-  <aside>
-    <nav>
-      <ul>
-        <!-- <li class="nav_home"><a href="/hdd-rental/"><i class="fa-solid fa-house"></i></a></li> -->
-        <li class="nav_home"></li>
-      </ul>
-    </nav>
-    <div class="navigation">
-      <ul>
-        <li class="list active">
-          <a href="/hdd-rental/">
-            <!-- <span class="icon"><i class="fa-solid fa-bars-staggered"></i></span> -->
-            <span class="icon"><i class="fa-solid fa-house"></i></span>
-          </a>
-        </li>
-        <li class="list">
-          <a href="hdd_list">
-            <span class="icon">HDD</span>
-          </a>
-        </li>
-        <li class="list">
-          <a href="rental_list">
-            <span class="icon">SCHEDULE</span>
-          </a>
-        </li>
-        <li class="list">
-          <a href="billing_list">
-            <span class="icon">BILLING</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </aside>
+  <?php
+  $activePage = 'index';
+  include 'parts/nav.php';
+  ?>
   <main>
     <div class="header-nav">
       <h1></h1>
