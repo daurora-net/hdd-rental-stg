@@ -9,10 +9,10 @@ $stmtRole->execute([$_SESSION['username']]);
 $currentUserRole = $stmtRole->fetchColumn();
 
 // role=3のみアクセス可能
-if ($currentUserRole != 3) {
-  header("Location: /hdd-rental/");
-  exit();
-}
+// if ($currentUserRole != 3) {
+//   header("Location: /hdd-rental/");
+//   exit();
+// }
 
 // ▼ 「year-month」パラメータ (例: "2024-12", "2025-01") を取得
 $selectedYm = isset($_GET['ym']) ? $_GET['ym'] : '';
@@ -74,24 +74,18 @@ include '../parts/head.php';
 <body>
   <?php
   $activePage = 'billing_list';
-  include '../parts/nav.php';
+  include '../parts/nav_menu.php';
   ?>
   <main>
-    <div class="header-nav">
-      <h1></h1>
-      <div class="header-nav-info">
-        <p>id: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
-        <button class="logout">
-          <a href="logout.php">LOGOUT</a>
-        </button>
-      </div>
-    </div>
+    <?php
+    include '../parts/nav_header.php';
+    ?>
 
     <div class="container">
+      <!-- ソートボックス -->
       <!-- ▼ 年月セレクト (実際にある返却日のみ) -->
-      <div class="form-content w-200px custom-select billing-select">
-        <form method="get" action="">
-          <label>返却月:</label>
+      <form method="get" action="">
+        <div class="custom-select-wrapper w-150px">
           <select name="ym" onchange="this.form.submit()">
             <!-- すべて(未選択)用オプション -->
             <option value="">すべて</option>
@@ -110,8 +104,8 @@ include '../parts/head.php';
               </option>
             <?php endforeach; ?>
           </select>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
 
     <!-- ▼ テーブル表示 -->
@@ -121,7 +115,7 @@ include '../parts/head.php';
           <tr>
             <th>番組名</th>
             <th>担当者</th>
-            <th>HDD名</th>
+            <th>HDD No.</th>
             <th>返却日</th>
             <th>使用日数</th>
           </tr>
@@ -133,7 +127,7 @@ include '../parts/head.php';
               <td><?php echo htmlspecialchars($row['manager']); ?></td>
               <td><?php echo htmlspecialchars($row['hdd_name']); ?></td>
               <td><?php echo htmlspecialchars($row['return_date']); ?></td>
-              <td><?php echo htmlspecialchars($row['duration']); ?></td>
+              <td class="text-right"><?php echo htmlspecialchars($row['duration']); ?></td>
             </tr>
           <?php endforeach; ?>
         </tbody>

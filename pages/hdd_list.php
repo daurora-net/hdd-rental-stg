@@ -35,18 +35,12 @@ include '../parts/head.php';
 <body>
   <?php
   $activePage = 'hdd_list';
-  include '../parts/nav.php';
+  include '../parts/nav_menu.php';
   ?>
   <main>
-    <div class="header-nav">
-      <h1></h1>
-      <div class="header-nav-info">
-        <p>id: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
-        <button class="logout">
-          <a href="logout.php">LOGOUT</a>
-        </button>
-      </div>
-    </div>
+    <?php
+    include '../parts/nav_header.php';
+    ?>
 
     <div class="container">
       <!-- HDD追加ボタン -->
@@ -64,7 +58,7 @@ include '../parts/head.php';
           <tr>
             <th></th>
             <th>ID</th>
-            <th>HDD名</th>
+            <th>HDD No.</th>
             <th>メモ</th>
           </tr>
         </thead>
@@ -79,7 +73,7 @@ include '../parts/head.php';
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
               </td>
-              <td><?php echo htmlspecialchars($hddResource['id']); ?></td>
+              <td class="text-center"><?php echo htmlspecialchars($hddResource['id']); ?></td>
               <td><?php echo htmlspecialchars($hddResource['name']); ?></td>
               <td><?php echo htmlspecialchars($hddResource['notes']); ?></td>
             </tr>

@@ -14,9 +14,18 @@
 }
 
 .modal-content {
-  position: relative;
-  margin: 8vh auto 0;
-  width: 60%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 40%;
+  max-height: 95vh;
+  overflow-y: auto;
+
+  h3 {
+    padding-bottom: 30px;
+    color: $primary-color;
+  }
 }
 
 /* 閉じるボタン */
@@ -41,27 +50,4 @@
   content: '*';
   color: red;
   padding-left: 3px;
-}
-
-
-/*========= modal info ===============*/
-.modal-content h3 {
-  padding-bottom: 40px;
-  color: $primary-color;
-}
-
-.modal-content label {
-  font-size: .9rem;
-}
-
-.modal-content .form-content {
-  display: grid;
-  margin-bottom: 10px;
-}
-
-.modal-content .flex {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 20px;
 }

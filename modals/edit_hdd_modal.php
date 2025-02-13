@@ -7,7 +7,7 @@
 
       <div class="flex">
         <div class="form-content w-300px">
-          <label for="editHddName" class="required">HDD名</label>
+          <label for="editHddName" class="required">HDD No.</label>
           <input type="text" id="editHddName" name="hddName" required>
         </div>
       </div>

@@ -38,11 +38,11 @@ include 'parts/head.php';
   <div class="login-wrap">
     <h1>株式会社いちまるよん<br><span>編集部 HDD管理</span></h1>
     <form method="post" class="form">
-      <div class="form-group">
+      <div class="form-content">
         <label for="email">メールアドレス</label>
         <input type="email" id="email" name="email" required>
       </div>
-      <div class="form-group">
+      <div class="form-content">
         <label for="password">パスワード</label>
         <input type="password" id="password" name="password" required>
       </div>
@@ -51,7 +51,7 @@ include 'parts/head.php';
           <?php echo htmlspecialchars($error_message); ?>
         </div>
       <?php endif; ?>
-      <button type="submit" class="login">Login</button>
+      <button type="submit" class="login">ログイン</button>
     </form>
     <div class="register-info">
       <a href="register">新規登録はこちら</a>

@@ -5,6 +5,16 @@ form.form {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.form-content {
+  display: grid;
+  margin-bottom: 10px;
+
+  label {
+    font-size: .9rem;
+    margin: 10px 0 5px;
+  }
+}
+
 /*========= checkbox ===============*/
 /* チェックボックスを隠す */
 .custom-checkbox {
@@ -55,37 +65,28 @@ form.form {
 
 /*========= selectbox ===============*/
 /* セレクトボックス全体のスタイル */
-.custom-select {
-  position: relative;
-  display: inline-block;
-}
 
-.custom-select select {
+select {
   appearance: none;
   cursor: pointer;
 }
 
-/* トグルアイコンのスタイル */
-.custom-select::after {
-  content: '▼';
-  /* ここでアイコンを定義 */
-  position: absolute;
-  top: 50%;
-  /* 縦中央揃え */
-  right: 10px;
-  /* 右からの距離 */
-  transform: translateY(-50%);
-  /* 縦中央揃え */
-  pointer-events: none;
-  /* アイコンがクリックされないようにする */
-  font-size: 13px;
-  /* アイコンのサイズを調整 */
-  color: #333;
-  /* アイコンの色を調整 */
+/* ラッパーに対してスタイルを設定 */
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
-.custom-select.billing-select::after {
-  top: 55%;
+/* トグルアイコンをラッパーの擬似要素として設定 */
+.custom-select-wrapper::after {
+  content: '▼';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 13px;
+  color: #333;
 }
 
 /*========= input ===============*/

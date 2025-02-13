@@ -25,18 +25,12 @@ include 'parts/head.php';
 <body>
   <?php
   $activePage = 'index';
-  include 'parts/nav.php';
+  include 'parts/nav_menu.php';
   ?>
   <main>
-    <div class="header-nav">
-      <h1></h1>
-      <div class="header-nav-info">
-        <p>id: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
-        <button class="logout">
-          <a href="logout.php">LOGOUT</a>
-        </button>
-      </div>
-    </div>
+    <?php
+    include 'parts/nav_header.php';
+    ?>
     <div id="calendar" class="container">
       <!-- レンタル詳細追加ボタン -->
       <button id="addRentalBtn" class="add-btn">+</button>

@@ -31,14 +31,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->SMTPAuth = true;
 
+    // 文字化け解消
+    $mail->CharSet = 'UTF-8';
+    $mail->Encoding = 'base64';
+
     // Recipients
     $mail->setFrom('dev@daurora.xsrv.jp', 'HDD Rental');
     $mail->addAddress($email, $username);
 
     // Content
     $mail->isHTML(true);
-    $mail->Subject = 'メールアドレスを確認してください';
-    $mail->Body = "以下のリンクをクリックして、認証を完了してください<br><br><a href='https://daurora.xsrv.jp/hdd-rental/verify.php?code=$verification_code'>確認</a>";
+    $mail->Subject = 'メールアドレス認証';
+    $mail->Body = "HDD Rentalシステムに新規ユーザー登録されます。<br>以下のリンクをクリックして、認証を完了してください。<br><br><a href='https://daurora.xsrv.jp/hdd-rental/verify.php?code=$verification_code'>こちらをクリック</a>";
 
     $mail->send();
     $_SESSION['verification_message'] = 'メール認証用リンクを送信しました。メールを確認し、リンクをクリックしてアカウントを有効化してください。';
@@ -61,12 +65,20 @@ include 'parts/head.php';
 <body class="page-login">
   <div class="login-wrap">
     <h1 class="text-center">株式会社いちまるよん<br><span>編集部 HDD管理</span></h1>
-    <!-- <h2>Register</h2> -->
     <form method="post" class="form">
-      ログイン名<input type="text" name="username" required><br>
-      メールアドレス<input type="email" name="email" required><br>
-      パスワード<input type="password" name="password" required><br>
-      <button type="submit" class="login">Register</button>
+      <div class="form-content">
+        <label for="username">ログイン名</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-content">
+        <label for="email">メールアドレス</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-content">
+        <label for="password">パスワード</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit" class="login">新規登録</button>
     </form>
     <div class="register-info">
       <a href="login">ログインはこちら</a>

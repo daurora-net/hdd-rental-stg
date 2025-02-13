@@ -28,29 +28,35 @@
       </div>
 
       <div class="flex">
-        <div class="form-content w-200px custom-select">
-          <label for="editRentalHdd" class="required">HDD No</label>
-          <select id="editRentalHdd" name="rentalHdd" required>
-            <!-- オプションはJavaScriptで動的に設定 -->
-          </select>
+        <div class="form-content w-200px">
+          <label for="editRentalHdd" class="required">HDD No.</label>
+          <div class="custom-select-wrapper">
+            <select id="editRentalHdd" name="rentalHdd" required>
+              <!-- オプションはJavaScriptで動的に設定 -->
+            </select>
+          </div>
         </div>
-        <div class="form-content w-200px custom-select">
+        <div class="form-content w-200px">
           <label for="editRentalLocation">使用場所</label>
-          <select id="editRentalLocation" name="rentalLocation">
-            <option value="" selected></option>
-            <option value="外部">外部</option>
-            <option value="104">104</option>
-          </select>
+          <div class="custom-select-wrapper">
+            <select id="editRentalLocation" name="rentalLocation">
+              <option value="" selected></option>
+              <option value="外部">外部</option>
+              <option value="104">104</option>
+            </select>
+          </div>
         </div>
       </div>
 
-      <div class="form-content w-200px custom-select">
+      <div class="form-content w-200px">
         <label for="editRentalCable">ケーブル</label>
-        <select id="editRentalCable" name="rentalCable">
-          <option value="USB3.0" selected>USB</option>
-          <option value="Thunderbolt">Thunderbolt</option>
-          <option value=""></option>
-        </select>
+        <div class="custom-select-wrapper">
+          <select id="editRentalCable" name="rentalCable">
+            <option value="USB3.0" selected>USB</option>
+            <option value="Thunderbolt">Thunderbolt</option>
+            <option value=""></option>
+          </select>
+        </div>
       </div>
 
       <!-- <div class="form-content">

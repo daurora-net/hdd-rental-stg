@@ -22,10 +22,16 @@ input,
 select,
 textarea {
   width: 100%;
-  padding: 7px 10px;
-  margin: 2px 0 20px;
+  padding: 7px 10px 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+.flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
 }
 
 
@@ -63,7 +69,7 @@ textarea {
 
 /*========= text ===============*/
 .text-center {
-  text-align: center!important;
+  text-align: center !important;
 }
 
 .text-right {

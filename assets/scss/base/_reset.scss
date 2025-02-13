@@ -1,13 +1,13 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box
+  box-sizing: border-box
 }
 
 html {
-    -moz-text-size-adjust: none;
-    -webkit-text-size-adjust: none;
-    text-size-adjust: none
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none
 }
 
 body,
@@ -20,16 +20,16 @@ figure,
 blockquote,
 dl,
 dd {
-    margin: 0 !important
+  margin: 0 !important
 }
 
 ul[role='list'],
 ol[role='list'] {
-    list-style: none
+  list-style: none
 }
 
 body {
-    line-height: 1.5
+  line-height: 1.5
 }
 
 h1,
@@ -39,42 +39,38 @@ h4,
 button,
 input,
 label {
-    line-height: 1.1
+  line-height: 1.1
 }
 
 h1,
 h2,
 h3,
 h4 {
-    text-wrap: balance
+  text-wrap: balance
 }
 
 a:not([class]) {
-    text-decoration-skip-ink: auto;
-    color: currentColor
+  text-decoration-skip-ink: auto;
+  color: currentColor
 }
 
 img,
 picture {
-    max-width: 100%;
-    display: block
+  max-width: 100%;
+  display: block
 }
 
 input,
 button,
 textarea,
 select {
-    font: inherit
+  font: inherit
 }
 
 textarea:not([rows]) {
-    min-height: 2em
+  min-height: 2em
 }
 
 :target {
-    scroll-margin-block: 5ex
-}
-
-a:hover {
-    opacity: .8;
+  scroll-margin-block: 5ex
 }
