@@ -1,7 +1,7 @@
 /*========= rental_list page ===============*/
 .list-container {
   position: relative;
-  margin: 20px 10%;
+  margin: 20px 0;
 }
 
 .list-container table {
@@ -14,7 +14,7 @@
 .list-container table td {
   @include fz(8.5);
   border: 1px solid #ccc;
-  padding: 10px 15px 7px;
+  padding: 10px 10px 7px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -27,20 +27,6 @@
 
 .list-container td {
   width: auto;
-}
-
-.table-sort th {
-  cursor: pointer;
-
-  i {
-    margin-left: 3px;
-    @include fz(7);
-    color: #bfbfbf;
-
-    &.fa-sort {
-      width: 12.6px;
-    }
-  }
 }
 
 /* ID */

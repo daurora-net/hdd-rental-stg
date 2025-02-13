@@ -28,14 +28,14 @@ $userRole = $stmt->fetchColumn();
             <span class="icon"><i class="fa-solid fa-house"></i></span>
           </a>
         </li>
-        <li class="list <?php echo (isset($activePage) && $activePage == 'hdd_list') ? 'active' : ''; ?>">
-          <a href="hdd_list">
-            <span class="icon">HDD</span>
-          </a>
-        </li>
         <li class="list <?php echo (isset($activePage) && $activePage == 'rental_list') ? 'active' : ''; ?>">
           <a href="rental_list">
             <span class="icon">SCHEDULE</span>
+          </a>
+        </li>
+        <li class="list <?php echo (isset($activePage) && $activePage == 'hdd_list') ? 'active' : ''; ?>">
+          <a href="hdd_list">
+            <span class="icon">HDD</span>
           </a>
         </li>
 

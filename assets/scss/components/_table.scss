@@ -1,0 +1,18 @@
+/*========= table ===============*/
+.table-scroll {
+  overflow-x: auto;
+}
+
+.table-sort th {
+  cursor: pointer;
+
+  i {
+    margin-left: 3px;
+    @include fz(7);
+    color: #bfbfbf;
+
+    &.fa-sort {
+      width: 12.6px;
+    }
+  }
+}

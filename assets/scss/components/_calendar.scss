@@ -92,7 +92,7 @@ body {
 
 /* HDD No. 内容 */
 .fc-datagrid-cell-main {
-  /* color: $main-text-color; */
+  @include fz(9);
 }
 
 .fc-theme-standard .fc-scrollgrid {

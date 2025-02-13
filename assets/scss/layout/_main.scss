@@ -1,0 +1,18 @@
+/*========= main ===============*/
+.container {
+  margin: 0 10% 0;
+}
+
+.header-container {
+  position: relative;
+  margin: 40px 0 0;
+}
+
+@media screen and (max-width: 1300px) {
+  .container {
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 3%;
+  }
+}

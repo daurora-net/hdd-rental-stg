@@ -43,47 +43,49 @@ include '../parts/head.php';
     ?>
 
     <div class="container">
-      <!-- HDD追加ボタン -->
-      <button id="addHddBtn" class="add-btn">+</button>
+      <div class="header-container">
+        <!-- HDD追加ボタン -->
+        <button id="addHddBtn" class="add-btn">+</button>
+      </div>
+      <!-- HDD一覧表示 -->
+      <div class="hdd-list list-container table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>ID</th>
+              <th>HDD No.</th>
+              <th>メモ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($hddResources as $hddResource) { ?>
+              <tr>
+                <td>
+                  <button class="edit-btn edit-hdd-btn" data-bs-toggle="modal" data-bs-target="#editHddModal"
+                    data-id="<?php echo htmlspecialchars($hddResource['id']); ?>"
+                    data-name="<?php echo htmlspecialchars($hddResource['name']); ?>"
+                    data-notes="<?php echo htmlspecialchars($hddResource['notes']); ?>">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                </td>
+                <td class="text-center"><?php echo htmlspecialchars($hddResource['id']); ?></td>
+                <td><?php echo htmlspecialchars($hddResource['name']); ?></td>
+                <td><?php echo htmlspecialchars($hddResource['notes']); ?></td>
+              </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+      </div>
     </div>
+
     <?php
-    // HDD追加用ポップアップモーダル
+    // HDD追加モーダル
     include '../modals/add_hdd_modal.php';
     ?>
 
-    <!-- HDD一覧表示 -->
-    <div class="hdd-list list-container">
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th>ID</th>
-            <th>HDD No.</th>
-            <th>メモ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($hddResources as $hddResource) { ?>
-            <tr>
-              <td>
-                <button class="edit-btn edit-hdd-btn" data-bs-toggle="modal" data-bs-target="#editHddModal"
-                  data-id="<?php echo htmlspecialchars($hddResource['id']); ?>"
-                  data-name="<?php echo htmlspecialchars($hddResource['name']); ?>"
-                  data-notes="<?php echo htmlspecialchars($hddResource['notes']); ?>">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-              </td>
-              <td class="text-center"><?php echo htmlspecialchars($hddResource['id']); ?></td>
-              <td><?php echo htmlspecialchars($hddResource['name']); ?></td>
-              <td><?php echo htmlspecialchars($hddResource['notes']); ?></td>
-            </tr>
-          <?php } ?>
-        </tbody>
-      </table>
-    </div>
-
     <?php
-    // HDD編集用ポップアップモーダル
+    // HDD編集モーダル
     include '../modals/edit_hdd_modal.php';
     ?>
   </main>

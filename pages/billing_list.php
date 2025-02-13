@@ -82,56 +82,58 @@ include '../parts/head.php';
     ?>
 
     <div class="container">
-      <!-- ソートボックス -->
-      <!-- ▼ 年月セレクト (実際にある返却日のみ) -->
-      <form method="get" action="">
-        <div class="custom-select-wrapper w-150px">
-          <select name="ym" onchange="this.form.submit()">
-            <!-- すべて(未選択)用オプション -->
-            <option value="">すべて</option>
-            <?php foreach ($monthList as $ym): ?>
-              <?php
-              // 例 "2024-12" -> [2024, 12]
-              list($y, $m) = explode('-', $ym);
-              // 月先頭の0を外して整数に
-              $mInt = (int) $m;
-              // ラベル例: "2024年12月"
-              $label = $y . '年' . $mInt . '月';
-              ?>
-              <option value="<?php echo htmlspecialchars($ym); ?>" <?php if ($ym === $selectedYm)
-                   echo 'selected'; ?>>
-                <?php echo htmlspecialchars($label); ?>
-              </option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-      </form>
-    </div>
+      <div class="header-container">
+        <!-- ソートボックス -->
+        <!-- ▼ 年月セレクト (実際にある返却日のみ) -->
+        <form method="get" action="">
+          <div class="custom-select-wrapper w-150px">
+            <select name="ym" onchange="this.form.submit()">
+              <!-- すべて(未選択)用オプション -->
+              <option value="">すべて</option>
+              <?php foreach ($monthList as $ym): ?>
+                <?php
+                // 例 "2024-12" -> [2024, 12]
+                list($y, $m) = explode('-', $ym);
+                // 月先頭の0を外して整数に
+                $mInt = (int) $m;
+                // ラベル例: "2024年12月"
+                $label = $y . '年' . $mInt . '月';
+                ?>
+                <option value="<?php echo htmlspecialchars($ym); ?>" <?php if ($ym === $selectedYm)
+                    echo 'selected'; ?>>
+                  <?php echo htmlspecialchars($label); ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+        </form>
+      </div>
 
-    <!-- ▼ テーブル表示 -->
-    <div class="billing-list list-container">
-      <table>
-        <thead>
-          <tr>
-            <th>番組名</th>
-            <th>担当者</th>
-            <th>HDD No.</th>
-            <th>返却日</th>
-            <th>使用日数</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($billingList as $row): ?>
+      <!-- ▼ テーブル表示 -->
+      <div class="billing-list list-container table-scroll">
+        <table>
+          <thead>
             <tr>
-              <td><?php echo htmlspecialchars($row['title']); ?></td>
-              <td><?php echo htmlspecialchars($row['manager']); ?></td>
-              <td><?php echo htmlspecialchars($row['hdd_name']); ?></td>
-              <td><?php echo htmlspecialchars($row['return_date']); ?></td>
-              <td class="text-right"><?php echo htmlspecialchars($row['duration']); ?></td>
+              <th>番組名</th>
+              <th>担当者</th>
+              <th>HDD No.</th>
+              <th>返却日</th>
+              <th>使用日数</th>
             </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <?php foreach ($billingList as $row): ?>
+              <tr>
+                <td><?php echo htmlspecialchars($row['title']); ?></td>
+                <td><?php echo htmlspecialchars($row['manager']); ?></td>
+                <td><?php echo htmlspecialchars($row['hdd_name']); ?></td>
+                <td><?php echo htmlspecialchars($row['return_date']); ?></td>
+                <td class="text-right"><?php echo htmlspecialchars($row['duration']); ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
     </div>
   </main>
 

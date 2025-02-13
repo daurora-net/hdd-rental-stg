@@ -31,9 +31,11 @@ include 'parts/head.php';
     <?php
     include 'parts/nav_header.php';
     ?>
-    <div id="calendar" class="container">
-      <!-- レンタル詳細追加ボタン -->
-      <button id="addRentalBtn" class="add-btn">+</button>
+    <div class="container">
+      <div id="calendar" class="header-container">
+        <!-- レンタル詳細追加ボタン -->
+        <button id="addRentalBtn" class="add-btn">+</button>
+      </div>
     </div>
   </main>
 

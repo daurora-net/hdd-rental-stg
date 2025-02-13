@@ -4,15 +4,17 @@
 @import 'base/typography';
 @import 'base/variables';
 
-@import 'components/buttons';
+@import 'components/button';
 @import 'components/calendar';
-@import 'components/forms';
+@import 'components/form';
 @import 'components/login';
 @import 'components/modal';
+@import 'components/table';
 
 @import 'layout/aside';
 @import 'layout/footer';
 @import 'layout/header';
+@import 'layout/main';
 @import 'layout/navigation';
 
 @import 'pages/hdd-list-page';
