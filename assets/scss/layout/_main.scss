@@ -1,4 +1,11 @@
+@import '../base/variables';
+
 /*========= main ===============*/
+main {
+  width: calc(100% - 13%);
+  color: $main-text-color;
+}
+
 .container {
   margin: 0 10% 0;
 }
@@ -8,11 +15,17 @@
   margin: 40px 0 0;
 }
 
-@media screen and (max-width: 1300px) {
+@media (max-width: 1300px) {
   .container {
     width: max-content;
     max-width: 100%;
     margin: 0 auto;
     padding: 0 3%;
+  }
+}
+
+@media (max-width: 780px) {
+  main {
+    width: 100%
   }
 }

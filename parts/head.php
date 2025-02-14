@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/style.css">
   <script src="assets/js/calendar.js"></script>
   <script src="assets/js/modal.js"></script>
+  <script src="assets/js/nav.js"></script>
   <script src="assets/js/table.js"></script>
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.15/index.global.min.js'></script>
 </head>

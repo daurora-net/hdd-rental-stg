@@ -12,18 +12,18 @@ $stmt = $conn->prepare("SELECT role FROM users WHERE username = ?");
 $stmt->execute([$_SESSION['username']]);
 $userRole = $stmt->fetchColumn();
 ?>
-<aside>
-  <nav>
-    <ul>
-      <li class="nav_home"></li>
-    </ul>
-  </nav>
-  <div class="navigation">
+<aside id="side-menu">
+  <div class="header-nav bg-brown">
+    <div id="close-menu" class="close-icon sp">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+  </div>
+  <nav class="nav">
     <ul>
       <?php
       // 管理者 (role=1) および一般ユーザー (role=2) の場合はガントチャート、HDD管理、SCHEDULE を表示
       if (in_array($userRole, [1, 2])) { ?>
-        <li class="list <?php echo (isset($activePage) && $activePage == 'index') ? 'active' : ''; ?>">
+        <li class="pc list <?php echo (isset($activePage) && $activePage == 'index') ? 'active' : ''; ?>">
           <a href="/hdd-rental/">
             <span class="icon"><i class="fa-solid fa-house"></i></span>
           </a>
@@ -73,5 +73,13 @@ $userRole = $stmt->fetchColumn();
         </li> -->
       <?php } ?>
     </ul>
-  </div>
+    <div class="nav-logout sp">
+      <a href="/hdd-rental/logout.php">LOGOUT
+        <span class="icon"><i class="fa-solid fa-sign-out"></i></span>
+      </a>
+      <div class="user-box">
+        <p class>id: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
+      </div>
+    </div>
+  </nav>
 </aside>

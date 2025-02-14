@@ -9,11 +9,6 @@ body {
   overflow-y: hidden;
 }
 
-main {
-  width: calc(100% - 140px);
-  color: $main-text-color;
-}
-
 h2 {
   color: #333;
 }
@@ -33,11 +28,6 @@ textarea {
   align-items: center;
   gap: 20px;
 }
-
-
-
-
-
 
 /*========= width ===============*/
 .w-100px {
@@ -64,9 +54,6 @@ textarea {
   width: 70%;
 }
 
-
-
-
 /*========= text ===============*/
 .text-center {
   text-align: center !important;
@@ -74,4 +61,32 @@ textarea {
 
 .text-right {
   text-align: right;
+}
+
+/*========= color ===============*/
+.bg-primary {
+  background-color: $primary-color;
+}
+
+.bg-brown {
+  background-color: $brown-color;
+}
+
+/*========= responsive ===============*/
+.pc {
+  display: block;
+}
+
+.sp {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .pc {
+    display: none !important;
+  }
+
+  .sp {
+    display: block !important;
+  }
 }

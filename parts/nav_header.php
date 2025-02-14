@@ -35,10 +35,12 @@ if (isset($_SESSION['username'])) {
 }
 ?>
 <div class="header-nav" style="background-color: <?php echo htmlspecialchars($roleColor); ?>;">
-  <h1></h1>
+  <div id="menu-toggle" class="open-icon">
+    <i class="fa-solid fa-bars-staggered"></i>
+  </div>
   <div class="header-nav-info">
-    <p>id: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
-    <button class="logout">
+    <p class="pc">id: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
+    <button class="logout pc">
       <a href="logout.php">LOGOUT</a>
     </button>
   </div>

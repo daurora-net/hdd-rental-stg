@@ -23,6 +23,12 @@ include 'parts/head.php';
 ?>
 
 <body>
+  <script>
+    // SPサイズの場合 /rental_list へリダイレクト
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      window.location.href = '/hdd-rental/rental_list';
+    }
+  </script>
   <?php
   $activePage = 'index';
   include 'parts/nav_menu.php';
