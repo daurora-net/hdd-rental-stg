@@ -60,6 +60,7 @@ include '../parts/head.php';
     ?>
 
     <div class="container">
+      <h2 class="sp">SCHEDULE</h2>
       <div class="header-container">
         <div class="flex">
           <!-- レンタル追加ボタン -->

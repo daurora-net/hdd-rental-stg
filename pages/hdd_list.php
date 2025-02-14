@@ -43,9 +43,10 @@ include '../parts/head.php';
     ?>
 
     <div class="container">
+      <h2 class="sp">HDD</h2>
       <div class="header-container">
         <!-- HDD追加ボタン -->
-        <button id="addHddBtn" class="add-btn">+</button>
+        <button id="addHddBtn" class="add-btn"><i class="fa-solid fa-plus"></i></button>
       </div>
       <!-- HDD一覧表示 -->
       <div class="hdd-list list-container table-scroll">

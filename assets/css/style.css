@@ -433,6 +433,7 @@ select {
      -moz-appearance: none;
           appearance: none;
   cursor: pointer;
+  color: #333;
 }
 
 /* ラッパーに対してスタイルを設定 */
@@ -469,6 +470,10 @@ select {
   }
   .form-content label {
     font-size: 0.9rem;
+  }
+  select {
+    font-size: 0.9rem;
+    padding: 7px 10px 5px;
   }
 }
 /*========= login-page ===============*/
@@ -642,9 +647,15 @@ main {
     padding: 0 3%;
   }
 }
-@media (max-width: 780px) {
+@media (max-width: 768px) {
   main {
     width: 100%;
+  }
+  .header-container {
+    margin: 20px 0 0;
+  }
+  .container {
+    margin: 5% auto;
   }
 }
 aside {
@@ -864,4 +875,10 @@ aside nav.nav ul li a span.icon {
 /*========= hdd_list page ===============*/
 .user-list {
   margin-top: 100px;
+}
+
+@media (max-width: 768px) {
+  .user-list {
+    margin-top: 30px;
+  }
 }

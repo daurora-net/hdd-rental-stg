@@ -82,6 +82,7 @@ include '../parts/head.php';
     ?>
 
     <div class="container">
+      <h2 class="sp">BILLING</h2>
       <div class="header-container">
         <!-- ソートボックス -->
         <!-- ▼ 年月セレクト (実際にある返却日のみ) -->
@@ -100,7 +101,7 @@ include '../parts/head.php';
                 $label = $y . '年' . $mInt . '月';
                 ?>
                 <option value="<?php echo htmlspecialchars($ym); ?>" <?php if ($ym === $selectedYm)
-                    echo 'selected'; ?>>
+                     echo 'selected'; ?>>
                   <?php echo htmlspecialchars($label); ?>
                 </option>
               <?php endforeach; ?>

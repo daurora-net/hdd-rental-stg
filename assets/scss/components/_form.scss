@@ -70,6 +70,7 @@ form.form {
 select {
   appearance: none;
   cursor: pointer;
+  color: #333;
 }
 
 /* ラッパーに対してスタイルを設定 */
@@ -111,5 +112,10 @@ select {
     label {
       @include fz(9);
     }
+  }
+
+  select {
+    @include fz(9);
+    padding: 7px 10px 5px;
   }
 }
