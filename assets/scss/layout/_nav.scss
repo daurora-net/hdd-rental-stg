@@ -167,7 +167,9 @@ aside {
 
             span {
 
-              &.icon {}
+              &.icon {
+                @include fz(10);
+              }
             }
           }
         }
@@ -185,7 +187,7 @@ aside {
         a {
           text-decoration: none;
           color: #fff;
-          font-size: 13px;
+          @include fz(10);
           display: flex;
           justify-content: center;
           gap: 5px;
@@ -198,7 +200,7 @@ aside {
           padding: 5px 10px 6px;
           width: max-content;
           margin: 30px auto;
-          font-size: 14px;
+          @include fz(9);
         }
       }
     }

@@ -61,11 +61,15 @@ button.modal-btn:hover {
 
 /*========= index ===============*/
 .add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   border: 2px solid $primary-color;
   width: 40px;
   height: 40px;
-  font-size: 1.5em;
+  @include fz(10);
+  padding: 0;
   color: $primary-color;
   background-color: $body-color;
 }

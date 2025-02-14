@@ -12,7 +12,8 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <div id="addRentalModal" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="document.getElementById('addRentalModal').style.display='none'">&times;</span>
+    <span class="close" onclick="document.getElementById('addRentalModal').style.display='none'"><i
+        class="fa-solid fa-xmark"></i></span>
     <form method="post" class="form" action="actions/add_rental.php">
       <h3>スケジュール追加</h3>
       <div class="flex">
@@ -78,7 +79,7 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div class="form-content w-150px">
           <label for="addRentalDuration">使用日数</label>
-          <input type="number" id="addRentalDuration" name="rentalDuration" class="auto-input text-right" readonly>
+          <input id="addRentalDuration" name="rentalDuration" class="auto-input text-right" readonly>
         </div>
       </div>
       <div class="form-content w-70">

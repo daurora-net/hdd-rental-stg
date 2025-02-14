@@ -1,6 +1,7 @@
 <div id="editEventModal" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="document.getElementById('editEventModal').style.display='none'">&times;</span>
+    <span class="close" onclick="document.getElementById('editEventModal').style.display='none'"><i
+        class="fa-solid fa-xmark"></i></span>
     <form method="post" class="form" action="actions/edit_event.php">
       <h3>スケジュール編集</h3>
       <input type="hidden" id="editEventId" name="eventId">
@@ -72,7 +73,7 @@
         </div>
         <div class="form-content w-150px">
           <label for="editRentalDuration">使用日数</label>
-          <input type="number" id="editRentalDuration" name="rentalDuration" class="auto-input text-right" readonly>
+          <input id="editRentalDuration" name="rentalDuration" class="auto-input text-right" readonly>
         </div>
       </div>
 

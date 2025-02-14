@@ -40,7 +40,7 @@ include 'parts/head.php';
     <div class="container">
       <div id="calendar" class="header-container">
         <!-- レンタル詳細追加ボタン -->
-        <button id="addRentalBtn" class="add-btn">+</button>
+        <button id="addRentalBtn" class="add-btn"><i class="fa-solid fa-plus"></i></button>
       </div>
     </div>
   </main>

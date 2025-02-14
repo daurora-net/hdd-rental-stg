@@ -63,7 +63,7 @@ include '../parts/head.php';
       <div class="header-container">
         <div class="flex">
           <!-- レンタル追加ボタン -->
-          <button id="addRentalBtn" class="add-btn">+</button>
+          <button id="addRentalBtn" class="add-btn"><i class="fa-solid fa-plus"></i></button>
           <!-- ソートボックス -->
           <form method="get" action="">
             <div class="custom-select-wrapper w-100px">

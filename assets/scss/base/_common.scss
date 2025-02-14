@@ -20,6 +20,7 @@ textarea {
   padding: 8px 10px 6px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #fff;
 }
 
 .flex {
@@ -88,5 +89,15 @@ textarea {
 
   .sp {
     display: block !important;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 4px 7px 3px;
+  }
+
+  .flex {
+    gap: 10px;
   }
 }

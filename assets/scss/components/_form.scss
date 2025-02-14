@@ -11,7 +11,7 @@ form.form {
   margin-bottom: 10px;
 
   label {
-    font-size: .9rem;
+    @include fz(9);
     margin: 10px 0 5px;
   }
 }
@@ -95,4 +95,21 @@ select {
   // pointer-events: none;
   background-color: transparent;
   color: gray;
+}
+
+/*========= responsive ===============*/
+@media (max-width: 768px) {
+  form.form {
+    max-width: 100%;
+    width: 90%;
+    margin: 0 auto;
+    padding: 5%;
+  }
+
+  .form-content {
+
+    label {
+      @include fz(9);
+    }
+  }
 }

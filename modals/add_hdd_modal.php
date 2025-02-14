@@ -1,6 +1,7 @@
 <div id="addHddModal" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="document.getElementById('addHddModal').style.display='none'">&times;</span>
+    <span class="close" onclick="document.getElementById('addHddModal').style.display='none'"><i
+        class="fa-solid fa-xmark"></i></span>
     <form method="post" class="form" action="actions/add_hdd.php">
       <h3>HDD追加</h3>
 

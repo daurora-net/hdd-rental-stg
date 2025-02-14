@@ -19,6 +19,7 @@ textarea {
   padding: 8px 10px 6px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #fff;
 }
 
 .flex {
@@ -86,6 +87,14 @@ textarea {
   }
   .sp {
     display: block !important;
+  }
+  input,
+  select,
+  textarea {
+    padding: 4px 7px 3px;
+  }
+  .flex {
+    gap: 10px;
   }
 }
 *,
@@ -227,11 +236,15 @@ button.modal-btn:hover {
 
 /*========= index ===============*/
 .add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   border: 2px solid cadetblue;
   width: 40px;
   height: 40px;
-  font-size: 1.5em;
+  font-size: 1rem;
+  padding: 0;
   color: cadetblue;
   background-color: #fff;
 }
@@ -446,6 +459,18 @@ select {
   color: gray;
 }
 
+/*========= responsive ===============*/
+@media (max-width: 768px) {
+  form.form {
+    max-width: 100%;
+    width: 90%;
+    margin: 0 auto;
+    padding: 5%;
+  }
+  .form-content label {
+    font-size: 0.9rem;
+  }
+}
 /*========= login-page ===============*/
 body.page-login {
   background-color: #b8b8b8;
@@ -538,6 +563,21 @@ body.page-login .login-wrap .error-message {
   padding-left: 3px;
 }
 
+@media (max-width: 768px) {
+  .modal-content {
+    min-width: 100%;
+    width: 100%;
+  }
+  .modal-content h3 {
+    padding-bottom: 10px;
+    font-size: 1rem;
+  }
+  .close {
+    right: 35px;
+    top: 8px;
+    font-size: 26px;
+  }
+}
 /*========= table ===============*/
 .table-scroll {
   overflow-x: auto;
@@ -741,6 +781,9 @@ aside nav.nav ul li a span.icon {
     padding-left: 0;
     display: block;
   }
+  aside nav.nav ul li a span.icon {
+    font-size: 1rem;
+  }
   aside nav.nav .nav-logout {
     position: relative;
     width: 100%;
@@ -753,7 +796,7 @@ aside nav.nav ul li a span.icon {
   aside nav.nav .nav-logout a {
     text-decoration: none;
     color: #fff;
-    font-size: 13px;
+    font-size: 1rem;
     display: flex;
     justify-content: center;
     gap: 5px;
@@ -766,7 +809,7 @@ aside nav.nav ul li a span.icon {
     width: -moz-max-content;
     width: max-content;
     margin: 30px auto;
-    font-size: 14px;
+    font-size: 0.9rem;
   }
 }
 /*========= hdd_list page ===============*/
