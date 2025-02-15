@@ -1,7 +1,7 @@
 @import '../base/variables';
 
 body {
-  font-family: Arial, sans-serif;
+  @extend .ibm-plex-sans-jp-regular;
   background-color: #fcfcfc;
   margin: 0;
   padding: 0;
