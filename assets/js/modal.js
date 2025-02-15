@@ -32,8 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
           var hddName = editBtn.getAttribute("data-name");
           var hddNotes = editBtn.getAttribute("data-notes");
 
+          var hddCapacity = editBtn.getAttribute("data-capacity");
+          if (!hddCapacity) {
+            hddCapacity = "";
+          }
+
           document.getElementById("editHddId").value = hddId;
           document.getElementById("editHddName").value = hddName;
+          document.getElementById("editHddCapacity").value = hddCapacity;
           document.getElementById("editHddNotes").value = hddNotes;
 
           editHddModal.style.display = "block";

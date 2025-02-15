@@ -15,6 +15,7 @@
         <label for="addHddCapacity" class="required">容量</label>
         <div class="custom-select-wrapper">
           <select id="addHddCapacity" name="hddCapacity" required>
+            <option value=""></option>
             <option value="1TB">1TB</option>
             <option value="2TB">2TB</option>
             <option value="4TB">4TB</option>
