@@ -34,7 +34,7 @@ if (isset($_SESSION['username'])) {
   }
 }
 ?>
-<div class="header-nav" style="background-color: <?php echo htmlspecialchars($roleColor); ?>;">
+<div class="header-nav no-print" style="background-color: <?php echo htmlspecialchars($roleColor); ?>;">
   <div id="menu-toggle" class="open-icon">
     <i class="fa-solid fa-bars-staggered"></i>
   </div>

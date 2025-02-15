@@ -87,7 +87,7 @@ include '../parts/head.php';
       <div class="header-container">
         <!-- ソートボックス -->
         <!-- ▼ 年月セレクト (実際にある返却日のみ) -->
-        <form method="get" action="">
+        <form method="get" action="" class="flex">
           <div class="custom-select-wrapper w-150px">
             <select name="ym" onchange="this.form.submit()">
               <!-- すべて(未選択)用オプション -->
@@ -107,6 +107,9 @@ include '../parts/head.php';
                 </option>
               <?php endforeach; ?>
             </select>
+          </div>
+          <div class="no-print pc">
+            <button onclick="window.print(); return false;" class="print-btn">印刷</button>
           </div>
         </form>
       </div>

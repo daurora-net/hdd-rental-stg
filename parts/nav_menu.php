@@ -12,7 +12,7 @@ $stmt = $conn->prepare("SELECT role FROM users WHERE username = ?");
 $stmt->execute([$_SESSION['username']]);
 $userRole = $stmt->fetchColumn();
 ?>
-<aside id="side-menu">
+<aside id="side-menu" class="no-print">
   <div class="header-nav bg-brown">
     <div id="close-menu" class="close-icon sp">
       <i class="fa-solid fa-xmark"></i>

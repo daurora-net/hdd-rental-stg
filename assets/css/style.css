@@ -29,6 +29,11 @@ textarea {
   gap: 20px;
 }
 
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
 /*========= width ===============*/
 .w-100px {
   width: 100px;
@@ -229,6 +234,24 @@ button.modal-btn {
 }
 
 button.modal-btn:hover {
+  background: #fff;
+  color: darkgray;
+  border: 1px solid darkgray;
+}
+
+/*========= print ===============*/
+button.print-btn {
+  display: block;
+  background: darkgray;
+  color: #fff;
+  border: 1px solid darkgray;
+  width: 110px;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 20px;
+}
+
+button.print-btn:hover {
   background: #fff;
   color: darkgray;
   border: 1px solid darkgray;

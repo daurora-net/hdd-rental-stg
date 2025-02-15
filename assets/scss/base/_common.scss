@@ -30,6 +30,12 @@ textarea {
   gap: 20px;
 }
 
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
 /*========= width ===============*/
 .w-100px {
   width: 100px;
