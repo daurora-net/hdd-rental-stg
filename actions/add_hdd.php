@@ -3,12 +3,13 @@ include '../common/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $hddName = isset($_POST['hddName']) ? $_POST['hddName'] : null;
+  $hddCapacity = isset($_POST['hddCapacity']) ? $_POST['hddCapacity'] : null;
   $hddNotes = isset($_POST['hddNotes']) ? $_POST['hddNotes'] : null;
 
   if ($hddName !== null && $hddNotes !== null) {
     try {
-      $stmt = $conn->prepare("INSERT INTO hdd_resources (name, notes) VALUES (?, ?)");
-      $stmt->execute([$hddName, $hddNotes]);
+      $stmt = $conn->prepare("INSERT INTO hdd_resources (name, capacity, notes) VALUES (?, ?)");
+      $stmt->execute([$hddName, $hddCapacity, $hddNotes]);
 
       header("Location: ../hdd_list");
       exit();

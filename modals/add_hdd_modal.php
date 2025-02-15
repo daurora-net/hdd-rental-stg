@@ -11,6 +11,18 @@
           <input type="text" id="hddName" name="hddName" required>
         </div>
       </div>
+      <div class="form-content w-200px">
+        <label for="addHddCapacity" class="required">容量</label>
+        <div class="custom-select-wrapper">
+          <select id="addHddCapacity" name="hddCapacity" required>
+            <option value="1TB">1TB</option>
+            <option value="2TB">2TB</option>
+            <option value="4TB">4TB</option>
+            <option value="6TB">6TB</option>
+            <option value="8TB">8TB</option>
+          </select>
+        </div>
+      </div>
       <div class="form-content w-70">
         <label for="hddNotes">メモ</label>
         <textarea id="hddNotes" name="hddNotes" rows="3"></textarea>
