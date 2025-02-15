@@ -108,8 +108,12 @@ include '../parts/head.php';
               <?php endforeach; ?>
             </select>
           </div>
-          <div class="no-print pc">
+          <div class="no-print pc flex ml-20">
             <button onclick="window.print(); return false;" class="print-btn">印刷</button>
+            <button type="button"
+              onclick="window.location.href='pages/export_billing_csv.php?ym=<?php echo urlencode($selectedYm); ?>'"
+              class="csv-btn">CSV出力</button>
+            <!-- <a href="pages/export_billing_csv.php?ym=<?php echo urlencode($selectedYm); ?>" class="csv-btn">CSV出力</a> -->
           </div>
         </form>
       </div>

@@ -77,6 +77,24 @@ button.print-btn:hover {
   border: 1px solid darkgray;
 }
 
+/*========= csv ===============*/
+button.csv-btn {
+  display: block;
+  background: #5dc2b3;
+  color: #fff;
+  border: 1px solid #5dc2b3;
+  width: 110px;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 20px;
+}
+
+button.csv-btn:hover {
+  background: #fff;
+  color: #5dc2b3;
+  border: 1px solid #5dc2b3;
+}
+
 /*========= index ===============*/
 .add-btn {
   display: flex;

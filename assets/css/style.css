@@ -23,7 +23,7 @@ textarea {
 }
 
 .flex {
-  display: flex;
+  display: flex !important;
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
@@ -34,6 +34,11 @@ textarea {
     display: none !important;
   }
 }
+/*========= margin ===============*/
+.ml-20 {
+  margin-left: 20px;
+}
+
 /*========= width ===============*/
 .w-100px {
   width: 100px;
@@ -255,6 +260,24 @@ button.print-btn:hover {
   background: #fff;
   color: darkgray;
   border: 1px solid darkgray;
+}
+
+/*========= csv ===============*/
+button.csv-btn {
+  display: block;
+  background: #5dc2b3;
+  color: #fff;
+  border: 1px solid #5dc2b3;
+  width: 110px;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 20px;
+}
+
+button.csv-btn:hover {
+  background: #fff;
+  color: #5dc2b3;
+  border: 1px solid #5dc2b3;
 }
 
 /*========= index ===============*/
