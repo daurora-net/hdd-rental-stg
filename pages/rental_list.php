@@ -6,10 +6,11 @@ include '../common/db.php';
 $filter_returned = isset($_GET['filter_returned']) ? $_GET['filter_returned'] : '';
 
 // WHERE句を可変にする
-$sql = "SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.cable, hr.is_returned, hr.return_date, hr.duration, hr.notes, hr.resource_id, r.name as hdd_name 
+$sql = "SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.cable, hr.is_returned, hr.return_date, hr.duration, hr.notes, hr.resource_id,
+               CONCAT(r.name, IF(r.capacity <> '' AND r.capacity IS NOT NULL, CONCAT('_', r.capacity), '')) AS hdd_name
         FROM hdd_rentals hr
         JOIN hdd_resources r ON hr.resource_id = r.id
-        WHERE 1=1"; // ★最初に常に成り立つ条件を置いておく
+        WHERE 1=1";
 
 // もし「未返却」を指定されたら is_returned=0 だけを抽出
 if ($filter_returned === '0') {
