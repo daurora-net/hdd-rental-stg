@@ -89,7 +89,8 @@ include '../parts/head.php';
         <!-- ▼ 年月セレクト (実際にある返却日のみ) -->
         <form method="get" action="" class="flex">
           <div class="custom-select-wrapper w-150px">
-            <select name="ym" onchange="this.form.submit()">
+            <select name="ym"
+              onchange="if(this.value==''){ window.location.href=window.location.pathname; } else { this.form.submit(); }">
               <!-- すべて(未選択)用オプション -->
               <option value="">すべて</option>
               <?php foreach ($monthList as $ym): ?>

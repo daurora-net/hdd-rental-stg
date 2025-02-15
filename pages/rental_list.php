@@ -69,7 +69,8 @@ include '../parts/head.php';
           <!-- ソートボックス -->
           <form method="get" action="">
             <div class="custom-select-wrapper w-100px">
-              <select id="filter_returned" name="filter_returned" onchange="this.form.submit()">
+              <select id="filter_returned" name="filter_returned"
+                onchange="if(this.value==''){ window.location.href=window.location.pathname; } else { this.form.submit(); }">
                 <option value="">すべて</option>
                 <option value="0" <?php if (isset($filter_returned) && $filter_returned === '0')
                   echo 'selected'; ?>>
