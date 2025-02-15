@@ -274,6 +274,9 @@ button.modal-btn:hover {
   border-right: 7px solid #736d6d;
   padding: 0;
 }
+.fc-event.returned-event {
+  opacity: 0.6;
+}
 
 .fc-view-harness-passive {
   background-color: #fff;
@@ -676,7 +679,7 @@ aside nav.nav ul {
   top: 0;
   left: 0;
   width: 100%;
-  padding-top: 20px;
+  padding-top: 50px;
   padding-left: 10px;
 }
 aside nav.nav ul li {
@@ -771,6 +774,7 @@ aside nav.nav ul li a span.icon {
     overflow: hidden;
   }
   aside nav.nav ul {
+    padding-top: 20px;
     padding-left: 0;
     padding-bottom: 20px;
     margin: 10% auto;

@@ -17,6 +17,10 @@
   border-left: 7px solid #736d6d;
   border-right: 7px solid #736d6d;
   padding: 0;
+
+  &.returned-event {
+    opacity: 0.6;
+  }
 }
 
 .fc-view-harness-passive {

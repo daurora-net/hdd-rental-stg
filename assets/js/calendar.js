@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     editable: true,
     resourceAreaHeaderContent: 'HDD No.',
-    resourceOrder: 'name', // 追記
+    resourceOrder: 'name',
 
     resourceLabelContent: function (arg) {
       return resourcesData[arg.resource.id] ? resourcesData[arg.resource.id] : arg.resource.id;
@@ -174,6 +174,12 @@ document.addEventListener('DOMContentLoaded', function () {
       // notes をセット
       document.getElementById("editEventNotes").value =
         eventObj.extendedProps.notes || "";
+    },
+    eventClassNames: function (arg) {
+      if (arg.event.extendedProps.is_returned == 1) {
+        return ['returned-event'];
+      }
+      return [];
     }
   });
 
