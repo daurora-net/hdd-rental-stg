@@ -98,6 +98,32 @@ select {
   color: gray;
 }
 
+/*========= remember me ===============*/
+.rememberme-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto;
+  white-space: nowrap;
+  color: #656565;
+
+  label {
+    @include fz(8.5);
+    margin: 0;
+  }
+
+  input {
+    margin: 0 0 2px;
+    width: 15px;
+    height: 15px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 /*========= responsive ===============*/
 @media (max-width: 768px) {
   form.form {

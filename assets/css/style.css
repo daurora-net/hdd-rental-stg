@@ -520,6 +520,29 @@ select {
   color: gray;
 }
 
+/*========= remember me ===============*/
+.rememberme-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto;
+  white-space: nowrap;
+  color: #656565;
+}
+.rememberme-content label {
+  font-size: 0.85rem;
+  margin: 0;
+}
+.rememberme-content input {
+  margin: 0 0 2px;
+  width: 15px;
+  height: 15px;
+}
+.rememberme-content input:hover {
+  cursor: pointer;
+}
+
 /*========= responsive ===============*/
 @media (max-width: 768px) {
   form.form {
@@ -942,4 +965,4 @@ aside nav.nav ul li a span.icon {
   .user-list {
     margin-top: 30px;
   }
-}
+}/*# sourceMappingURL=style.css.map */

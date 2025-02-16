@@ -14,8 +14,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if ($user && password_verify($password, $user['password'])) {
     if ($user['is_verified']) {
-      session_regenerate_id(true); // セッション固定攻撃を防ぐ
+      session_regenerate_id(true);
       $_SESSION['username'] = $user['username'];
+
+      // Remember me がチェックされている場合
+      if (!empty($_POST['remember'])) {
+        // 16バイトのランダムなトークンを生成
+        $token = bin2hex(random_bytes(16));
+        // ユーザーテーブルに remember_token を保存（カラムを追加しておく必要があります）
+        $stmt = $conn->prepare("UPDATE users SET remember_token = ? WHERE id = ?");
+        $stmt->execute([$token, $user['id']]);
+        // クッキーに remember_token を保存（30日間有効、HTTPS時はsecure属性を追加してください）
+        setcookie("remember_token", $token, time() + (86400 * 30), "/", "", false, true);
+      }
+
       header("Location: /hdd-rental/");
       exit();
     } else {
@@ -45,6 +57,10 @@ include 'parts/head.php';
       <div class="form-content">
         <label for="password">パスワード</label>
         <input type="password" id="password" name="password" required>
+      </div>
+      <div class="rememberme-content">
+        <input type="checkbox" name="remember" id="remember">
+        <label for="remember">保存する</label>
       </div>
       <?php if (!empty($error_message)): ?>
         <div class="error-message">
