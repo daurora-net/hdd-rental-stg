@@ -127,7 +127,7 @@ include '../parts/head.php';
               <th>番組名</th>
               <th>担当者</th>
               <th>HDD No.</th>
-              <th>HDD容量</th>
+              <th>容量</th>
               <th>返却日</th>
               <th>使用日数</th>
             </tr>
