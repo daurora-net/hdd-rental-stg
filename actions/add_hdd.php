@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if ($hddName !== null && $hddNotes !== null) {
     try {
-      $stmt = $conn->prepare("INSERT INTO hdd_resources (name, capacity, notes) VALUES (?, ?)");
+      $stmt = $conn->prepare("INSERT INTO hdd_resources (name, capacity, notes) VALUES (?, ?, ?)");
       $stmt->execute([$hddName, $hddCapacity, $hddNotes]);
 
       header("Location: ../hdd_list");

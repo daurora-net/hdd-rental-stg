@@ -6,8 +6,7 @@ include '../common/db.php';
 $filter_returned = isset($_GET['filter_returned']) ? $_GET['filter_returned'] : '';
 
 // WHERE句を可変にする
-$sql = "SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.cable, hr.is_returned, hr.return_date, hr.duration, hr.notes, hr.resource_id,
-               CONCAT(r.name, IF(r.capacity <> '' AND r.capacity IS NOT NULL, CONCAT('_', r.capacity), '')) AS hdd_name
+$sql = "SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.cable, hr.is_returned, hr.return_date, hr.duration, hr.notes, hr.resource_id, r.name as hdd_name, r.capacity as hdd_capacity 
         FROM hdd_rentals hr
         JOIN hdd_resources r ON hr.resource_id = r.id
         WHERE 1=1";
@@ -97,7 +96,10 @@ include '../parts/head.php';
                 担当者 <i class="fa-solid fa-sort"></i>
               </th>
               <th onclick="sortTable(this, 4)">
-                HDD No <i class="fa-solid fa-sort"></i>
+                HDD No. <i class="fa-solid fa-sort"></i>
+              </th>
+              <th onclick="sortTable(this, 5)">
+                容量 <i class="fa-solid fa-sort"></i>
               </th>
               <th onclick="sortTable(this, 5)">
                 開始日 <i class="fa-solid fa-sort"></i>
@@ -148,6 +150,7 @@ include '../parts/head.php';
                 <td><?php echo htmlspecialchars($rental['title']); ?></td>
                 <td><?php echo htmlspecialchars($rental['manager']); ?></td>
                 <td><?php echo htmlspecialchars($rental['hdd_name']); ?></td>
+                <td><?php echo htmlspecialchars($rental['hdd_capacity']); ?></td>
                 <td><?php echo htmlspecialchars($rental['start']); ?></td>
                 <td><?php echo htmlspecialchars($rental['end']); ?></td>
                 <td><?php echo htmlspecialchars($rental['location']); ?></td>
