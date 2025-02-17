@@ -19,12 +19,12 @@
 
       <div class="flex">
         <div class="form-content w-150px">
-          <label for="editEventStart">開始日</label>
-          <input type="date" id="editEventStart" name="eventStart">
+          <label for="editEventStart" class="required">開始日</label>
+          <input type="date" id="editEventStart" name="eventStart" required>
         </div>
         <div class="form-content w-150px">
-          <label for="editEventEnd">終了予定日</label>
-          <input type="date" id="editEventEnd" name="eventEnd">
+          <label for="editEventEnd" class="required">終了予定日</label>
+          <input type="date" id="editEventEnd" name="eventEnd" required>
         </div>
       </div>
 
@@ -38,12 +38,11 @@
           </div>
         </div>
         <div class="form-content w-200px">
-          <label for="editRentalLocation">使用場所</label>
+          <label for="editRentalLocation" class="required">使用場所</label>
           <div class="custom-select-wrapper">
-            <select id="editRentalLocation" name="rentalLocation">
-              <option value="" selected></option>
+            <select id="editRentalLocation" name="rentalLocation" required>
+              <option value="104" selected>104</option>
               <option value="外部">外部</option>
-              <option value="104">104</option>
             </select>
           </div>
         </div>

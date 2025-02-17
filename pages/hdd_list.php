@@ -49,7 +49,7 @@ include '../parts/head.php';
         <button id="addHddBtn" class="add-btn"><i class="fa-solid fa-plus"></i></button>
       </div>
       <!-- HDD一覧表示 -->
-      <div class="hdd-list list-container table-scroll">
+      <div class="hdd-list table-container table-scroll">
         <table>
           <thead>
             <tr>

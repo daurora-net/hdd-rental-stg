@@ -315,6 +315,11 @@ button.csv-btn:hover {
 /*========= calendar ===============*/
 /* primarycolor : #fcfcfc */
 /* 透過primarycolor : #f5f5f542 */
+#calendar {
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
 #calendar .add-btn {
   position: absolute;
 }
@@ -666,11 +671,61 @@ body.page-login .login-wrap .error-message {
     font-size: 26px;
   }
 }
-/*========= table ===============*/
-.table-scroll {
-  overflow-x: auto;
+/*========= table-container ===============*/
+.table-container {
+  display: inline-block;
+  overflow-y: auto;
+  height: calc(85vh - 100px);
+  position: relative;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 100%;
+  margin: 20px 0;
+  overflow: auto;
+}
+.table-container table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.table-container table thead th,
+.table-container table tbody td {
+  font-size: 0.85rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 10px 10px 7px;
+  border-right: 1px solid #ccc;
+}
+.table-container table thead th {
+  position: sticky;
+  top: 0;
+  text-align: left;
+  background-color: #f2f2f2;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  z-index: 10;
+}
+.table-container table tbody td {
+  border-bottom: 1px solid #ccc;
+}
+.table-container table th:last-child,
+.table-container table td:last-child {
+  border-right: none;
+}
+.table-container table tbody tr:last-child td {
+  border-bottom: none;
 }
 
+/*========= table-container ===============*/
+/* editボタン */
+.edit-btn {
+  color: #939393;
+}
+
+/*========= table-sort ===============*/
 .table-sort th {
   cursor: pointer;
 }
@@ -727,7 +782,7 @@ main {
     width: max-content;
     max-width: 100%;
     margin: 0 auto;
-    padding: 0 3%;
+    padding: 0 3% 3%;
   }
 }
 @media (max-width: 768px) {
@@ -911,51 +966,6 @@ aside nav.nav ul li a span.icon {
 /* ID */
 /* HDD No. */
 /*========= index ===============*/
-/*========= rental_list page ===============*/
-.list-container {
-  position: relative;
-  margin: 20px 0;
-}
-
-.list-container table {
-  border-collapse: collapse;
-  width: auto;
-  table-layout: auto;
-}
-
-.list-container table th,
-.list-container table td {
-  font-size: 0.85rem;
-  border: 1px solid #ccc;
-  padding: 10px 10px 7px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.list-container th {
-  background-color: #f2f2f2;
-  text-align: left;
-}
-
-.list-container td {
-  width: auto;
-}
-
-/* ID */
-/* 番組名 */
-/* 担当者 */
-/* HDD No. */
-/* 開始日 */
-/* 終了予定日 */
-/* 使用場所 */
-/* 返却済 */
-/* 返却日 */
-/* editボタン */
-.edit-btn {
-  color: #939393;
-}
-
 /*========= hdd_list page ===============*/
 .user-list {
   margin-top: 100px;

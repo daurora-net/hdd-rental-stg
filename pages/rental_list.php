@@ -81,7 +81,7 @@ include '../parts/head.php';
         </div>
       </div>
       <!-- レンタル一覧表示 -->
-      <div class="rental-list list-container table-scroll">
+      <div class="rental-list table-container table-scroll">
         <table class="table-sort">
           <thead>
             <tr>

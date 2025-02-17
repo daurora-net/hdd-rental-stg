@@ -37,8 +37,8 @@ include '../parts/head.php';
 
     <div class="container">
       <h2 class="sp">USER</h2>
-      <div class="user-list list-container table-scroll">
-        <table border="1" cellpadding="8" cellspacing="0">
+      <div class="user-list table-container table-scroll">
+        <table>
           <thead>
             <tr>
               <th>ID</th>

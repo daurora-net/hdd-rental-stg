@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
           });
 
           resourcesData = data.reduce((acc, resource) => {
-            acc[resource.id] = resource.name + (resource.capacity ? '_' + resource.capacity : '');
+            acc[resource.id] = resource.name + (resource.capacity ? '＿' + resource.capacity : '');
             return acc;
           }, {});
           successCallback(data);

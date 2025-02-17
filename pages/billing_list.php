@@ -121,7 +121,7 @@ include '../parts/head.php';
       </div>
 
       <!-- ▼ テーブル表示 -->
-      <div class="billing-list list-container table-scroll">
+      <div class="billing-list table-container table-scroll">
         <table>
           <thead>
             <tr>
