@@ -33,6 +33,14 @@
 }
 
 /* カレンダー内コンテンツ */
+.fc .fc-day-today {
+  background-color: #fffc5f24 !important;
+}
+
+.fc .fc-timeline-slot:hover {
+  background-color: #f0f8ff;
+}
+
 .fc .fc-timeline-events {
   line-height: 15px;
 }

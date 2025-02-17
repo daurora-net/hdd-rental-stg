@@ -349,6 +349,14 @@ button.csv-btn:hover {
 }
 
 /* カレンダー内コンテンツ */
+.fc .fc-day-today {
+  background-color: rgba(255, 252, 95, 0.1411764706) !important;
+}
+
+.fc .fc-timeline-slot:hover {
+  background-color: #f0f8ff;
+}
+
 .fc .fc-timeline-events {
   line-height: 15px;
 }

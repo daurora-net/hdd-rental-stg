@@ -15,6 +15,17 @@ document.addEventListener('DOMContentLoaded', function () {
     resourceAreaHeaderContent: 'HDD No.',
     resourceOrder: 'name',
 
+    selectable: true,
+    dateClick: function(info) {
+      // 「新規追加モーダル (addRentalModal) 」を開き、開始日にクリックした日付を設定する
+      var addRentalModal = document.getElementById("addRentalModal");
+      if (addRentalModal) {
+        addRentalModal.style.display = "block";
+        // 取得した info.dateStr は "YYYY-MM-DDTHH:MM:SSZ" のような形式なので slice(0,10) で日付部分を切り出す
+        document.getElementById("addRentalStart").value = info.dateStr.slice(0, 10);
+      }
+    },
+
     resourceLabelContent: function (arg) {
       return resourcesData[arg.resource.id] ? resourcesData[arg.resource.id] : arg.resource.id;
     },
