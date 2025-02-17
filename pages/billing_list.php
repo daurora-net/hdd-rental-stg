@@ -83,8 +83,8 @@ include '../parts/head.php';
     include '../parts/nav_header.php';
     ?>
 
-    <div class="container">
-      <h2 class="sp">BILLING</h2>
+    <div class="container print">
+      <h2 class="sp no-print">BILLING</h2>
       <div class="header-container">
         <!-- ソートボックス -->
         <!-- ▼ 年月セレクト (実際にある返却日のみ) -->
