@@ -112,6 +112,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // USER編集モーダルの表示
+  var editUserBtns = document.querySelectorAll(".edit-user-btn");
+  if (editUserBtns) {
+    editUserBtns.forEach(function(editBtn) {
+      editBtn.addEventListener("click", function() {
+        var editUserModal = document.getElementById("editUserModal");
+        if (editUserModal) {
+          var userId = editBtn.getAttribute("data-id");
+          var username = editBtn.getAttribute("data-username");
+
+          document.getElementById("editUserId").value = userId;
+          document.getElementById("editUsername").value = username;
+
+          editUserModal.style.display = "block";
+        }
+      });
+    });
+  }
+
   // モーダルの外側をクリックしたときにモーダルを閉じる処理
   window.addEventListener('click', function (event) {
     var addHddModal = document.getElementById("addHddModal");
