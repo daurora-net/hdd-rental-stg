@@ -30,8 +30,11 @@ body.page-login {
     }
 
     .error-message {
+      color: #1cda61;
       font-size: small;
-      color: #ff3d00;
+      font-weight: bold;
+      text-align: center;
+      padding-bottom: 20px;
     }
   }
 }

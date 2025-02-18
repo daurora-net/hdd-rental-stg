@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail->isSMTP();
     $mail->Host = 'sv12068.xserver.jp'; // SMTPサーバー
     $mail->Username = 'dev@daurora.xsrv.jp'; // SMTPユーザー名
-    $mail->Password = 'Wen0606110483';   // SMTPパスワード
+    $mail->Password = 'wendy110483';   // SMTPパスワード
     $mail->Port = 587;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->SMTPAuth = true;

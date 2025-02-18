@@ -11,8 +11,8 @@ $currentUserRole = $stmtRole->fetchColumn();
 //   exit();
 // }
 
-// 【データ取得】users テーブルから全件取得
-$stmt = $conn->prepare("SELECT * FROM users");
+// 【データ取得】deleted_at が NULL のユーザーのみ取得
+$stmt = $conn->prepare("SELECT * FROM users WHERE deleted_at IS NULL");
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>

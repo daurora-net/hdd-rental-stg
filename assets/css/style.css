@@ -295,6 +295,42 @@ button.csv-btn:hover {
   border: 1px solid #5dc2b3;
 }
 
+/*========= delete ===============*/
+button.delete-btn {
+  display: block;
+  background: #eaa2a2;
+  color: #fff;
+  border: 1px solid #eaa2a2;
+  margin: 30px 0 0;
+  width: 110px;
+  height: 45px;
+  line-height: 45px;
+}
+
+button.delete-btn:hover {
+  background: #fff;
+  color: #eaa2a2;
+  border: 1px solid #eaa2a2;
+}
+
+/*========= cancel ===============*/
+button.cancel-btn {
+  display: block;
+  background: #fff;
+  color: #c9c9c9;
+  border: 1px solid #c9c9c9;
+  margin: 30px 0 0;
+  width: 110px;
+  height: 45px;
+  line-height: 45px;
+}
+
+button.cancel-btn:hover {
+  background: #c9c9c9;
+  color: #fff;
+  border: 1px solid #c9c9c9;
+}
+
 /*========= index ===============*/
 .add-btn {
   display: flex;
@@ -604,8 +640,11 @@ body.page-login .login-wrap .register-info {
   color: #333;
 }
 body.page-login .login-wrap .error-message {
+  color: #1cda61;
   font-size: small;
-  color: #ff3d00;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 20px;
 }
 
 .verification_message {
@@ -987,4 +1026,4 @@ aside nav.nav ul li a span.icon {
   .user-list {
     margin-top: 30px;
   }
-}/*# sourceMappingURL=style.css.map */
+}

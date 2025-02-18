@@ -10,7 +10,16 @@
         <label for="editUsername" class="required">Username</label>
         <input type="text" id="editUsername" name="username" required>
       </div>
-      <button type="submit" class="modal-btn">保存</button>
+      <div class="flex">
+        <button type="submit" class="modal-btn">保存</button>
+        <button type="submit" class="delete-btn"
+        name="delete" value="1"
+        onclick="return confirm('本当に削除してよろしいですか？');">削除</button>
+        <button type="button" class="cancel-btn"
+          onclick="document.getElementById('editUserModal').style.display='none';">
+          キャンセル
+        </button>
+      </div>
     </form>
   </div>
 </div>

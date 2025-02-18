@@ -8,7 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = $_POST['email'];
   $password = $_POST['password'];
 
-  $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+  // ▼ 修正ポイント：「deleted_at IS NULL」を追加
+  $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND deleted_at IS NULL");
   $stmt->execute([$email]);
   $user = $stmt->fetch();
 
@@ -21,10 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (!empty($_POST['remember'])) {
         // 16バイトのランダムなトークンを生成
         $token = bin2hex(random_bytes(16));
-        // ユーザーテーブルに remember_token を保存（カラムを追加しておく必要があります）
+        // ユーザーテーブルに remember_token を保存
         $stmt = $conn->prepare("UPDATE users SET remember_token = ? WHERE id = ?");
         $stmt->execute([$token, $user['id']]);
-        // クッキーに remember_token を保存（30日間有効、HTTPS時はsecure属性を追加してください）
+        // クッキーに remember_token を保存（30日間有効）
         setcookie("remember_token", $token, time() + (86400 * 30), "/", "", false, true);
       }
 
@@ -50,6 +51,11 @@ include 'parts/head.php';
   <div class="login-wrap">
     <h1>株式会社いちまるよん<br><span>編集部 HDD管理</span></h1>
     <form method="post" class="form">
+      <?php if (!empty($error_message)): ?>
+        <div class="error-message">
+          <?php echo htmlspecialchars($error_message); ?>
+        </div>
+      <?php endif; ?>
       <div class="form-content">
         <label for="email">メールアドレス</label>
         <input type="email" id="email" name="email" required>
@@ -62,11 +68,6 @@ include 'parts/head.php';
         <input type="checkbox" name="remember" id="remember">
         <label for="remember">保存する</label>
       </div>
-      <?php if (!empty($error_message)): ?>
-        <div class="error-message">
-          <?php echo htmlspecialchars($error_message); ?>
-        </div>
-      <?php endif; ?>
       <button type="submit" class="login">ログイン</button>
     </form>
     <div class="register-info">
