@@ -1,19 +1,16 @@
 <?php
-// レンタル中でないHDDのリソースを取得
-$stmt = $conn->prepare("
-    SELECT r.id, r.name 
-    FROM hdd_resources r
-    LEFT JOIN hdd_rentals hr ON r.id = hr.resource_id AND hr.is_returned = FALSE 
-    WHERE hr.resource_id IS NULL
-");
-$stmt->execute();
-$hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// modals/add_rental_modal.php
+// ※ DB接続は不要（JSでfetchするため）
+//   もし従来の「PHPで直接SELECT→<option>生成」だった場合、そちらを削除する
+
+// ※ ここでは <select> は空の状態で用意し、JSで動的に埋め込む
 ?>
 
 <div id="addRentalModal" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="document.getElementById('addRentalModal').style.display='none'"><i
-        class="fa-solid fa-xmark"></i></span>
+    <span class="close" onclick="document.getElementById('addRentalModal').style.display='none'">
+      <i class="fa-solid fa-xmark"></i>
+    </span>
     <form method="post" class="form" action="actions/add_rental.php">
       <h3>スケジュール追加</h3>
       <div class="flex">
@@ -41,13 +38,9 @@ $hddResourcesForAdd = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <div class="flex">
         <div class="form-content w-200px">
           <label for="addRentalHdd" class="required">HDD No.</label>
-          <div class="custom-select-wrapper">
-            <select id="addRentalHdd" name="rentalHdd" required>
-              <?php foreach ($hddResourcesForAdd as $resource) { ?>
-                <option value="<?php echo $resource['id']; ?>"><?php echo $resource['name']; ?></option>
-              <?php } ?>
-            </select>
-          </div>
+          <!-- ▼ 初期状態では空。JSで fetch し、<option> を注入 -->
+          <select id="addRentalHdd" name="rentalHdd" required>
+          </select>
         </div>
         <div class="form-content w-200px">
           <label for="addRentalLocation" class="required">使用場所</label>

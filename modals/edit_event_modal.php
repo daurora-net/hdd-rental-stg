@@ -1,7 +1,8 @@
 <div id="editEventModal" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="document.getElementById('editEventModal').style.display='none'"><i
-        class="fa-solid fa-xmark"></i></span>
+    <span class="close" onclick="document.getElementById('editEventModal').style.display='none'">
+      <i class="fa-solid fa-xmark"></i>
+    </span>
     <form method="post" class="form" action="actions/edit_event.php">
       <h3>スケジュール編集</h3>
       <input type="hidden" id="editEventId" name="eventId">
@@ -32,9 +33,8 @@
         <div class="form-content w-200px">
           <label for="editRentalHdd" class="required">HDD No.</label>
           <div class="custom-select-wrapper">
-            <select id="editRentalHdd" name="rentalHdd" required>
-              <!-- オプションはJavaScriptで動的に設定 -->
-            </select>
+            <!-- ▼ JSで options を動的に注入 -->
+            <select id="editRentalHdd" name="rentalHdd" required></select>
           </div>
         </div>
         <div class="form-content w-200px">
@@ -58,12 +58,6 @@
           </select>
         </div>
       </div>
-
-      <!-- <div class="form-content">
-        <label for="editIsReturned">返却済</label>
-        <input type="checkbox" id="editIsReturned" name="isReturned" class="custom-checkbox">
-        <label for="editIsReturned"></label>
-      </div> -->
 
       <div class="flex">
         <div class="form-content w-150px">

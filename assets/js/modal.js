@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // HDD追加モーダルの表示
+
+  // ---------------------------------------------
+  // 1) HDD追加モーダル
+  // ---------------------------------------------
   var addHddBtn = document.getElementById("addHddBtn");
   if (addHddBtn) {
     addHddBtn.addEventListener("click", function () {
@@ -10,109 +13,133 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // レンタル追加モーダルの表示
-  var addRentalBtn = document.getElementById("addRentalBtn");
-  if (addRentalBtn) {
-    addRentalBtn.addEventListener("click", function () {
-      var addRentalModal = document.getElementById("addRentalModal");
-      if (addRentalModal) {
-        addRentalModal.style.display = "block";
-      }
-    });
-  }
-
-  // HDD編集モーダルの表示
-  var editHddBtns = document.querySelectorAll(".edit-hdd-btn"); // HDD編集ボタン用クラス
+  // ---------------------------------------------
+  // 2) HDD編集モーダル
+  // ---------------------------------------------
+  var editHddBtns = document.querySelectorAll(".edit-hdd-btn"); // HDD編集ボタン
   if (editHddBtns) {
     editHddBtns.forEach(function (editBtn) {
       editBtn.addEventListener("click", function () {
         var editHddModal = document.getElementById("editHddModal");
-        if (editHddModal) {
-          var hddId = editBtn.getAttribute("data-id");
-          var hddName = editBtn.getAttribute("data-name");
-          var hddNotes = editBtn.getAttribute("data-notes");
+        if (!editHddModal) return;
 
-          var hddCapacity = editBtn.getAttribute("data-capacity");
-          if (!hddCapacity) {
-            hddCapacity = "";
-          }
+        // ボタンの data-* 属性から情報を取得してフォームへセット
+        var hddId = editBtn.getAttribute("data-id");
+        var hddName = editBtn.getAttribute("data-name");
+        var hddCapacity = editBtn.getAttribute("data-capacity") || "";
+        var hddNotes = editBtn.getAttribute("data-notes") || "";
 
-          document.getElementById("editHddId").value = hddId;
-          document.getElementById("editHddName").value = hddName;
-          document.getElementById("editHddCapacity").value = hddCapacity;
-          document.getElementById("editHddNotes").value = hddNotes;
+        document.getElementById("editHddId").value = hddId;
+        document.getElementById("editHddName").value = hddName;
+        document.getElementById("editHddCapacity").value = hddCapacity;
+        document.getElementById("editHddNotes").value = hddNotes;
 
-          editHddModal.style.display = "block";
-        }
+        // モーダル表示
+        editHddModal.style.display = "block";
       });
     });
   }
 
-  // イベント編集モーダルの表示
-  var editEventBtns = document.querySelectorAll(".edit-event-btn"); // レンタル編集ボタン用クラス
-  if (editEventBtns) {
+  // ---------------------------------------------
+  // 3) レンタル追加モーダル
+  //    「未使用HDD」リストを取得して <select> に注入
+  // ---------------------------------------------
+  var addRentalBtn = document.getElementById("addRentalBtn");
+  if (addRentalBtn) {
+    addRentalBtn.addEventListener("click", function () {
+      var addRentalModal = document.getElementById("addRentalModal");
+      if (!addRentalModal) return;
+
+      // ▼ current_rental_id=0 として呼び出し、「最新が未使用 or レンタル履歴がない」HDDを取得
+      fetch('actions/fetch_available_resources.php?current_rental_id=0')
+        .then(response => response.json())
+        .then(data => {
+          var hddSelect = document.getElementById("addRentalHdd");
+          if (!hddSelect) return;
+          hddSelect.innerHTML = ''; // クリア
+
+          data.forEach(function (resource) {
+            var option = document.createElement("option");
+            option.value = resource.id;
+            option.textContent = resource.name;
+            hddSelect.appendChild(option);
+          });
+
+          // ▼ モーダル表示
+          addRentalModal.style.display = "block";
+        })
+        .catch(error => {
+          console.error("未使用HDD取得エラー (addRentalModal):", error);
+          // 失敗してもとりあえずモーダルは表示する
+          addRentalModal.style.display = "block";
+        });
+    });
+  }
+
+  // ---------------------------------------------
+  // 4) レンタル編集モーダル
+  //    「未使用HDD + このレンタルのリソース」を取得して <select> に注入
+  // ---------------------------------------------
+  var editEventBtns = document.querySelectorAll(".edit-event-btn"); // レンタル編集ボタン
+  if (editEventBtns.length > 0) {
     editEventBtns.forEach(function (editBtn) {
       editBtn.addEventListener("click", function () {
         var editEventModal = document.getElementById("editEventModal");
-        if (editEventModal) {
-          // ボタンの data-* 属性からデータを取得
-          var rentalId = editBtn.getAttribute('data-id');
-          var title = editBtn.getAttribute('data-title');
-          var manager = editBtn.getAttribute('data-manager');
-          var start = editBtn.getAttribute('data-start');
-          var end = editBtn.getAttribute('data-end');
-          var resourceId = editBtn.getAttribute('data-resource-id');
-          var location = editBtn.getAttribute('data-location');
-          var cable = editBtn.getAttribute('data-cable');
-          var isReturned = editBtn.getAttribute('data-is-returned') == '1' || editBtn.getAttribute('data-is-returned') == 'true';
-          var returnDate = editBtn.getAttribute('data-return-date');
-          var notes = editBtn.getAttribute('data-notes');
+        if (!editEventModal) return;
 
-          // モーダル内のフォームにデータをセット
-          document.getElementById('editEventId').value = rentalId;
-          document.getElementById('editEventTitle').value = title;
-          document.getElementById('editEventManager').value = manager;
-          document.getElementById('editEventStart').value = start;
-          document.getElementById('editEventEnd').value = end;
-          // 利用可能なHDDリソースを取得してセレクトボックスを更新
-          if (resourceId) {
-            fetch(`actions/fetch_available_resources.php?current_rental_id=${rentalId}`)
-              .then(response => response.json())
-              .then(data => {
-                var hddSelect = document.getElementById("editRentalHdd");
-                hddSelect.innerHTML = ''; // 既存のオプションをクリア
+        // ボタンの data-* 属性から各データを取得
+        var rentalId = editBtn.getAttribute('data-id');
+        var title = editBtn.getAttribute('data-title');
+        var manager = editBtn.getAttribute('data-manager');
+        var start = editBtn.getAttribute('data-start');
+        var end = editBtn.getAttribute('data-end');
+        var resourceId = editBtn.getAttribute('data-resource-id');
+        var location = editBtn.getAttribute('data-location') || "";
+        var cable = editBtn.getAttribute('data-cable') || "";
+        var returnDate = editBtn.getAttribute('data-return-date') || "";
+        var notes = editBtn.getAttribute('data-notes') || "";
 
-                data.forEach(function (resource) {
-                  var option = document.createElement("option");
-                  option.value = resource.id;
-                  option.textContent = resource.name;
-                  hddSelect.appendChild(option);
-                });
+        // ▼ フォームへセット
+        document.getElementById("editEventId").value = rentalId;
+        document.getElementById("editEventTitle").value = title;
+        document.getElementById("editEventManager").value = manager;
+        document.getElementById("editEventStart").value = start;
+        document.getElementById("editEventEnd").value = end;
+        document.getElementById("editRentalLocation").value = location;
+        document.getElementById("editRentalCable").value = cable;
+        document.getElementById("editReturnDate").value = returnDate;
+        document.getElementById("editEventNotes").value = notes;
 
-                // 現在のリソースを選択状態にする
-                hddSelect.value = resourceId;
-              })
-              .catch(error => {
-                console.error("利用可能なHDDリソースの取得エラー:", error);
-              });
-          }
-          document.getElementById('editRentalLocation').value = location;
-          document.getElementById('editRentalCable').value = cable;
-          // document.getElementById('editIsReturned').checked = isReturned;
-          document.getElementById('editReturnDate').value = returnDate;
-          document.getElementById('editEventNotes').value = notes;
+        // ▼ 「未使用HDD + 現在のresourceId」を取得
+        //    current_rental_id = rentalId
+        fetch('actions/fetch_available_resources.php?current_rental_id=' + rentalId)
+          .then(response => response.json())
+          .then(data => {
+            var hddSelect = document.getElementById("editRentalHdd");
+            hddSelect.innerHTML = '';
 
-          // モーダルを表示
-          editEventModal.style.display = 'block';
+            data.forEach(function (resource) {
+              var option = document.createElement("option");
+              option.value = resource.id;
+              option.textContent = resource.name;
+              hddSelect.appendChild(option);
+            });
+            // ▼ このレンタルが利用中のresourceを選択状態に
+            hddSelect.value = resourceId;
+          })
+          .catch(error => {
+            console.error("未使用HDD取得エラー (editEventModal):", error);
+          });
 
-          // 使用日数を初期化（開始日: editEventStart を使用）
-          calculateDuration('editEventStart', 'editReturnDate', 'editRentalDuration');
-        }
+        // ▼ モーダル表示
+        editEventModal.style.display = 'block';
       });
     });
   }
 
-  // USER編集モーダルの表示
+  // ---------------------------------------------
+  // 5) USER編集モーダル
+  // ---------------------------------------------
   var editUserBtns = document.querySelectorAll(".edit-user-btn");
   if (editUserBtns) {
     editUserBtns.forEach(function (editBtn) {
@@ -131,18 +158,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // モーダルの外側をクリックしたときにモーダルを閉じる処理
+  // ---------------------------------------------
+  // 6) モーダルの外側クリックで閉じる処理
+  // ---------------------------------------------
   window.addEventListener('click', function (event) {
+    // 各モーダルを取得
     var addHddModal = document.getElementById("addHddModal");
     var addRentalModal = document.getElementById("addRentalModal");
     var editHddModal = document.getElementById("editHddModal");
     var editEventModal = document.getElementById("editEventModal");
 
-    if (event.target === addHddModal) {
+    // クリック対象が各モーダルそのものだった場合に閉じる
+    if (addHddModal && event.target === addHddModal) {
       addHddModal.style.display = "none";
       addHddModal.querySelector('form').reset();
     }
-    if (event.target === addRentalModal) {
+    if (addRentalModal && event.target === addRentalModal) {
       addRentalModal.style.display = "none";
       addRentalModal.querySelector('form').reset();
     }
@@ -160,14 +191,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // モーダルの閉じるボタンをクリックしたときの処理
+  // ---------------------------------------------
+  // 7) モーダル内の「×」閉じるボタン
+  // ---------------------------------------------
   document.querySelectorAll('.close').forEach(function (closeBtn) {
     closeBtn.addEventListener("click", function () {
       closeBtn.closest('.modal').style.display = "none";
     });
   });
 
-  // 使用日数を自動挿入
+  // ---------------------------------------------
+  // 8) 「使用日数」自動計算（開始日と返却日から）
+  // ---------------------------------------------
   function calculateDuration(startId, returnDateId, durationId) {
     var startEl = document.getElementById(startId);
     var returnDateEl = document.getElementById(returnDateId);
@@ -192,52 +227,16 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    // 修正点: 'change' に加え 'input' イベントを追加し、初期計算を実行
     startEl.addEventListener('change', updateDuration);
     startEl.addEventListener('input', updateDuration);
     returnDateEl.addEventListener('change', updateDuration);
     returnDateEl.addEventListener('input', updateDuration);
+    // 初回にも計算実行
     updateDuration();
   }
 
-  // 返却済自動チェック：新規レンタル追加モーダル用
-  var addReturnDateEl = document.getElementById('addReturnDate');
-  var addIsReturnedContainer = document.getElementById('addIsReturnedContainer');
-  var addIsReturnedEl = document.getElementById('addIsReturned');
-
-  if (addReturnDateEl) {
-    addReturnDateEl.addEventListener('input', function () {
-      if (this.value) {
-        addIsReturnedContainer.style.display = 'block';
-        addIsReturnedEl.checked = true;
-        addIsReturnedEl.disabled = true;
-      } else {
-        addIsReturnedContainer.style.display = 'none';
-        addIsReturnedEl.checked = false;
-        addIsReturnedEl.disabled = false;
-      }
-    });
-  }
-
-  // 返却済自動チェック：イベント編集モーダル用
-  var editReturnDateEl = document.getElementById('editReturnDate');
-  var editIsReturnedEl = document.getElementById('editIsReturned');
-
-  if (editReturnDateEl) {
-    editReturnDateEl.addEventListener('input', function () {
-      if (this.value) {
-        editIsReturnedEl.checked = true;
-        editIsReturnedEl.disabled = true;
-      } else {
-        editIsReturnedEl.checked = false;
-        editIsReturnedEl.disabled = false;
-      }
-    });
-  }
-
-  // 新規レンタル追加モーダル用
+  // ▼ add_rental_modal の使用日数計算
   calculateDuration('addRentalStart', 'addReturnDate', 'addRentalDuration');
-  // イベント編集モーダル用
+  // ▼ edit_event_modal の使用日数計算
   calculateDuration('editEventStart', 'editReturnDate', 'editRentalDuration');
-
 });
