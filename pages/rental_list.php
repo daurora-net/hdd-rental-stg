@@ -1,7 +1,8 @@
 <?php
 include '../common/db.php';
 
-// 返却フィルターの取得（GETパラメータ）
+// レンタル情報を取得（resource_id を含める）
+// 返却フィルターの取得
 $filter_returned = isset($_GET['filter_returned']) ? $_GET['filter_returned'] : '';
 
 // 表示件数の取得（デフォルトは10件）
@@ -18,11 +19,13 @@ if ($page < 1) {
 
 // メインのSQL（レンタル情報取得）
 // ※必要に応じてWHERE条件を追加（例：filter_returned が '0' の場合）
+// WHERE句を可変にする
 $sql = "SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.cable, hr.is_returned, hr.return_date, hr.duration, hr.notes, hr.resource_id, r.name as hdd_name, r.capacity as hdd_capacity 
         FROM hdd_rentals hr
         JOIN hdd_resources r ON hr.resource_id = r.id
-        WHERE 1=1";
+        WHERE hr.deleted_at IS NULL";
 
+// もし「未返却」を指定されたら is_returned=0 だけを抽出
 if ($filter_returned === '0') {
   $sql .= " AND hr.is_returned = 0";
 }
@@ -56,9 +59,13 @@ $rentals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_SESSION['reloaded'])) {
   unset($_SESSION['reloaded']);
+  // 必要な場合はアラート
+  // echo "<script>
+  //           history.replaceState(null, null, 'rental_list');
+  //           alert('更新しました。');
+  //           window.location.reload();
+  //         </script>";
 }
-
-// 現在ログイン中のユーザーのroleを取得
 $stmtRole = $conn->prepare("SELECT role FROM users WHERE username = ?");
 $stmtRole->execute([$_SESSION['username']]);
 $currentUserRole = $stmtRole->fetchColumn();
@@ -69,8 +76,10 @@ if (!in_array($currentUserRole, [1, 2])) {
   exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html>
+
 <?php
 $pageTitle = 'SCHEDULE';
 include '../parts/head.php';
@@ -91,6 +100,7 @@ include '../parts/head.php';
           <button id="addRentalBtn" class="add-btn"><i class="fa-solid fa-plus"></i></button>
           <!-- フィルターと表示件数選択 -->
           <form method="get" action="">
+            <!-- ソートセレクトボックス -->
             <div class="custom-select-wrapper w-100px">
               <select id="filter_returned" name="filter_returned" onchange="this.form.submit();">
                 <option value="">すべて</option>
@@ -218,12 +228,20 @@ include '../parts/head.php';
           </li>
         <?php endif; ?>
       </ul>
-
-
-
-
     </div>
+
+    <?php
+    // 追加モーダル
+    include '../modals/add_rental_modal.php';
+    ?>
+
+    <?php
+    // 編集モーダル
+    include '../modals/edit_event_modal.php';
+    ?>
   </main>
+
+  <!-- modal.js を読み込む -->
   <script src="../assets/js/modal.js"></script>
   <script src="../assets/js/table.js"></script>
 </body>
