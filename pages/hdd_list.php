@@ -12,10 +12,14 @@ if (!in_array($currentUserRole, [1, 2])) {
 }
 
 // HDDリソース情報を取得
-$stmt = $conn->prepare("SELECT id, name, capacity, notes FROM hdd_resources");
+// ▼ 「deleted_at IS NULL」を条件に追加する
+$stmt = $conn->prepare("
+  SELECT id, name, capacity, notes 
+  FROM hdd_resources
+  WHERE deleted_at IS NULL
+");
 $stmt->execute();
 $hddResources = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 if (isset($_SESSION['reloaded'])) {
   unset($_SESSION['reloaded']);
 }
