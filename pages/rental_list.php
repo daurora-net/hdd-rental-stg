@@ -136,14 +136,14 @@ include '../parts/head.php';
               <th onclick="sortTable(this, 3)">担当者 <i class="fa-solid fa-sort"></i></th>
               <th onclick="sortTable(this, 4)">HDD No. <i class="fa-solid fa-sort"></i></th>
               <th onclick="sortTable(this, 5)">容量 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 5)">開始日 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 6)">終了予定日 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 7)">使用場所 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 8)">ケーブル <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 9)">返却済 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 10)">返却日 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 11)">使用日数 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 12)">メモ <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 6)">開始日 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 7)">終了予定日 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 8)">使用場所 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 9)">ケーブル <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 10)">返却済 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 11)">返却日 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 12)">使用日数 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 13)">メモ <i class="fa-solid fa-sort"></i></th>
             </tr>
           </thead>
           <tbody>

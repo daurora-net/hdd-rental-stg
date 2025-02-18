@@ -822,6 +822,9 @@ body.page-login .login-wrap .error-message {
   color: #939393;
   background-color: transparent;
 }
+.edit-btn:hover {
+  opacity: 0.7;
+}
 
 /*========= table-sort ===============*/
 .table-sort th {
