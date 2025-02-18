@@ -36,14 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
 
     } else {
-      // ▼ 通常の「編集保存」
-      // （email / role を更新したい場合があるため残しておく）
+      // ▼ username のみ編集
       $stmt = $conn->prepare("
         UPDATE users
-        SET username = ?, email = ?, role = ?
+        SET username = ?
         WHERE id = ?
       ");
-      $stmt->execute([$username, $email, $role, $userId]);
+      $stmt->execute([$username, $userId]);
     }
 
     // 処理後は元のページに戻る

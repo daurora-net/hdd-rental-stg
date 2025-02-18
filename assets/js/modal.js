@@ -115,8 +115,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // USER編集モーダルの表示
   var editUserBtns = document.querySelectorAll(".edit-user-btn");
   if (editUserBtns) {
-    editUserBtns.forEach(function(editBtn) {
-      editBtn.addEventListener("click", function() {
+    editUserBtns.forEach(function (editBtn) {
+      editBtn.addEventListener("click", function () {
         var editUserModal = document.getElementById("editUserModal");
         if (editUserModal) {
           var userId = editBtn.getAttribute("data-id");
@@ -153,6 +153,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (editEventModal && event.target === editEventModal) {
       editEventModal.style.display = "none";
       editEventModal.querySelector('form').reset();
+    }
+    if (editUserModal && event.target === editUserModal) {
+      editUserModal.style.display = "none";
+      editUserModal.querySelector('form').reset();
     }
   });
 
