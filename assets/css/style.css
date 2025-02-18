@@ -39,6 +39,10 @@ textarea {
   }
 }
 /*========= margin ===============*/
+.ml-10 {
+  margin-left: 10px;
+}
+
 .ml-20 {
   margin-left: 20px;
 }
@@ -722,16 +726,53 @@ body.page-login .login-wrap .error-message {
     font-size: 26px;
   }
 }
+.pagination {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  justify-content: center;
+}
+.pagination a {
+  display: inline-block;
+  color: black;
+  border-radius: 50%;
+  border: 1px solid #dedede;
+  text-decoration: none;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+.pagination a:hover {
+  background-color: #86c8cc;
+  color: white;
+}
+.pagination a i {
+  line-height: 40px;
+}
+.pagination .active a {
+  background-color: #5CC6CD;
+  color: white;
+}
+.pagination .disabled a {
+  pointer-events: none;
+  color: #ccc;
+}
+.pagination .disabled a:hover {
+  background-color: initial;
+  color: #ccc;
+}
+
 /*========= table-container ===============*/
 .table-container {
   display: inline-block;
   overflow-y: auto;
-  height: calc(85vh - 100px);
+  max-height: calc(85vh - 150px);
   position: relative;
   width: -moz-max-content;
   width: max-content;
   max-width: 100%;
-  margin: 20px 0;
+  margin: 20px 0 0;
   overflow: auto;
 }
 .table-container table {
@@ -820,11 +861,11 @@ main {
 
 .container {
   margin: 0 10% 0;
+  padding: 40px 0;
 }
 
 .header-container {
   position: relative;
-  margin: 40px 0 0;
 }
 
 @media (max-width: 1300px) {
@@ -839,9 +880,6 @@ main {
 @media (max-width: 768px) {
   main {
     width: 100%;
-  }
-  .header-container {
-    margin: 20px 0 0;
   }
   .container {
     margin: 5% auto;

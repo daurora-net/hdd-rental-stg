@@ -1,35 +1,64 @@
 <?php
 include '../common/db.php';
 
-// レンタル情報を取得（resource_id を含める）
-// 返却フィルターの取得
+// 返却フィルターの取得（GETパラメータ）
 $filter_returned = isset($_GET['filter_returned']) ? $_GET['filter_returned'] : '';
 
-// WHERE句を可変にする
+// 表示件数の取得（デフォルトは10件）
+$perPage = isset($_GET['perPage']) ? intval($_GET['perPage']) : 10;
+if ($perPage <= 0) {
+  $perPage = 10;
+}
+
+// 現在のページ番号（デフォルトは1ページ目）
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+if ($page < 1) {
+  $page = 1;
+}
+
+// メインのSQL（レンタル情報取得）
+// ※必要に応じてWHERE条件を追加（例：filter_returned が '0' の場合）
 $sql = "SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.cable, hr.is_returned, hr.return_date, hr.duration, hr.notes, hr.resource_id, r.name as hdd_name, r.capacity as hdd_capacity 
         FROM hdd_rentals hr
         JOIN hdd_resources r ON hr.resource_id = r.id
-        WHERE hr.deleted_at IS NULL";
+        WHERE 1=1";
 
-// もし「未返却」を指定されたら is_returned=0 だけを抽出
 if ($filter_returned === '0') {
   $sql .= " AND hr.is_returned = 0";
 }
 
+// まず、全件数を取得する
+$countSql = "SELECT COUNT(*) FROM hdd_rentals hr JOIN hdd_resources r ON hr.resource_id = r.id WHERE 1=1";
+if ($filter_returned === '0') {
+  $countSql .= " AND hr.is_returned = 0";
+}
+$stmtCount = $conn->prepare($countSql);
+$stmtCount->execute();
+$totalItems = $stmtCount->fetchColumn();
+
+// ページ数の計算
+$totalPages = ceil($totalItems / $perPage);
+if ($totalPages < 1) {
+  $totalPages = 1;
+}
+if ($page > $totalPages) {
+  $page = $totalPages;
+}
+$offset = ($page - 1) * $perPage;
+
+// SQLにLIMITとOFFSETを追加
+$sql .= " LIMIT :limit OFFSET :offset";
 $stmt = $conn->prepare($sql);
+$stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $rentals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_SESSION['reloaded'])) {
   unset($_SESSION['reloaded']);
-  // 必要な場合はアラート
-  // echo "<script>
-  //           history.replaceState(null, null, 'rental_list');
-  //           alert('更新しました。');
-  //           window.location.reload();
-  //         </script>";
 }
 
+// 現在ログイン中のユーザーのroleを取得
 $stmtRole = $conn->prepare("SELECT role FROM users WHERE username = ?");
 $stmtRole->execute([$_SESSION['username']]);
 $currentUserRole = $stmtRole->fetchColumn();
@@ -40,10 +69,8 @@ if (!in_array($currentUserRole, [1, 2])) {
   exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html>
-
 <?php
 $pageTitle = 'SCHEDULE';
 include '../parts/head.php';
@@ -55,28 +82,36 @@ include '../parts/head.php';
   include '../parts/nav_menu.php';
   ?>
   <main>
-    <?php
-    include '../parts/nav_header.php';
-    ?>
-
+    <?php include '../parts/nav_header.php'; ?>
     <div class="container">
       <h2 class="sp">SCHEDULE</h2>
       <div class="header-container">
         <div class="flex">
           <!-- レンタル追加ボタン -->
           <button id="addRentalBtn" class="add-btn"><i class="fa-solid fa-plus"></i></button>
-          <!-- ソートボックス -->
+          <!-- フィルターと表示件数選択 -->
           <form method="get" action="">
             <div class="custom-select-wrapper w-100px">
-              <select id="filter_returned" name="filter_returned"
-                onchange="if(this.value==''){ window.location.href=window.location.pathname; } else { this.form.submit(); }">
+              <select id="filter_returned" name="filter_returned" onchange="this.form.submit();">
                 <option value="">すべて</option>
-                <option value="0" <?php if (isset($filter_returned) && $filter_returned === '0')
-                  echo 'selected'; ?>>
-                  未返却
-                </option>
+                <option value="0" <?php if ($filter_returned === '0')
+                  echo 'selected'; ?>>未返却</option>
               </select>
             </div>
+            <!-- 表示件数セレクトボックス -->
+            <div class="custom-select-wrapper w-150px ml-10">
+              <select name="perPage" id="perPage" onchange="this.form.submit();">
+                <?php
+                $options = [10, 30, 50, 70, 100];
+                foreach ($options as $opt) {
+                  $selected = ($opt == $perPage) ? 'selected' : '';
+                  echo "<option value=\"$opt\" $selected>$opt 件</option>";
+                }
+                ?>
+              </select>
+            </div>
+            <!-- 現在のページ番号を保持する（必要に応じて） -->
+            <input type="hidden" name="page" value="<?php echo $page; ?>">
           </form>
         </div>
       </div>
@@ -86,45 +121,19 @@ include '../parts/head.php';
           <thead>
             <tr>
               <th></th>
-              <th onclick="sortTable(this, 1)">
-                ID <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 2)">
-                番組名 <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 3)">
-                担当者 <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 4)">
-                HDD No. <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 5)">
-                容量 <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 5)">
-                開始日 <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 6)">
-                終了予定日 <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 7)">
-                使用場所 <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 8)">
-                ケーブル <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 9)">
-                返却済 <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 10)">
-                返却日 <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 11)">
-                使用日数 <i class="fa-solid fa-sort"></i>
-              </th>
-              <th onclick="sortTable(this, 12)">
-                メモ <i class="fa-solid fa-sort"></i>
-              </th>
+              <th onclick="sortTable(this, 1)">ID <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 2)">番組名 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 3)">担当者 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 4)">HDD No. <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 5)">容量 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 5)">開始日 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 6)">終了予定日 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 7)">使用場所 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 8)">ケーブル <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 9)">返却済 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 10)">返却日 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 11)">使用日数 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 12)">メモ <i class="fa-solid fa-sort"></i></th>
             </tr>
           </thead>
           <tbody>
@@ -164,20 +173,57 @@ include '../parts/head.php';
           </tbody>
         </table>
       </div>
+
+      <!-- ページネーションリンク -->
+      <ul class="pagination">
+        <?php if ($page <= 1): ?>
+          <li class="disabled">
+            <a href="#"><i class="fas fa-angle-left"></i></a>
+          </li>
+        <?php else: ?>
+          <li>
+            <a
+              href="?page=<?php echo $page - 1; ?>&perPage=<?php echo $perPage; ?>&filter_returned=<?php echo urlencode($filter_returned); ?>">
+              <i class="fas fa-angle-left"></i>
+            </a>
+          </li>
+        <?php endif; ?>
+
+        <?php
+        $maxPagesToShow = 3;
+        for ($i = 1; $i <= min($totalPages, $maxPagesToShow); $i++):
+          ?>
+          <?php if ($i == $page): ?>
+            <li class="active"><a href="#"><?php echo $i; ?></a></li>
+          <?php else: ?>
+            <li>
+              <a
+                href="?page=<?php echo $i; ?>&perPage=<?php echo $perPage; ?>&filter_returned=<?php echo urlencode($filter_returned); ?>">
+                <?php echo $i; ?>
+              </a>
+            </li>
+          <?php endif; ?>
+        <?php endfor; ?>
+
+        <?php if ($page >= $totalPages): ?>
+          <li class="disabled">
+            <a href="#"><i class="fas fa-angle-right"></i></a>
+          </li>
+        <?php else: ?>
+          <li>
+            <a
+              href="?page=<?php echo $page + 1; ?>&perPage=<?php echo $perPage; ?>&filter_returned=<?php echo urlencode($filter_returned); ?>">
+              <i class="fas fa-angle-right"></i>
+            </a>
+          </li>
+        <?php endif; ?>
+      </ul>
+
+
+
+
     </div>
-
-    <?php
-    // 追加モーダル
-    include '../modals/add_rental_modal.php';
-    ?>
-
-    <?php
-    // 編集モーダル
-    include '../modals/edit_event_modal.php';
-    ?>
   </main>
-
-  <!-- modal.js を読み込む -->
   <script src="../assets/js/modal.js"></script>
   <script src="../assets/js/table.js"></script>
 </body>

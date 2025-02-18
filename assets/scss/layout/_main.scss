@@ -8,11 +8,11 @@ main {
 
 .container {
   margin: 0 10% 0;
+  padding: 40px 0;
 }
 
 .header-container {
   position: relative;
-  margin: 40px 0 0;
 }
 
 @media (max-width: 1300px) {
@@ -27,10 +27,6 @@ main {
 @media (max-width: 768px) {
   main {
     width: 100%
-  }
-
-  .header-container {
-    margin: 20px 0 0;
   }
 
   .container {

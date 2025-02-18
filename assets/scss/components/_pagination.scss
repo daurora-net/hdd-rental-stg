@@ -1,0 +1,42 @@
+.pagination {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  justify-content: center;
+
+  a {
+    display: inline-block;
+    color: black;
+    border-radius: 50%;
+    border: 1px solid #dedede;
+    text-decoration: none;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+
+    &:hover {
+      background-color: #86c8cc;
+      color: white;
+    }
+
+    i {
+      line-height: 40px;
+    }
+  }
+
+  .active a {
+    background-color: #5CC6CD;
+    color: white;
+  }
+
+  .disabled a {
+    pointer-events: none;
+    color: #ccc;
+
+    &:hover {
+      background-color: initial;
+      color: #ccc;
+    }
+  }
+}
