@@ -18,6 +18,7 @@ try {
           hr.duration, hr.notes,
           hr.resource_id
         FROM hdd_rentals hr
+        WHERE hr.deleted_at IS NULL
     ");
   $stmt->execute();
   $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
