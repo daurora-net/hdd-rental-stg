@@ -795,13 +795,18 @@ body.page-login .login-wrap .error-message {
   position: sticky;
   top: 0;
   text-align: left;
-  background-color: #f2f2f2;
+  font-weight: normal;
+  color: #fff;
+  background-color: #747474;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   z-index: 10;
 }
 .table-container table tbody td {
   border-bottom: 1px solid #ccc;
+}
+.table-container table tbody tr:nth-child(even) td {
+  background-color: #ebebeb;
 }
 .table-container table th:last-child,
 .table-container table td:last-child {
@@ -815,6 +820,7 @@ body.page-login .login-wrap .error-message {
 /* editボタン */
 .edit-btn {
   color: #939393;
+  background-color: transparent;
 }
 
 /*========= table-sort ===============*/
@@ -874,7 +880,7 @@ main {
     width: max-content;
     max-width: 100%;
     margin: 0 auto;
-    padding: 0 3% 3%;
+    padding: 3%;
   }
 }
 @media (max-width: 768px) {
