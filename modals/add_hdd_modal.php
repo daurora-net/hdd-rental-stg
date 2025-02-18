@@ -32,7 +32,12 @@
         <label for="hddNotes">メモ</label>
         <textarea id="hddNotes" name="hddNotes" rows="3"></textarea>
       </div>
-      <button type="submit" class="modal-btn">追加</button>
+      <div class="flex">
+        <button type="submit" class="modal-btn">追加</button>
+        <button type="button" class="cancel-btn" onclick="document.getElementById('addHddModal').style.display='none';">
+          キャンセル
+        </button>
+      </div>
     </form>
   </div>
 </div>

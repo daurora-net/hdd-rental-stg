@@ -78,7 +78,13 @@
         <label for="addRentalNotes">メモ</label>
         <textarea id="addRentalNotes" name="rentalNotes" rows="2"></textarea>
       </div>
-      <button type="submit" class="modal-btn">追加</button>
+      <div class="flex">
+        <button type="submit" class="modal-btn">追加</button>
+        <button type="button" class="cancel-btn"
+          onclick="document.getElementById('addRentalModal').style.display='none';">
+          キャンセル
+        </button>
+      </div>
     </form>
   </div>
 </div>
