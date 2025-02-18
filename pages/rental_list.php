@@ -9,7 +9,7 @@ $filter_returned = isset($_GET['filter_returned']) ? $_GET['filter_returned'] : 
 $sql = "SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.cable, hr.is_returned, hr.return_date, hr.duration, hr.notes, hr.resource_id, r.name as hdd_name, r.capacity as hdd_capacity 
         FROM hdd_rentals hr
         JOIN hdd_resources r ON hr.resource_id = r.id
-        WHERE 1=1";
+        WHERE hr.deleted_at IS NULL";
 
 // もし「未返却」を指定されたら is_returned=0 だけを抽出
 if ($filter_returned === '0') {
