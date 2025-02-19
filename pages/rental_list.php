@@ -176,7 +176,11 @@ include '../parts/head.php';
                 <td><?php echo htmlspecialchars($rental['cable']); ?></td>
                 <td class="text-center"><?php echo $rental['is_returned'] ? '✔︎' : ''; ?></td>
                 <td><?php echo htmlspecialchars($rental['return_date']) ?: ''; ?></td>
-                <td class="text-right"><?php echo htmlspecialchars($rental['duration']); ?></td>
+                <td class="text-right">
+                  <?php if ($rental['is_returned'] == 1): ?>
+                    <?php echo htmlspecialchars($rental['duration']); ?>
+                  <?php endif; ?>
+                </td>
                 <td><?php echo htmlspecialchars($rental['notes']); ?></td>
               </tr>
             <?php } ?>
