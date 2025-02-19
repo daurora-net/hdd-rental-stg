@@ -38,9 +38,10 @@
       <div class="flex">
         <div class="form-content w-200px">
           <label for="addRentalHdd" class="required">HDD No.</label>
-          <!-- ▼ 初期状態では空。JSで fetch し、<option> を注入 -->
-          <select id="addRentalHdd" name="rentalHdd" required>
-          </select>
+          <div class="custom-select-wrapper">
+            <!-- ▼ 初期状態では空。JSで fetch し、<option> を注入 -->
+            <select id="addRentalHdd" name="rentalHdd" required></select>
+          </div>
         </div>
         <div class="form-content w-200px">
           <label for="addRentalLocation" class="required">使用場所</label>
