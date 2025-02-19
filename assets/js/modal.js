@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("editRentalLocation").value = location;
         document.getElementById("editRentalCable").value = cable;
         document.getElementById("editReturnDate").value = returnDate;
+        document.getElementById("editReturnDate").dispatchEvent(new Event("input"));
         document.getElementById("editEventNotes").value = notes;
 
         // ▼ 「未使用HDD + 現在のresourceId」を取得

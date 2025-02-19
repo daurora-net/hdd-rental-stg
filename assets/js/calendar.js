@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     resourceOrder: 'name',
 
     selectable: true,
-    dateClick: function(info) {
+    dateClick: function (info) {
       // 「新規追加モーダル (addRentalModal) 」を開き、開始日にクリックした日付を設定する
       var addRentalModal = document.getElementById("addRentalModal");
       if (addRentalModal) {
@@ -167,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
         eventObj.extendedProps.return_date
           ? eventObj.extendedProps.return_date.slice(0, 10)
           : "";
+      document.getElementById("editReturnDate").dispatchEvent(new Event("input"));
 
       // location をセット
       document.getElementById("editRentalLocation").value =
@@ -179,7 +180,11 @@ document.addEventListener('DOMContentLoaded', function () {
       // duration が必要なら
       var durationField = document.getElementById("editRentalDuration");
       if (durationField) {
-        durationField.value = eventObj.extendedProps.duration || "";
+        if (eventObj.extendedProps.is_returned == 0) {
+          durationField.value = "";
+        } else {
+          durationField.value = eventObj.extendedProps.duration || "";
+        }
       }
 
       // notes をセット
