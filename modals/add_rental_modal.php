@@ -67,7 +67,7 @@
       <div class="flex">
         <div class="form-content w-150px">
           <label for="addReturnDate">返却日</label>
-          <input type="date" id="addReturnDate" name="returnDate">
+          <input type="date" id="addReturnDate" class="js-date-field" name="returnDate">
         </div>
         <div class="form-content w-150px">
           <label for="addRentalDuration">使用日数</label>

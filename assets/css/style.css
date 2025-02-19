@@ -115,6 +115,31 @@ textarea {
     gap: 10px;
   }
 }
+/*========= safari対応 ===============*/
+input[type=date]:required:invalid::-webkit-datetime-edit,
+input[type=date]:required:invalid::-webkit-datetime-edit-text,
+input[type=date]:required:invalid::-webkit-datetime-edit-month-field,
+input[type=date]:required:invalid::-webkit-datetime-edit-day-field,
+input[type=date]:required:invalid::-webkit-datetime-edit-year-field {
+  opacity: 0;
+}
+
+input[type=date]:required:valid::-webkit-datetime-edit,
+input[type=date]:required:valid::-webkit-datetime-edit-text,
+input[type=date]:required:valid::-webkit-datetime-edit-month-field,
+input[type=date]:required:valid::-webkit-datetime-edit-day-field,
+input[type=date]:required:valid::-webkit-datetime-edit-year-field {
+  opacity: 1;
+}
+
+.js-date-field.is-empty::-webkit-datetime-edit,
+.js-date-field.is-empty::-webkit-datetime-edit-text,
+.js-date-field.is-empty::-webkit-datetime-edit-month-field,
+.js-date-field.is-empty::-webkit-datetime-edit-day-field,
+.js-date-field.is-empty::-webkit-datetime-edit-year-field {
+  opacity: 0;
+}
+
 *,
 *::before,
 *::after {
@@ -575,6 +600,22 @@ select {
 .auto-input {
   background-color: transparent;
   color: gray;
+}
+
+input[type=date] {
+  position: relative;
+  cursor: pointer;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
 }
 
 /*========= remember me ===============*/

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
   // ---------------------------------------------
-  // 1) HDD追加モーダル
+  //  HDD追加モーダル
   // ---------------------------------------------
   var addHddBtn = document.getElementById("addHddBtn");
   if (addHddBtn) {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ---------------------------------------------
-  // 2) HDD編集モーダル
+  //  HDD編集モーダル
   // ---------------------------------------------
   var editHddBtns = document.querySelectorAll(".edit-hdd-btn"); // HDD編集ボタン
   if (editHddBtns) {
@@ -41,8 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ---------------------------------------------
-  // 3) レンタル追加モーダル
-  //    「未使用HDD」リストを取得して <select> に注入
+  //  レンタル追加モーダル
+  //   「未使用HDD」リストを取得して <select> に注入
   // ---------------------------------------------
   var addRentalBtn = document.getElementById("addRentalBtn");
   if (addRentalBtn) {
@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ---------------------------------------------
-  // 4) レンタル編集モーダル
-  //    「未使用HDD + このレンタルのリソース」を取得して <select> に注入
+  //  レンタル編集モーダル
+  //   「未使用HDD + このレンタルのリソース」を取得して <select> に注入
   // ---------------------------------------------
   var editEventBtns = document.querySelectorAll(".edit-event-btn"); // レンタル編集ボタン
   if (editEventBtns.length > 0) {
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ---------------------------------------------
-  // 5) USER編集モーダル
+  //  USER編集モーダル
   // ---------------------------------------------
   var editUserBtns = document.querySelectorAll(".edit-user-btn");
   if (editUserBtns) {
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ---------------------------------------------
-  // 6) モーダルの外側クリックで閉じる処理
+  //  モーダルの外側クリックで閉じる処理
   // ---------------------------------------------
   window.addEventListener('click', function (event) {
     // 各モーダルを取得
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ---------------------------------------------
-  // 7) モーダル内の「×」閉じるボタン
+  //  モーダル内の「×」閉じるボタン
   // ---------------------------------------------
   document.querySelectorAll('.close').forEach(function (closeBtn) {
     closeBtn.addEventListener("click", function () {
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ---------------------------------------------
-  // 8) 「使用日数」自動計算（開始日と返却日から）
+  // 「使用日数」自動計算（開始日と返却日から）
   // ---------------------------------------------
   function calculateDuration(startId, returnDateId, durationId) {
     var startEl = document.getElementById(startId);
@@ -239,4 +239,29 @@ document.addEventListener('DOMContentLoaded', function () {
   calculateDuration('addRentalStart', 'addReturnDate', 'addRentalDuration');
   // ▼ edit_event_modal の使用日数計算
   calculateDuration('editEventStart', 'editReturnDate', 'editRentalDuration');
+
+  // ---------------------------------------------
+  //  カレンダーplaceholder非表示（必須項目以外：js-date-fieldクラス付与必須）
+  // ---------------------------------------------
+  // すべての date 入力要素を取得（必須・任意どちらでもOK）
+  const dateFields = document.querySelectorAll("input.js-date-field");
+
+  dateFields.forEach(field => {
+    // 値が空かどうかでクラスを付け外しする関数
+    function updateEmptyClass() {
+      if (!field.value) {
+        // 未入力なら .is-empty を付与
+        field.classList.add("is-empty");
+      } else {
+        // 値があるならクラスを外し、入力された日付を表示
+        field.classList.remove("is-empty");
+      }
+    }
+
+    // 初期表示時に判定
+    updateEmptyClass();
+
+    // 値が変わる度に判定し直す
+    field.addEventListener("input", updateEmptyClass);
+  });
 });
