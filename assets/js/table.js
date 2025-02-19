@@ -26,15 +26,45 @@ function sortTable(header, n) {
       shouldSwitch = false;
       x = rows[i].getElementsByTagName("TD")[n];
       y = rows[i + 1].getElementsByTagName("TD")[n];
+      // 数値/文字列の判定用に変数を用意
+      var xVal = x.innerText.toLowerCase();
+      var yVal = y.innerText.toLowerCase();
+
+      // 数値としてパース
+      var xNum = parseFloat(xVal);
+      var yNum = parseFloat(yVal);
+      var xIsNum = !isNaN(xNum);
+      var yIsNum = !isNaN(yNum);
+
       if (dir === "asc") {
-        if (x.innerText.toLowerCase() > y.innerText.toLowerCase()) {
-          shouldSwitch = true;
-          break;
+        // 昇順
+        if (xIsNum && yIsNum) {
+          // 両方とも数値なら数値で比較
+          if (xNum > yNum) {
+            shouldSwitch = true;
+            break;
+          }
+        } else {
+          // それ以外は文字列で比較
+          if (xVal > yVal) {
+            shouldSwitch = true;
+            break;
+          }
         }
       } else if (dir === "desc") {
-        if (x.innerText.toLowerCase() < y.innerText.toLowerCase()) {
-          shouldSwitch = true;
-          break;
+        // 降順
+        if (xIsNum && yIsNum) {
+          // 両方とも数値なら数値で比較
+          if (xNum < yNum) {
+            shouldSwitch = true;
+            break;
+          }
+        } else {
+          // それ以外は文字列で比較
+          if (xVal < yVal) {
+            shouldSwitch = true;
+            break;
+          }
         }
       }
     }
