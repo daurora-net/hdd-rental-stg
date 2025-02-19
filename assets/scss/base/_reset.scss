@@ -60,13 +60,6 @@ picture {
   display: block
 }
 
-input,
-button,
-textarea,
-select {
-  font: inherit
-}
-
 textarea:not([rows]) {
   min-height: 2em
 }

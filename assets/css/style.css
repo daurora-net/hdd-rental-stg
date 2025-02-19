@@ -16,10 +16,17 @@ input,
 select,
 textarea {
   width: 100%;
-  padding: 8px 10px 6px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
+  font-size: 0.9rem !important;
+  padding: 6px 10px;
+}
+
+input,
+select {
+  height: 35px;
+  line-height: 23px;
 }
 
 .flex {
@@ -201,13 +208,6 @@ img,
 picture {
   max-width: 100%;
   display: block;
-}
-
-input,
-button,
-textarea,
-select {
-  font: inherit;
 }
 
 textarea:not([rows]) {
