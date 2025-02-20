@@ -40,42 +40,41 @@ include '../parts/head.php';
       <div class="user-list table-container table-scroll">
         <table>
           <thead>
-    <tr>
-      <th></th>
-      <th>ID</th>
-      <th>Username</th>
-      <th>Email</th>
-      <th>認証</th>
-      <th>Role</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($users as $user): ?>
-      <tr>
-        <td>
-          <button class="edit-btn edit-user-btn"
-                  data-id="<?php echo htmlspecialchars($user['id']); ?>"
-                  data-username="<?php echo htmlspecialchars($user['username']); ?>">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </button>
-        </td>
-        <td class="text-center"><?php echo htmlspecialchars($user['id']); ?></td>
-        <td><?php echo htmlspecialchars($user['username']); ?></td>
-        <td><?php echo htmlspecialchars($user['email']); ?></td>
-        <td class="text-center"><?php echo $user['is_verified'] ? '✔︎' : ''; ?></td>
-        <td>
-          <?php
-            $roles = [
-              1 => '管理者',
-              2 => '一般ユーザー',
-              3 => '精算ユーザー'
-            ];
-            echo htmlspecialchars($roles[$user['role']]);
-          ?>
-        </td>
-      </tr>
-    <?php endforeach; ?>
-  </tbody>
+            <tr>
+              <th></th>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>認証</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($users as $user): ?>
+              <tr>
+                <td>
+                  <button class="edit-btn edit-user-btn" data-id="<?php echo htmlspecialchars($user['id']); ?>"
+                    data-username="<?php echo htmlspecialchars($user['username']); ?>">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                </td>
+                <td class="text-center"><?php echo htmlspecialchars($user['id']); ?></td>
+                <td><?php echo htmlspecialchars($user['username']); ?></td>
+                <td><?php echo htmlspecialchars($user['email']); ?></td>
+                <td class="text-center"><?php echo $user['is_verified'] ? '✔︎' : ''; ?></td>
+                <td>
+                  <?php
+                  $roles = [
+                    1 => '管理者',
+                    2 => '一般ユーザー',
+                    3 => '精算ユーザー'
+                  ];
+                  echo htmlspecialchars($roles[$user['role']]);
+                  ?>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
 
         </table>
       </div>

@@ -125,6 +125,7 @@ include '../parts/head.php';
         <table>
           <thead>
             <tr>
+              <th>ID</th>
               <th>番組名</th>
               <th>担当者</th>
               <th>HDD No.</th>
@@ -137,6 +138,7 @@ include '../parts/head.php';
           <tbody>
             <?php foreach ($billingList as $row): ?>
               <tr>
+                <td><?php echo htmlspecialchars($row['id']); ?></td>
                 <td><?php echo htmlspecialchars($row['title']); ?></td>
                 <td><?php echo htmlspecialchars($row['manager']); ?></td>
                 <td><?php echo htmlspecialchars($row['hdd_name']); ?></td>

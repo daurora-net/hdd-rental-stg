@@ -58,7 +58,7 @@ include '../parts/head.php';
           <thead>
             <tr>
               <th></th>
-              <th>ID</th>
+              <!-- <th>ID</th> -->
               <th>HDD No.</th>
               <th>容量</th>
               <th>メモ</th>
@@ -76,7 +76,7 @@ include '../parts/head.php';
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </td>
-                <td class="text-center"><?php echo htmlspecialchars($hddResource['id']); ?></td>
+                <!-- <td class="text-center"><?php echo htmlspecialchars($hddResource['id']); ?></td> -->
                 <td><?php echo htmlspecialchars($hddResource['name']); ?></td>
                 <td><?php echo htmlspecialchars($hddResource['capacity']); ?></td>
                 <td><?php echo htmlspecialchars($hddResource['notes']); ?></td>

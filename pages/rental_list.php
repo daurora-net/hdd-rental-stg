@@ -31,7 +31,7 @@ if ($filter_returned === '0') {
 }
 
 // まず、全件数を取得する
-$countSql = "SELECT COUNT(*) FROM hdd_rentals hr JOIN hdd_resources r ON hr.resource_id = r.id WHERE 1=1";
+$countSql = "SELECT COUNT(*) FROM hdd_rentals hr JOIN hdd_resources r ON hr.resource_id = r.id WHERE hr.deleted_at IS NULL";
 if ($filter_returned === '0') {
   $countSql .= " AND hr.is_returned = 0";
 }
@@ -232,6 +232,15 @@ include '../parts/head.php';
           </li>
         <?php endif; ?>
       </ul>
+      <div class="pagination-info">
+        <?php
+        $startItem = $offset + 1;
+        $endItem = min($totalItems, $offset + $perPage);
+        ?>
+        <p><?php echo $startItem; ?>-<?php echo $endItem; ?> / <?php echo $totalItems; ?></p>
+      </div>
+
+
     </div>
 
     <?php

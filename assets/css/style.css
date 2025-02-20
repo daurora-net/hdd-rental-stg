@@ -772,6 +772,7 @@ body.page-login .login-wrap .error-message {
   gap: 0.5rem;
   list-style: none;
   justify-content: center;
+  padding: 0;
 }
 .pagination a {
   display: inline-block;
@@ -802,6 +803,14 @@ body.page-login .login-wrap .error-message {
 .pagination .disabled a:hover {
   background-color: initial;
   color: #ccc;
+}
+
+.pagination-info {
+  text-align: center;
+  padding: 5px;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+  color: gray;
 }
 
 /*========= table-container ===============*/
