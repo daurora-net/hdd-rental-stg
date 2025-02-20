@@ -4,6 +4,7 @@
   list-style: none;
   justify-content: center;
   padding: 0;
+  margin: 10px 0;
 
   a {
     display: inline-block;
@@ -44,7 +45,7 @@
 
 .pagination-info {
   text-align: center;
-  padding: 5px;
+  margin: 15px 0;
   letter-spacing: 2px;
   @include fz(8.5);
   color: gray;

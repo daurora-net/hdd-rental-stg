@@ -21,7 +21,7 @@ $selectedYm = isset($_GET['ym']) ? $_GET['ym'] : '';
 $sqlMonths = "
   SELECT DISTINCT DATE_FORMAT(return_date, '%Y-%m') AS ym
   FROM hdd_rentals
-  WHERE return_date IS NOT NULL
+  WHERE return_date IS NOT NULL AND deleted_at IS NULL
   ORDER BY ym ASC
 ";
 $stmtMonths = $conn->prepare($sqlMonths);

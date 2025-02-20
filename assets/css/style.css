@@ -234,6 +234,8 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
 }
 
 button a {
@@ -259,10 +261,11 @@ button.login:hover {
 
 /*========= logout ===============*/
 button.logout {
-  padding: 2px 15px 4px;
+  padding: 0 15px;
   background: #fff;
   color: darkgray;
   border: 1px solid #fff;
+  height: 30px;
 }
 
 button.logout:hover {
@@ -274,9 +277,9 @@ button.logout:hover {
 /*========= modal ===============*/
 button.modal-btn {
   display: block;
-  background: darkgray;
+  background: cadetblue;
   color: #fff;
-  border: 1px solid darkgray;
+  border: 1px solid cadetblue;
   margin: 30px 0 0;
   width: 110px;
   height: 45px;
@@ -285,8 +288,8 @@ button.modal-btn {
 
 button.modal-btn:hover {
   background: #fff;
-  color: darkgray;
-  border: 1px solid darkgray;
+  color: cadetblue;
+  border: 1px solid cadetblue;
 }
 
 /*========= print ===============*/
@@ -327,9 +330,9 @@ button.csv-btn:hover {
 /*========= delete ===============*/
 button.delete-btn {
   display: block;
-  background: #eaa2a2;
+  background: #eb7e7e;
   color: #fff;
-  border: 1px solid #eaa2a2;
+  border: 1px solid #eb7e7e;
   margin: 30px 0 0;
   width: 110px;
   height: 45px;
@@ -338,16 +341,16 @@ button.delete-btn {
 
 button.delete-btn:hover {
   background: #fff;
-  color: #eaa2a2;
-  border: 1px solid #eaa2a2;
+  color: #eb7e7e;
+  border: 1px solid #eb7e7e;
 }
 
 /*========= cancel ===============*/
 button.cancel-btn {
   display: block;
   background: #fff;
-  color: #c9c9c9;
-  border: 1px solid #c9c9c9;
+  color: darkgray;
+  border: 1px solid darkgray;
   margin: 30px 0 0;
   width: 110px;
   height: 45px;
@@ -355,9 +358,9 @@ button.cancel-btn {
 }
 
 button.cancel-btn:hover {
-  background: #c9c9c9;
+  background: darkgray;
   color: #fff;
-  border: 1px solid #c9c9c9;
+  border: 1px solid darkgray;
 }
 
 /*========= index ===============*/
@@ -586,13 +589,14 @@ select {
 
 /* トグルアイコンをラッパーの擬似要素として設定 */
 .custom-select-wrapper::after {
-  content: "▼";
+  content: "\f107";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   position: absolute;
-  top: 50%;
+  top: 52%;
   right: 10px;
   transform: translateY(-50%);
   pointer-events: none;
-  font-size: 13px;
   color: #ccc;
 }
 
@@ -773,6 +777,7 @@ body.page-login .login-wrap .error-message {
   list-style: none;
   justify-content: center;
   padding: 0;
+  margin: 10px 0;
 }
 .pagination a {
   display: inline-block;
@@ -807,7 +812,7 @@ body.page-login .login-wrap .error-message {
 
 .pagination-info {
   text-align: center;
-  padding: 5px;
+  margin: 15px 0;
   letter-spacing: 2px;
   font-size: 0.85rem;
   color: gray;
@@ -822,7 +827,7 @@ body.page-login .login-wrap .error-message {
   width: -moz-max-content;
   width: max-content;
   max-width: 100%;
-  margin: 20px 0 0;
+  margin: 20px 0 10px;
   overflow: auto;
 }
 .table-container table {
