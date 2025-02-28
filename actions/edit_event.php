@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $stmt->execute([$eventId]);
 
       // 完了後リダイレクト
-      header("Location: " . $_SERVER['HTTP_REFERER']);
+      echo "OK";
       exit();
 
     } catch (PDOException $e) {
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $eventId
       ]);
 
-      header("Location: " . $_SERVER['HTTP_REFERER']);
+      echo "OK";
       exit();
     } catch (PDOException $e) {
       error_log("レンタル編集エラー: " . $e->getMessage());

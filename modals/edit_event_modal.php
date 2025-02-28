@@ -3,7 +3,7 @@
     <span class="close" onclick="document.getElementById('editEventModal').style.display='none'">
       <i class="fa-solid fa-xmark"></i>
     </span>
-    <form method="post" class="form" action="actions/edit_event.php">
+    <form id="editEventForm" method="post" class="form">
       <h3>スケジュール編集</h3>
       <input type="hidden" id="editEventId" name="eventId">
 

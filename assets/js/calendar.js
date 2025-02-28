@@ -199,5 +199,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  window.calendar = calendar;
   calendar.render();
 });

@@ -265,4 +265,31 @@ document.addEventListener('DOMContentLoaded', function () {
     // 値が変わる度に判定し直す
     field.addEventListener("input", updateEmptyClass);
   });
+
+  // ---------------------------------------------
+  //  追記：編集イベントモーダルのフォームを非同期送信する処理
+  // ---------------------------------------------
+  var editEventForm = document.getElementById('editEventForm');
+  if (editEventForm) {
+    editEventForm.addEventListener('submit', function (e) {
+      e.preventDefault();  // 通常のフォーム送信を防止
+      var formData = new FormData(editEventForm);
+      fetch('actions/edit_event.php', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.text())
+        .then(data => {
+          // 編集後はモーダルを閉じる
+          document.getElementById('editEventModal').style.display = 'none';
+          // カレンダーのイベントを再読み込みして、現在表示中の月を維持
+          if (window.calendar) {
+            window.calendar.refetchEvents();
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
+  }
 });
