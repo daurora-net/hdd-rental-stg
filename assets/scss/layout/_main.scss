@@ -30,6 +30,12 @@ main {
   }
 
   .container {
-    margin: 5% auto;
+    margin: 0 auto;
+    height: calc(100vh - 35px);
+    overflow: scroll;
+
+    h2 {
+      padding-bottom: 10px;
+    }
   }
 }

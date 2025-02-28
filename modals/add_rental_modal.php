@@ -59,6 +59,7 @@
         <div class="custom-select-wrapper">
           <select id="addRentalCable" name="rentalCable">
             <option value="USB3.0" selected>USB</option>
+            <option value="USB3.0">USB・Thunderbolt</option>
             <option value="Thunderbolt">Thunderbolt</option>
             <option value=""></option>
           </select>
@@ -75,7 +76,7 @@
           <input id="addRentalDuration" name="rentalDuration" class="auto-input text-right" readonly>
         </div>
       </div>
-      <div class="form-content w-70">
+      <div class="form-content">
         <label for="addRentalNotes">メモ</label>
         <textarea id="addRentalNotes" name="rentalNotes" rows="2"></textarea>
       </div>

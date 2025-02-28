@@ -21,11 +21,11 @@ if (isset($_SESSION['username'])) {
       $roleColor = '#caab4e';
       break;
     case 2:
-      // 一般ユーザーの場合
+      // 一般の場合
       $roleColor = 'cadetblue';
       break;
     case 3:
-      // 精算ユーザーの場合
+      // 精算の場合
       $roleColor = '#ab8cb6';
       break;
     default:

@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // 以下は、もしフォーム側で email / role を後日対応したい場合の受け取り例です
   // （現状の edit_user_modal.php には email / role 入力欄が無いため空扱い）
   $email = trim($_POST['email'] ?? '');
-  $role = isset($_POST['role']) ? (int) $_POST['role'] : 2; // デフォルトを 2(一般ユーザー) とする例
+  $role = isset($_POST['role']) ? (int) $_POST['role'] : 2; // デフォルトを 2(一般) とする例
 
   try {
     // 「削除ボタン」が押下された場合

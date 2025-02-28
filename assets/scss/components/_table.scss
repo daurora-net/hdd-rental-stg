@@ -6,7 +6,7 @@
   position: relative;
   width: max-content;
   max-width: 100%;
-  margin: 20px 0 10px;
+  margin: 20px auto 10px;
   overflow: auto;
 
   table {
@@ -18,7 +18,7 @@
 
     thead th,
     tbody td {
-      @include fz(8.5);
+      @include fz(7.5);
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -63,9 +63,7 @@
   }
 }
 
-/*========= table-container ===============*/
-
-/* editボタン */
+/*========= editボタン ===============*/
 .edit-btn {
   color: #939393;
   background-color: transparent;
@@ -86,6 +84,40 @@
 
     &.fa-sort {
       width: 12.6px;
+    }
+  }
+}
+
+/*========= responsive ===============*/
+@media (max-width: 768px) {
+  .table-container {
+    margin: 10px auto;
+
+
+    table {
+
+      thead th,
+      tbody td {
+        padding: 7px 10px 4px;
+        font-size: .7rem;
+      }
+
+      thead th {}
+
+      tbody td {}
+
+      // 偶数行の背景色
+      // tbody tr:nth-child(odd) td {
+      //   background-color: #afdfe4;
+      // }
+
+      // 奇数行の背景色
+      tbody tr:nth-child(even) td {}
+
+      th:last-child,
+      td:last-child {}
+
+      tbody tr:last-child td {}
     }
   }
 }

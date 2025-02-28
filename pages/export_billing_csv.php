@@ -12,6 +12,8 @@ $sqlMain = "
     hr.manager,
     r.name AS hdd_name,
     r.capacity AS hdd_capacity,
+    hr.location AS location,
+    hr.start AS start_date,
     hr.return_date,
     hr.duration
   FROM hdd_rentals hr
@@ -48,7 +50,7 @@ header('Content-Disposition: attachment; filename="' . $filename . '.csv"');
 $output = fopen('php://output', 'w');
 
 // ヘッダ行の書き出し
-fputcsv($output, ['番組名', '担当者', 'HDD No.', 'HDD容量', '返却日', '使用日数']);
+fputcsv($output, ['番組名', '担当者', 'HDD No.', 'HDD容量', '使用場所', '開始日', '返却日', '使用日数']);
 
 // 各行の書き出し
 foreach ($billingList as $row) {
@@ -57,6 +59,8 @@ foreach ($billingList as $row) {
     $row['manager'],
     $row['hdd_name'],
     $row['hdd_capacity'],
+    $row['location'],
+    $row['start_date'],
     $row['return_date'],
     $row['duration']
   ]);

@@ -66,8 +66,8 @@ include '../parts/head.php';
                   <?php
                   $roles = [
                     1 => '管理者',
-                    2 => '一般ユーザー',
-                    3 => '精算ユーザー'
+                    2 => '一般',
+                    3 => '精算'
                   ];
                   echo htmlspecialchars($roles[$user['role']]);
                   ?>

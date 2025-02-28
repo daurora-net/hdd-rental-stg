@@ -37,6 +37,7 @@ $sqlMain = "
     hr.start AS start_date,
     r.name AS hdd_name,
     r.capacity AS hdd_capacity,
+    hr.location AS location,
     hr.return_date,
     hr.duration
   FROM hdd_rentals hr
@@ -130,6 +131,7 @@ include '../parts/head.php';
               <th>担当者</th>
               <th>HDD No.</th>
               <th>容量</th>
+              <th>使用場所</th>
               <th>開始日</th>
               <th>返却日</th>
               <th>使用日数</th>
@@ -143,6 +145,7 @@ include '../parts/head.php';
                 <td><?php echo htmlspecialchars($row['manager']); ?></td>
                 <td><?php echo htmlspecialchars($row['hdd_name']); ?></td>
                 <td><?php echo htmlspecialchars($row['hdd_capacity']); ?></td>
+                <td><?php echo htmlspecialchars($row['location']); ?></td>
                 <td><?php echo htmlspecialchars($row['start_date']); ?></td>
                 <td><?php echo htmlspecialchars($row['return_date']); ?></td>
                 <td class="text-right"><?php echo htmlspecialchars($row['duration']); ?></td>

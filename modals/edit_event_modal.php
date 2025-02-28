@@ -53,6 +53,7 @@
         <div class="custom-select-wrapper">
           <select id="editRentalCable" name="rentalCable">
             <option value="USB3.0" selected>USB</option>
+            <option value="USB3.0">USB・Thunderbolt</option>
             <option value="Thunderbolt">Thunderbolt</option>
             <option value=""></option>
           </select>
@@ -70,18 +71,18 @@
         </div>
       </div>
 
-      <div class="form-content w-70">
+      <div class="form-content">
         <label for="editEventNotes">メモ</label>
         <textarea id="editEventNotes" name="eventNotes" rows="2"></textarea>
       </div>
       <div class="flex">
         <button type="submit" class="modal-btn">保存</button>
-        <button type="submit" class="delete-btn" name="delete" value="1" onclick="return confirm('本当に削除してよろしいですか？');">
-          削除
-        </button>
         <button type="button" class="cancel-btn"
           onclick="document.getElementById('editEventModal').style.display='none';">
           キャンセル
+        </button>
+        <button type="submit" class="delete-btn" name="delete" value="1" onclick="return confirm('本当に削除してよろしいですか？');">
+          削除
         </button>
       </div>
     </form>

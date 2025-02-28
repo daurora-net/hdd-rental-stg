@@ -116,7 +116,7 @@ select {
   input,
   select,
   textarea {
-    padding: 4px 7px 3px;
+    padding: 4px 7px;
   }
   .flex {
     gap: 10px;
@@ -333,7 +333,7 @@ button.delete-btn {
   background: #eb7e7e;
   color: #fff;
   border: 1px solid #eb7e7e;
-  margin: 30px 0 0;
+  margin: 30px 0 0 40px;
   width: 110px;
   height: 45px;
   line-height: 45px;
@@ -658,7 +658,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   }
   select {
     font-size: 0.9rem;
-    padding: 7px 10px 5px;
+    padding: 6px 10px 5px;
   }
 }
 /*========= login-page ===============*/
@@ -777,7 +777,7 @@ body.page-login .login-wrap .error-message {
   list-style: none;
   justify-content: center;
   padding: 0;
-  margin: 10px 0;
+  margin: 10px 0 15px;
 }
 .pagination a {
   display: inline-block;
@@ -812,7 +812,6 @@ body.page-login .login-wrap .error-message {
 
 .pagination-info {
   text-align: center;
-  margin: 15px 0;
   letter-spacing: 2px;
   font-size: 0.85rem;
   color: gray;
@@ -827,7 +826,7 @@ body.page-login .login-wrap .error-message {
   width: -moz-max-content;
   width: max-content;
   max-width: 100%;
-  margin: 20px 0 10px;
+  margin: 20px auto 10px;
   overflow: auto;
 }
 .table-container table {
@@ -839,7 +838,7 @@ body.page-login .login-wrap .error-message {
 }
 .table-container table thead th,
 .table-container table tbody td {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -871,8 +870,7 @@ body.page-login .login-wrap .error-message {
   border-bottom: none;
 }
 
-/*========= table-container ===============*/
-/* editボタン */
+/*========= editボタン ===============*/
 .edit-btn {
   color: #939393;
   background-color: transparent;
@@ -894,6 +892,17 @@ body.page-login .login-wrap .error-message {
   width: 12.6px;
 }
 
+/*========= responsive ===============*/
+@media (max-width: 768px) {
+  .table-container {
+    margin: 10px auto;
+  }
+  .table-container table thead th,
+  .table-container table tbody td {
+    padding: 7px 10px 4px;
+    font-size: 0.7rem;
+  }
+}
 .header-nav {
   padding: 10px 20px;
   color: #e5e5e5;
@@ -917,6 +926,12 @@ body.page-login .login-wrap .error-message {
   gap: 20px;
 }
 
+@media (max-width: 768px) {
+  .header-nav {
+    padding: 0 20px;
+    height: 35px;
+  }
+}
 /*========= main ===============*/
 main {
   width: 87%;
@@ -946,7 +961,12 @@ main {
     width: 100%;
   }
   .container {
-    margin: 5% auto;
+    margin: 0 auto;
+    height: calc(100vh - 35px);
+    overflow: scroll;
+  }
+  .container h2 {
+    padding-bottom: 10px;
   }
 }
 aside {
@@ -1108,11 +1128,19 @@ aside nav.nav ul li a span.icon {
   aside nav.nav .nav-logout .user-box {
     border: 1px solid #e9e9e9;
     border-radius: 5px;
-    padding: 5px 10px 6px;
+    padding: 0 10px;
     width: -moz-max-content;
     width: max-content;
-    margin: 30px auto;
+    margin: 25px auto;
     font-size: 0.9rem;
+    height: 35px;
+    line-height: 35px;
+  }
+  .open-icon,
+  .close-icon {
+    height: 35px;
+    line-height: 38px;
+    font-size: unset;
   }
 }
 /*========= hdd_list page ===============*/

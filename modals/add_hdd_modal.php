@@ -28,7 +28,7 @@
           </select>
         </div>
       </div>
-      <div class="form-content w-70">
+      <div class="form-content">
         <label for="hddNotes">メモ</label>
         <textarea id="hddNotes" name="hddNotes" rows="3"></textarea>
       </div>

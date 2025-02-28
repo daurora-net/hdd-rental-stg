@@ -31,19 +31,19 @@
         </div>
       </div>
 
-      <div class="form-content w-70">
+      <div class="form-content">
         <label for="editHddNotes">メモ</label>
         <textarea id="editHddNotes" name="hddNotes" rows="3"></textarea>
       </div>
 
       <div class="flex">
         <button type="submit" class="modal-btn">保存</button>
-        <button type="submit" class="delete-btn" name="delete" value="1" onclick="return confirm('本当に削除してよろしいですか？');">
-          削除
-        </button>
         <button type="button" class="cancel-btn"
           onclick="document.getElementById('editHddModal').style.display='none';">
           キャンセル
+        </button>
+        <button type="submit" class="delete-btn" name="delete" value="1" onclick="return confirm('本当に削除してよろしいですか？');">
+          削除
         </button>
       </div>
     </form>
