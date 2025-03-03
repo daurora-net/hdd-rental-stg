@@ -11,7 +11,7 @@
     <span class="close" onclick="document.getElementById('addRentalModal').style.display='none'">
       <i class="fa-solid fa-xmark"></i>
     </span>
-    <form method="post" class="form" action="actions/add_rental.php">
+    <form id="addRentalForm" method="post" class="form">
       <h3>スケジュール追加</h3>
       <div class="flex">
         <div class="form-content w-300px">

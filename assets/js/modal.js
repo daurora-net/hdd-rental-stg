@@ -42,7 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ---------------------------------------------
   //  レンタル追加モーダル
-  //   「未使用HDD」リストを取得して <select> に注入
+  //   - 「未使用HDD」リストを取得して <select> に注入
+  //   - 開始日/終了予定日が入力される度に再取得
   // ---------------------------------------------
   var addRentalBtn = document.getElementById("addRentalBtn");
   if (addRentalBtn) {
@@ -50,28 +51,83 @@ document.addEventListener('DOMContentLoaded', function () {
       var addRentalModal = document.getElementById("addRentalModal");
       if (!addRentalModal) return;
 
-      // ▼ current_rental_id=0 として呼び出し、「最新が未使用 or レンタル履歴がない」HDDを取得
-      fetch('actions/fetch_available_resources.php?current_rental_id=0')
-        .then(response => response.json())
-        .then(data => {
-          var hddSelect = document.getElementById("addRentalHdd");
-          if (!hddSelect) return;
-          hddSelect.innerHTML = ''; // クリア
+      // モーダルを表示する（先に表示してもOK）
+      addRentalModal.style.display = "block";
 
-          data.forEach(function (resource) {
-            var option = document.createElement("option");
-            option.value = resource.id;
-            option.textContent = resource.name;
-            hddSelect.appendChild(option);
+      // ▼ リソース取得用の関数
+      function fetchHddListForAdd() {
+        var startVal = document.getElementById("addRentalStart").value;
+        var endVal = document.getElementById("addRentalEnd").value;
+        if (!startVal) startVal = "";
+        if (!endVal) endVal = "";
+
+        // 「開始日」「終了予定日」をクエリパラメータで送る
+        var url = "actions/fetch_available_resources.php?current_rental_id=0"
+          + "&start=" + encodeURIComponent(startVal)
+          + "&end=" + encodeURIComponent(endVal);
+
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            var hddSelect = document.getElementById("addRentalHdd");
+            if (!hddSelect) return;
+            hddSelect.innerHTML = ''; // クリア
+
+            data.forEach(function (resource) {
+              var option = document.createElement("option");
+              option.value = resource.id;
+              option.textContent = resource.name;
+              hddSelect.appendChild(option);
+            });
+          })
+          .catch(error => {
+            console.error("未使用HDD取得エラー (addRentalModal):", error);
           });
+      }
 
-          // ▼ モーダル表示
-          addRentalModal.style.display = "block";
+      // ▼ まず一度呼び出す
+      fetchHddListForAdd();
+
+      // ▼ 開始日・終了予定日が変わるたびに再呼び出し
+      var addRentalStart = document.getElementById("addRentalStart");
+      var addRentalEnd = document.getElementById("addRentalEnd");
+      if (addRentalStart && addRentalEnd) {
+        addRentalStart.addEventListener('change', fetchHddListForAdd);
+        addRentalEnd.addEventListener('change', fetchHddListForAdd);
+        addRentalStart.addEventListener('input', fetchHddListForAdd);
+        addRentalEnd.addEventListener('input', fetchHddListForAdd);
+      }
+    });
+  }
+
+  // ---------------------------------------------
+  //  追記：レンタル追加フォームを非同期送信し、
+  //       サーバー側( add_rental.php )が"登録できません"などを返したら
+  //       アラートを出して保存中断する
+  // ---------------------------------------------
+  var addRentalForm = document.getElementById('addRentalForm');
+  if (addRentalForm) {
+    addRentalForm.addEventListener('submit', function (e) {
+      e.preventDefault(); // 通常のフォーム送信を抑制
+
+      var formData = new FormData(addRentalForm);
+      fetch('actions/add_rental.php', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.text())
+        .then(data => {
+          // ▼ 修正：より明確に判定
+          if (data.trim() === 'OK') {
+            // 成功 → ページリロード
+            window.location.reload();
+          } else {
+            // "登録できません" や "エラー" 等が含まれていたらalert
+            alert(data);
+          }
         })
         .catch(error => {
-          console.error("未使用HDD取得エラー (addRentalModal):", error);
-          // 失敗してもとりあえずモーダルは表示する
-          addRentalModal.style.display = "block";
+          console.error('レンタル追加エラー:', error);
         });
     });
   }
@@ -113,7 +169,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // ▼ 「未使用HDD + 現在のresourceId」を取得
         //    current_rental_id = rentalId
-        fetch('actions/fetch_available_resources.php?current_rental_id=' + rentalId)
+        var url = 'actions/fetch_available_resources.php?current_rental_id=' + rentalId;
+        fetch(url)
           .then(response => response.json())
           .then(data => {
             var hddSelect = document.getElementById("editRentalHdd");
@@ -168,6 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var addRentalModal = document.getElementById("addRentalModal");
     var editHddModal = document.getElementById("editHddModal");
     var editEventModal = document.getElementById("editEventModal");
+    var editUserModal = document.getElementById("editUserModal");
 
     // クリック対象が各モーダルそのものだった場合に閉じる
     if (addHddModal && event.target === addHddModal) {
@@ -242,19 +300,18 @@ document.addEventListener('DOMContentLoaded', function () {
   calculateDuration('editEventStart', 'editReturnDate', 'editRentalDuration');
 
   // ---------------------------------------------
-  //  カレンダーplaceholder非表示（必須項目以外：js-date-fieldクラス付与必須）
+  //  カレンダーplaceholder非表示（必須項目以外：js-date-fieldクラス付与）
   // ---------------------------------------------
-  // すべての date 入力要素を取得（必須・任意どちらでもOK）
+  // すべての date 入力要素を取得（必須・任意問わず）
   const dateFields = document.querySelectorAll("input.js-date-field");
 
   dateFields.forEach(field => {
-    // 値が空かどうかでクラスを付け外しする関数
     function updateEmptyClass() {
       if (!field.value) {
         // 未入力なら .is-empty を付与
         field.classList.add("is-empty");
       } else {
-        // 値があるならクラスを外し、入力された日付を表示
+        // 値があるならクラスを外す
         field.classList.remove("is-empty");
       }
     }
@@ -280,11 +337,15 @@ document.addEventListener('DOMContentLoaded', function () {
       })
         .then(response => response.text())
         .then(data => {
-          // 編集後はモーダルを閉じる
-          document.getElementById('editEventModal').style.display = 'none';
-          // カレンダーのイベントを再読み込みして、現在表示中の月を維持
-          if (window.calendar) {
-            window.calendar.refetchEvents();
+          if (data.trim() === 'OK') {
+            // 正常時 → モーダル閉じ & カレンダー更新
+            document.getElementById('editEventModal').style.display = 'none';
+            if (window.calendar) {
+              window.calendar.refetchEvents();
+            }
+          } else {
+            // エラー時: ダイアログ表示
+            alert(data);
           }
         })
         .catch(error => {

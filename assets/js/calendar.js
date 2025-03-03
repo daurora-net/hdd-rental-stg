@@ -20,9 +20,29 @@ document.addEventListener('DOMContentLoaded', function () {
       // 「新規追加モーダル (addRentalModal) 」を開き、開始日にクリックした日付を設定する
       var addRentalModal = document.getElementById("addRentalModal");
       if (addRentalModal) {
-        addRentalModal.style.display = "block";
-        // 取得した info.dateStr は "YYYY-MM-DDTHH:MM:SSZ" のような形式なので slice(0,10) で日付部分を切り出す
+        // 取得した info.dateStr は "YYYY-MM-DDTHH:MM:SSZ" の形式なので、日付部分を切り出す
         document.getElementById("addRentalStart").value = info.dateStr.slice(0, 10);
+
+        // 追加: HDDリソースを取得し、<select id="addRentalHdd"> にオプションを設定する
+        fetch('actions/fetch_available_resources.php?current_rental_id=0')
+          .then(response => response.json())
+          .then(data => {
+            var hddSelect = document.getElementById("addRentalHdd");
+            if (hddSelect) {
+              hddSelect.innerHTML = '';
+              data.forEach(function (resource) {
+                var option = document.createElement("option");
+                option.value = resource.id;
+                option.textContent = resource.name;
+                hddSelect.appendChild(option);
+              });
+            }
+            addRentalModal.style.display = "block";
+          })
+          .catch(error => {
+            console.error("利用可能なHDDリソース取得エラー (dateClick):", error);
+            addRentalModal.style.display = "block";
+          });
       }
     },
 

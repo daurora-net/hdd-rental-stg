@@ -431,7 +431,7 @@ button.cancel-btn:hover {
 
 .fc-h-event .fc-event-main {
   color: #37352f;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
 }
 
 .fc .fc-scrollgrid-section-sticky > * {
@@ -468,6 +468,7 @@ body {
   color: #9a9a9a;
   font-weight: normal;
   font-size: 13px;
+  font-size: 0.7rem;
 }
 
 /* 年月 */
@@ -492,7 +493,7 @@ body {
 
 /* HDD No. 内容 */
 .fc-datagrid-cell-main {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
 }
 
 .fc-theme-standard .fc-scrollgrid {
@@ -501,7 +502,7 @@ body {
 }
 
 .fc-event-main {
-  padding-left: 10px;
+  padding-left: 6px;
 }
 
 /*========= form ===============*/

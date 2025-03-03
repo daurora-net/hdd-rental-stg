@@ -5,10 +5,10 @@ include '../common/db.php';
 // 返却フィルターの取得
 $filter_returned = isset($_GET['filter_returned']) ? $_GET['filter_returned'] : '';
 
-// 表示件数の取得（デフォルトは10件）
-$perPage = isset($_GET['perPage']) ? intval($_GET['perPage']) : 10;
+// 表示件数の取得（デフォルトは30件）
+$perPage = isset($_GET['perPage']) ? intval($_GET['perPage']) : 30;
 if ($perPage <= 0) {
-  $perPage = 10;
+  $perPage = 30;
 }
 
 // 現在のページ番号（デフォルトは1ページ目）
@@ -112,7 +112,7 @@ include '../parts/head.php';
             <div class="custom-select-wrapper w-150px ml-10">
               <select name="perPage" id="perPage" onchange="this.form.submit();">
                 <?php
-                $options = [10, 30, 50, 70, 100];
+                $options = [30, 50, 70, 100];
                 foreach ($options as $opt) {
                   $selected = ($opt == $perPage) ? 'selected' : '';
                   echo "<option value=\"$opt\" $selected>$opt 件</option>";

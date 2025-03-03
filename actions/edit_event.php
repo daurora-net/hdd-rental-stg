@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       // 完了後リダイレクト
       echo "OK";
-      exit();
+      exit;
 
     } catch (PDOException $e) {
       error_log("レンタル削除エラー: " . $e->getMessage());
@@ -49,6 +49,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $returnDate = null;
     }
 
+    //    overlap条件: NOT (既存.end < 新.start OR 既存.start > 新.end)
+    //    → (既存.start <= 新.end) AND (既存.end >= 新.start) で重複
+    $overlapSql = "
+      SELECT COUNT(*) 
+      FROM hdd_rentals
+      WHERE deleted_at IS NULL
+        AND resource_id = ?
+        AND NOT (end < ? OR start > ?)
+        AND id <> ?
+    ";
+    try {
+      $stmtOverlap = $conn->prepare($overlapSql);
+      $stmtOverlap->execute([$resource_id, $start, $end, $eventId]);
+      $countOverlap = $stmtOverlap->fetchColumn();
+
+      if ($countOverlap > 0) {
+        // 重複あり → エラーを返して中断
+        echo "登録済みのデータと日付が被っています。選び直してください。";
+        exit;
+      }
+    } catch (PDOException $e) {
+      error_log("オーバーラップチェックエラー: " . $e->getMessage());
+      echo "エラーが発生しました。";
+      exit();
+    }
+
     try {
       $stmt = $conn->prepare("UPDATE hdd_rentals 
                               SET title = ?, manager = ?, start = ?, end = ?, resource_id = ?,
@@ -72,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ]);
 
       echo "OK";
-      exit();
+      exit;
     } catch (PDOException $e) {
       error_log("レンタル編集エラー: " . $e->getMessage());
       echo "エラーが発生しました。";
