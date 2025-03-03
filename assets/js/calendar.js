@@ -2,6 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
   var resourcesData = {}; // リソースデータを保持する変数
 
+  // ▼ ドラッグ or リサイズした際の info を一時的に保存しておき、
+  //   キャンセル時に revert() するための変数
+  window.currentCalendarAction = null; // { type: 'drop'|'resize', info: ... }
+
   var calendar = new FullCalendar.Calendar(calendarEl, {
     timeZone: 'UTC',
     initialView: 'resourceTimelineMonth',
@@ -11,19 +15,17 @@ document.addEventListener('DOMContentLoaded', function () {
       left: '',
       right: 'today,prev,next'
     },
-    editable: true,
+    editable: true, // イベントをドラッグ移動、リサイズできる
     resourceAreaHeaderContent: 'HDD No.',
     resourceOrder: 'name',
 
     selectable: true,
     dateClick: function (info) {
-      // 「新規追加モーダル (addRentalModal) 」を開き、開始日にクリックした日付を設定する
+      // 新規追加モーダルを開く。開始日にクリックした日付を設定
       var addRentalModal = document.getElementById("addRentalModal");
       if (addRentalModal) {
-        // 取得した info.dateStr は "YYYY-MM-DDTHH:MM:SSZ" の形式なので、日付部分を切り出す
         document.getElementById("addRentalStart").value = info.dateStr.slice(0, 10);
 
-        // 追加: HDDリソースを取得し、<select id="addRentalHdd"> にオプションを設定する
         fetch('actions/fetch_available_resources.php?current_rental_id=0')
           .then(response => response.json())
           .then(data => {
@@ -46,8 +48,164 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     },
 
+    // ---------------------------------------------
+    // イベントをドラッグ移動した直後のコールバック
+    // ---------------------------------------------
+    eventDrop: function (info) {
+      // info.event は移動後のイベント
+      // info.newResource は移動先リソース
+      // info.oldResource は元リソース
+      // ここではモーダルを出し、新日付・HDDをセット
+
+      // まず revert() 用に info を保管
+      window.currentCalendarAction = { type: 'drop', info: info };
+
+      var movedEvent = info.event;
+      var newResource = info.newResource;
+      var newResourceId = (newResource && newResource.id)
+        ? newResource.id
+        : (movedEvent.getResources()[0] ? movedEvent.getResources()[0].id : null);
+
+      var newStart = movedEvent.start;
+      var newEnd = movedEvent.end;
+      var startStr = newStart ? newStart.toISOString().slice(0, 10) : '';
+
+      // ▼ 1日多い問題を修正：end から1日引く
+      var adjustedEnd = newEnd ? new Date(newEnd.getTime()) : null;
+      if (adjustedEnd) {
+        adjustedEnd.setDate(adjustedEnd.getDate() - 1);
+      }
+      var endStr = adjustedEnd
+        ? adjustedEnd.toISOString().slice(0, 10)
+        : startStr;
+
+      var editModal = document.getElementById("editEventModal");
+      if (!editModal) {
+        console.error("editEventModal が見つかりません。");
+        return;
+      }
+      editModal.style.display = "block";
+
+      // フォームへセット
+      document.getElementById("editEventId").value = movedEvent.id;
+      document.getElementById("editEventTitle").value = movedEvent.title;
+      document.getElementById("editEventManager").value = movedEvent.extendedProps.manager || "";
+      document.getElementById("editEventStart").value = startStr;
+      document.getElementById("editEventEnd").value = endStr;
+      document.getElementById("editEventNotes").value = movedEvent.extendedProps.notes || "";
+      document.getElementById("editRentalLocation").value
+        = movedEvent.extendedProps.location || "";
+      document.getElementById("editRentalCable").value
+        = movedEvent.extendedProps.cable || "";
+
+      var returnDateField = document.getElementById("editReturnDate");
+      if (returnDateField) {
+        if (movedEvent.extendedProps.return_date) {
+          returnDateField.value = movedEvent.extendedProps.return_date.slice(0, 10);
+        } else {
+          returnDateField.value = '';
+        }
+        returnDateField.dispatchEvent(new Event("input"));
+      }
+
+      // HDDリストの再取得→新HDDを選択
+      fetch(`actions/fetch_available_resources.php?current_rental_id=${movedEvent.id}`)
+        .then(response => response.json())
+        .then(data => {
+          var hddSelect = document.getElementById("editRentalHdd");
+          if (!hddSelect) return;
+          hddSelect.innerHTML = '';
+          data.forEach(function (res) {
+            var option = document.createElement("option");
+            option.value = res.id;
+            option.textContent = res.name;
+            hddSelect.appendChild(option);
+          });
+          hddSelect.value = newResourceId;
+        })
+        .catch(err => {
+          console.error("fetch_available_resourcesエラー (eventDrop):", err);
+        });
+    },
+
+    // ---------------------------------------------
+    // イベントのリサイズ後（両端をドラッグで日付拡縮）
+    // ---------------------------------------------
+    eventResize: function (info) {
+      window.currentCalendarAction = { type: 'resize', info: info };
+
+      var resizedEvent = info.event;
+      var newStart = resizedEvent.start;
+      var newEnd = resizedEvent.end;
+
+      // リソースは変わってないはず
+      var resources = resizedEvent.getResources();
+      var resourceId = resources.length > 0 ? resources[0].id : null;
+
+      var startStr = newStart ? newStart.toISOString().slice(0, 10) : '';
+
+      // ▼ 1日多い問題を修正：end から1日引く
+      var adjustedEnd = newEnd ? new Date(newEnd.getTime()) : null;
+      if (adjustedEnd) {
+        adjustedEnd.setDate(adjustedEnd.getDate() - 1);
+      }
+      var endStr = adjustedEnd
+        ? adjustedEnd.toISOString().slice(0, 10)
+        : startStr;
+
+      var editModal = document.getElementById("editEventModal");
+      if (!editModal) {
+        console.error("editEventModal が見つかりません。");
+        return;
+      }
+      editModal.style.display = "block";
+
+      // フォームへセット
+      document.getElementById("editEventId").value = resizedEvent.id;
+      document.getElementById("editEventTitle").value = resizedEvent.title;
+      document.getElementById("editEventManager").value = resizedEvent.extendedProps.manager || "";
+      document.getElementById("editEventStart").value = startStr;
+      document.getElementById("editEventEnd").value = endStr;
+      document.getElementById("editEventNotes").value = resizedEvent.extendedProps.notes || "";
+      document.getElementById("editRentalLocation").value
+        = resizedEvent.extendedProps.location || "";
+      document.getElementById("editRentalCable").value
+        = resizedEvent.extendedProps.cable || "";
+
+      var returnDateField = document.getElementById("editReturnDate");
+      if (returnDateField) {
+        if (resizedEvent.extendedProps.return_date) {
+          returnDateField.value = resizedEvent.extendedProps.return_date.slice(0, 10);
+        } else {
+          returnDateField.value = '';
+        }
+        returnDateField.dispatchEvent(new Event("input"));
+      }
+
+      // HDDセレクト（リソースIDは変わらない想定）
+      fetch(`actions/fetch_available_resources.php?current_rental_id=${resizedEvent.id}`)
+        .then(response => response.json())
+        .then(data => {
+          var hddSelect = document.getElementById("editRentalHdd");
+          if (!hddSelect) return;
+          hddSelect.innerHTML = '';
+          data.forEach(function (res) {
+            var option = document.createElement("option");
+            option.value = res.id;
+            option.textContent = res.name;
+            hddSelect.appendChild(option);
+          });
+          hddSelect.value = resourceId;
+        })
+        .catch(err => {
+          console.error("fetch_available_resourcesエラー (eventResize):", err);
+        });
+    },
+
     resourceLabelContent: function (arg) {
-      return resourcesData[arg.resource.id] ? resourcesData[arg.resource.id] : arg.resource.id;
+      return resourcesData[arg.resource.id]
+        ? resourcesData[arg.resource.id]
+        : arg.resource.id;
     },
 
     resources: function (fetchInfo, successCallback, failureCallback) {
@@ -56,23 +214,18 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
           // 名前順（abc順）と番号順にソート
           data.sort((a, b) => {
-            // 名前部分を抽出
             const aNameMatch = a.name.match(/^([A-Za-z]+)(\d+)$/);
             const bNameMatch = b.name.match(/^([A-Za-z]+)(\d+)$/);
 
             const aPrefix = aNameMatch ? aNameMatch[1] : '';
             const bPrefix = bNameMatch ? bNameMatch[1] : '';
-
-            // 名前のアルファベット順を比較
             const prefixCompare = aPrefix.localeCompare(bPrefix);
             if (prefixCompare !== 0) {
               return prefixCompare;
             }
 
-            // 数字部分を取得し、数値に変換して比較
             const aNum = aNameMatch ? parseInt(aNameMatch[2], 10) : 0;
             const bNum = bNameMatch ? parseInt(bNameMatch[2], 10) : 0;
-
             return aNum - bNum;
           });
 
@@ -86,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
           failureCallback(error);
         });
     },
+
     events: 'actions/fetch_events.php',
     slotLabelFormat: [
       { year: 'numeric', month: 'numeric' },
@@ -110,7 +264,6 @@ document.addEventListener('DOMContentLoaded', function () {
         resourceName = resources[0].title || resources[0].name || resourcesData[resources[0].id];
       }
 
-      // イベントのタイトル、マネージャー、リソース名を表示
       var eventTitle = document.createElement('div');
       eventTitle.innerHTML = arg.event.title;
 
@@ -122,12 +275,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
       return { domNodes: [eventTitle, eventManager, eventResource] };
     },
+
     eventClick: function (info) {
       var eventObj = info.event;
       var resources = eventObj.getResources();
       var resourceId = resources.length > 0 ? resources[0].id : undefined;
 
-      // editEventModal がちゃんと取得できることを確認
       var modal = document.getElementById("editEventModal");
       if (!modal) {
         console.log("editEventModal がページに存在しません。");
@@ -158,46 +311,35 @@ document.addEventListener('DOMContentLoaded', function () {
           });
       }
 
-      // フォームにデータをセットする
       document.getElementById("editEventTitle").value = eventObj.title;
       document.getElementById("editEventManager").value = eventObj.extendedProps.manager;
       document.getElementById("editEventStart").value = eventObj.start
         ? eventObj.start.toISOString().slice(0, 10)
         : "";
-      // DBから取った本来の終了日
-      var realEnd = eventObj.extendedProps.real_end;
 
-      // もし DB の終了日が無い場合は、開始日と同じにするなど
+      // realEnd
+      var realEnd = eventObj.extendedProps.real_end;
       if (!realEnd) {
         realEnd = eventObj.start
           ? eventObj.start.toISOString().slice(0, 10)
           : "";
       }
-
-      // ここでフォームにセット
       document.getElementById("editEventEnd").value = realEnd;
       document.getElementById("editEventId").value = eventObj.id;
 
-      // 返却済表示
-      // document.getElementById("editIsReturned").checked =
-      //   eventObj.extendedProps.is_returned === 1;
-
-      // 返却日をセット
-      document.getElementById("editReturnDate").value =
-        eventObj.extendedProps.return_date
+      var retField = document.getElementById("editReturnDate");
+      if (retField) {
+        retField.value = eventObj.extendedProps.return_date
           ? eventObj.extendedProps.return_date.slice(0, 10)
           : "";
-      document.getElementById("editReturnDate").dispatchEvent(new Event("input"));
+        retField.dispatchEvent(new Event("input"));
+      }
 
-      // location をセット
       document.getElementById("editRentalLocation").value =
         eventObj.extendedProps.location || "";
-
-      // cable をセット
       document.getElementById("editRentalCable").value =
         eventObj.extendedProps.cable || "";
 
-      // duration が必要なら
       var durationField = document.getElementById("editRentalDuration");
       if (durationField) {
         if (eventObj.extendedProps.is_returned == 0) {
@@ -207,10 +349,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
 
-      // notes をセット
       document.getElementById("editEventNotes").value =
         eventObj.extendedProps.notes || "";
     },
+
     eventClassNames: function (arg) {
       if (arg.event.extendedProps.is_returned == 1) {
         return ['returned-event'];

@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ---------------------------------------------
-  //  追記：編集イベントモーダルのフォームを非同期送信する処理
+  //  編集イベントモーダルのフォームを非同期送信する処理
   // ---------------------------------------------
   var editEventForm = document.getElementById('editEventForm');
   if (editEventForm) {
@@ -351,6 +351,28 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {
           console.error('Error:', error);
         });
+    });
+  }
+
+  // ---------------------------------------------
+  //  「ドラッグ or リサイズしてモーダル表示」 → 「キャンセル」 で元に戻る
+  // ---------------------------------------------
+  var editEventCancelBtn = document.getElementById("editEventCancelBtn");
+  if (editEventCancelBtn) {
+    editEventCancelBtn.addEventListener("click", function () {
+      // モーダル閉じる
+      var editEventModal = document.getElementById("editEventModal");
+      editEventModal.style.display = "none";
+
+      // ▼ ドラッグ/リサイズ後の info があれば revert()
+      if (window.currentCalendarAction &&
+        (window.currentCalendarAction.type === 'drop'
+          || window.currentCalendarAction.type === 'resize')) {
+        window.currentCalendarAction.info.revert(); // 元の位置に戻す
+      }
+
+      // 使い終わったらクリア
+      window.currentCalendarAction = null;
     });
   }
 });
