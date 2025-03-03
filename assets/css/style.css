@@ -505,6 +505,14 @@ body {
   padding-left: 6px;
 }
 
+#monthSelect {
+  height: auto;
+  border-radius: 0;
+  border: none;
+  background-color: #839ec2;
+  color: #fff;
+}
+
 /*========= form ===============*/
 form.form {
   background: #f2f2f2;
@@ -820,15 +828,15 @@ body.page-login .login-wrap .error-message {
 
 /*========= table-container ===============*/
 .table-container {
-  display: inline-block;
-  overflow-y: auto;
-  max-height: calc(85vh - 150px);
   position: relative;
+  display: inline-block;
   width: -moz-max-content;
   width: max-content;
   max-width: 100%;
+  max-height: calc(85vh - 150px);
   margin: 20px auto 10px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: auto;
 }
 .table-container table {
   border-collapse: separate;

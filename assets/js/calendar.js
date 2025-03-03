@@ -363,4 +363,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
   window.calendar = calendar;
   calendar.render();
+  // hdd_rentalsテーブルにデータが存在する月全てを取得してセレクトボックスに表示
+  (function () {
+    var todayButton = document.querySelector('.fc-today-button');
+    if (!todayButton) return;
+
+    var monthSelect = document.createElement('select');
+    monthSelect.id = 'monthSelect';
+
+    var currentDate = new Date();
+    var currentYear = currentDate.getFullYear();
+    var currentMonth = currentDate.getMonth() + 1;
+    if (currentMonth < 10) {
+      currentMonth = '0' + currentMonth;
+    }
+    var currentMonthStr = currentYear + '-' + currentMonth;
+    fetch('actions/fetch_rental_months.php')
+      .then(response => response.json())
+      .then(data => {
+        // フォーマット統一：月部分が1桁の場合は0埋めする
+        var formattedData = data.map(function (monthValue) {
+          var parts = monthValue.split('-');
+          if (parts[1].length === 1) {
+            parts[1] = '0' + parts[1];
+          }
+          return parts[0] + '-' + parts[1];
+        });
+        formattedData.sort(function (a, b) { return b.localeCompare(a); });
+        formattedData.forEach(function (monthValue) {
+          var option = document.createElement('option');
+          option.value = monthValue;
+          option.textContent = monthValue;
+          if (monthValue === currentMonthStr) {
+            option.selected = true;
+          }
+          monthSelect.appendChild(option);
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching rental months:", error);
+      });
+
+    monthSelect.addEventListener('change', function () {
+      if (this.value !== '') {
+        var parts = this.value.split('-');
+        var newDate = new Date(Date.UTC(parseInt(parts[0]), parseInt(parts[1]) - 1, 1));
+        calendar.gotoDate(newDate);
+      }
+    });
+
+    todayButton.parentNode.insertBefore(monthSelect, todayButton.nextSibling);
+  })();
 });
