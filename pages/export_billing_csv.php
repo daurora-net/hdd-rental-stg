@@ -48,6 +48,8 @@ header('Content-Disposition: attachment; filename="' . $filename . '.csv"');
 
 // 出力ストリームをオープン
 $output = fopen('php://output', 'w');
+// 追加: UTF-8 BOM を出力してExcelでの文字化け対策
+fwrite($output, "\xEF\xBB\xBF");
 
 // ヘッダ行の書き出し
 fputcsv($output, ['番組名', '担当者', 'HDD No.', 'HDD容量', '使用場所', '開始日', '返却日', '使用日数']);
