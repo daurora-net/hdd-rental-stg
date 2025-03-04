@@ -617,6 +617,42 @@ select {
   color: #ccc;
 }
 
+.flatpickr-calendar {
+  width: 260px !important;
+}
+
+.flatpickr-monthSelect-month {
+  width: 20% !important;
+  padding: 8px !important;
+}
+
+.flatpickr-calendar.arrowTop::before,
+.flatpickr-calendar.arrowTop::after {
+  display: none !important;
+}
+
+.flatpickr-monthSelect-months {
+  padding-bottom: 40px;
+}
+
+.flatpickr-reset-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: transparent;
+  color: gray;
+  font-size: 0.7rem;
+  border: 1px solid gray;
+  height: 26px;
+  line-height: 26px;
+  padding: 0px 7px;
+  width: -moz-max-content;
+  width: max-content;
+}
+.flatpickr-reset-button:hover {
+  opacity: 0.7;
+}
+
 /*========= input ===============*/
 .auto-input {
   background-color: transparent;

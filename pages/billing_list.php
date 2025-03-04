@@ -14,8 +14,8 @@ $currentUserRole = $stmtRole->fetchColumn();
 //   exit();
 // }
 
-// ▼ 「year-month」パラメータ (例: "2024-12", "2025-01") を取得
-$selectedYm = isset($_GET['ym']) ? $_GET['ym'] : '';
+// デフォルトは「先月」の年月（YYYY-MM形式）
+$selectedYm = isset($_GET['ym']) ? $_GET['ym'] : date('Y-m', strtotime('first day of last month'));
 
 // ▼ まず「返却年-月」の一覧を取得 (null以外)
 $sqlMonths = "
@@ -88,28 +88,10 @@ include '../parts/head.php';
       <h2 class="sp no-print">BILLING</h2>
       <div class="header-container">
         <!-- ソートボックス -->
-        <!-- ▼ 年月セレクト (実際にある返却日のみ) -->
         <form method="get" action="" class="flex">
           <div class="custom-select-wrapper w-150px">
-            <select name="ym"
-              onchange="if(this.value==''){ window.location.href=window.location.pathname; } else { this.form.submit(); }">
-              <!-- すべて(未選択)用オプション -->
-              <option value="">すべて</option>
-              <?php foreach ($monthList as $ym): ?>
-                <?php
-                // 例 "2024-12" -> [2024, 12]
-                list($y, $m) = explode('-', $ym);
-                // 月先頭の0を外して整数に
-                $mInt = (int) $m;
-                // ラベル例: "2024年12月"
-                $label = $y . '年' . $mInt . '月';
-                ?>
-                <option value="<?php echo htmlspecialchars($ym); ?>" <?php if ($ym === $selectedYm)
-                     echo 'selected'; ?>>
-                  <?php echo htmlspecialchars($label); ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
+            <input type="text" id="billingMonthInput" name="ym" value="<?php echo htmlspecialchars($selectedYm); ?>"
+              onchange="this.form.submit();">
           </div>
           <div class="no-print pc flex ml-20">
             <button onclick="window.print(); return false;" class="print-btn">印刷</button>
@@ -161,6 +143,43 @@ include '../parts/head.php';
     </div>
   </main>
 
+  <script>
+    flatpickr("#billingMonthInput", {
+      locale: "ja",
+      clickOpens: false,
+      plugins: [
+        new monthSelectPlugin({
+          shorthand: false,
+          dateFormat: "Y-m",
+          altFormat: "Y年n月"
+        })
+      ],
+      defaultDate: "<?php echo htmlspecialchars($selectedYm); ?>",
+      onReady: function (selectedDates, dateStr, instance) {
+        instance.input.addEventListener("click", function (e) {
+          if (instance.isOpen) {
+            instance.close();
+          } else {
+            instance.open();
+          }
+        });
+        // 追記：カレンダー内にリセットボタンを追加
+        var resetBtn = document.createElement("button");
+        resetBtn.className = "flatpickr-reset-button";
+        resetBtn.textContent = "リセット";
+        resetBtn.type = "button";
+        resetBtn.addEventListener("click", function (e) {
+          instance.clear();
+          instance.input.value = "";
+          instance.input.form.submit();
+        });
+        instance.calendarContainer.appendChild(resetBtn);
+      },
+      onChange: function (selectedDates, dateStr, instance) {
+        instance.input.form.submit();
+      }
+    });
+  </script>
 </body>
 
 </html>
