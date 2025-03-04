@@ -117,13 +117,24 @@ document.addEventListener('DOMContentLoaded', function () {
       })
         .then(response => response.text())
         .then(data => {
-          // ▼ 修正：より明確に判定
           if (data.trim() === 'OK') {
-            // 成功 → モーダルを閉じ、カレンダーのイベントを再読み込み
+            // 成功 → モーダルを閉じ、フォームリセット
             document.getElementById("addRentalModal").style.display = "none";
             addRentalForm.reset();
+            // 更新：カレンダーがある場合は refetchEvents、なければテーブル tbody を再読み込み
             if (window.calendar) {
               window.calendar.refetchEvents();
+            } else {
+              fetch(window.location.href, { method: 'GET' })
+                .then(response => response.text())
+                .then(html => {
+                  var parser = new DOMParser();
+                  var doc = parser.parseFromString(html, 'text/html');
+                  var newTbody = doc.querySelector('.rental-list table tbody');
+                  if (newTbody) {
+                    document.querySelector('.rental-list table tbody').innerHTML = newTbody.innerHTML;
+                  }
+                });
             }
           } else {
             alert(data);
@@ -344,13 +355,34 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.text())
         .then(data => {
           if (data.trim() === 'OK') {
-            // 正常時 → モーダル閉じ & カレンダー更新
+            // 正常時 → モーダル閉じ
             document.getElementById('editEventModal').style.display = 'none';
             if (window.calendar) {
               window.calendar.refetchEvents();
+            } else {
+              // 編集対象の行を手動で更新（対象の<tr>に data-id 属性が設定されている前提）
+              var editedId = document.getElementById("editEventId").value;
+              var row = document.querySelector("tr[data-id='" + editedId + "']");
+              if (row) {
+                var cells = row.getElementsByTagName("td");
+                // セルの順番（例）:
+                // 0: 編集ボタン, 1: ID, 2: 番組名, 3: 担当者, 4: HDD No.,
+                // 5: HDD容量, 6: 開始日, 7: 終了予定日, 8: 使用場所, 9: ケーブル,
+                // 10: 返却済, 11: 返却日, 12: 使用日数, 13: メモ
+                cells[2].textContent = document.getElementById("editEventTitle").value;
+                cells[3].textContent = document.getElementById("editEventManager").value;
+                cells[6].textContent = document.getElementById("editEventStart").value;
+                cells[7].textContent = document.getElementById("editEventEnd").value;
+                cells[8].textContent = document.getElementById("editRentalLocation").value;
+                cells[9].textContent = document.getElementById("editRentalCable").value;
+                cells[11].textContent = document.getElementById("editReturnDate").value;
+                cells[12].textContent = document.getElementById("editRentalDuration").value;
+                cells[13].textContent = document.getElementById("editEventNotes").value;
+                var returnDate = document.getElementById("editReturnDate").value;
+                cells[10].textContent = returnDate ? '✔︎' : '';
+              }
             }
           } else {
-            // エラー時: ダイアログ表示
             alert(data);
           }
         })

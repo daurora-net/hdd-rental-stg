@@ -152,7 +152,7 @@ include '../parts/head.php';
           </thead>
           <tbody>
             <?php foreach ($rentals as $rental) { ?>
-              <tr>
+              <tr data-id="<?php echo htmlspecialchars($rental['id']); ?>">
                 <td>
                   <button class="edit-btn edit-event-btn" data-bs-toggle="modal" data-bs-target="#editEventModal"
                     data-id="<?php echo htmlspecialchars($rental['id']); ?>"
