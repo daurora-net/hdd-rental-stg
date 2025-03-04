@@ -123,6 +123,10 @@ include '../parts/head.php';
             <!-- 現在のページ番号を保持する（必要に応じて） -->
             <input type="hidden" name="page" value="<?php echo $page; ?>">
           </form>
+          <!-- テーブル検索機能 -->
+          <div class="table-search w-150px ml-10">
+            <input type="text" id="rentalTableSearchInput" placeholder="&#xf002;">
+          </div>
         </div>
       </div>
       <!-- レンタル一覧表示 -->

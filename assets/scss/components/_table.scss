@@ -88,6 +88,13 @@
   }
 }
 
+/*========= table-search ===============*/
+.table-search input::placeholder {
+  font-family: 'Font Awesome 6 Free', sans-serif;
+  font-weight: 900;
+  color: #ccc;
+}
+
 /*========= responsive ===============*/
 @media (max-width: 768px) {
   .table-container {

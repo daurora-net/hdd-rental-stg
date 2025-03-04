@@ -88,3 +88,29 @@ function sortTable(header, n) {
     }
   }
 }
+// テーブル検索機能の実装
+function filterTableBySearch(inputId, tableSelector) {
+  var input = document.getElementById(inputId);
+  if (!input) return;
+  input.addEventListener('keyup', function () {
+    var filter = input.value.toLowerCase();
+    var rows = document.querySelectorAll(tableSelector + " tbody tr");
+    rows.forEach(function (row) {
+      var text = row.textContent.toLowerCase();
+      if (text.indexOf(filter) > -1) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  });
+}
+
+// 検索入力欄に対する初期化呼び出し（対象：rental_listページのテーブル）
+document.addEventListener('DOMContentLoaded', function () {
+  filterTableBySearch('rentalTableSearchInput', '.rental-list table');
+});
+// 検索入力欄に対する初期化呼び出し（対象：billing_listページのテーブル）
+document.addEventListener('DOMContentLoaded', function () {
+  filterTableBySearch('billingTableSearchInput', '.billing-list table');
+});

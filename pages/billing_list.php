@@ -118,6 +118,10 @@ include '../parts/head.php';
               class="csv-btn">CSV出力</button>
             <!-- <a href="pages/export_billing_csv.php?ym=<?php echo urlencode($selectedYm); ?>" class="csv-btn">CSV出力</a> -->
           </div>
+          <!-- テーブル検索機能 -->
+          <div class="table-search w-150px ml-10">
+            <input type="text" id="billingTableSearchInput" placeholder="&#xf002;">
+          </div>
         </form>
       </div>
 

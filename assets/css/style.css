@@ -909,6 +909,18 @@ body.page-login .login-wrap .error-message {
   width: 12.6px;
 }
 
+/*========= table-search ===============*/
+.table-search input::-moz-placeholder {
+  font-family: "Font Awesome 6 Free", sans-serif;
+  font-weight: 900;
+  color: #ccc;
+}
+.table-search input::placeholder {
+  font-family: "Font Awesome 6 Free", sans-serif;
+  font-weight: 900;
+  color: #ccc;
+}
+
 /*========= responsive ===============*/
 @media (max-width: 768px) {
   .table-container {
