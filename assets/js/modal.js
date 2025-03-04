@@ -331,6 +331,9 @@ document.addEventListener('DOMContentLoaded', function () {
     editEventForm.addEventListener('submit', function (e) {
       e.preventDefault();  // 通常のフォーム送信を防止
       var formData = new FormData(editEventForm);
+      if (e.submitter && e.submitter.name) {
+        formData.append(e.submitter.name, e.submitter.value);
+      }
       fetch('actions/edit_event.php', {
         method: 'POST',
         body: formData
