@@ -123,18 +123,18 @@ include '../parts/head.php';
 
       <!-- ▼ テーブル表示 -->
       <div class="billing-list table-container table-scroll">
-        <table>
+        <table class="table-sort">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>番組名</th>
-              <th>担当者</th>
-              <th>HDD No.</th>
-              <th>容量</th>
-              <th>使用場所</th>
-              <th>開始日</th>
-              <th>返却日</th>
-              <th>使用日数</th>
+              <th onclick="sortTable(this, 0)">ID <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 1)">番組名 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 2)">担当者 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 3)">HDD No. <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 4)">容量 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 5)">使用場所 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 6)">開始日 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 7)">返却日 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 8)">使用日数 <i class="fa-solid fa-sort"></i></th>
             </tr>
           </thead>
           <tbody>

@@ -38,15 +38,15 @@ include '../parts/head.php';
     <div class="container">
       <h2 class="sp">USER</h2>
       <div class="user-list table-container table-scroll">
-        <table>
+        <table class="table-sort">
           <thead>
             <tr>
               <th></th>
-              <th>ID</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>認証</th>
-              <th>Role</th>
+              <th onclick="sortTable(this, 1)">ID <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 2)">Username <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 3)">Email <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 4)">認証 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 5)">Role <i class="fa-solid fa-sort"></i></th>
             </tr>
           </thead>
           <tbody>

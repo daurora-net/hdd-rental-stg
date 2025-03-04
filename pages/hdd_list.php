@@ -54,14 +54,14 @@ include '../parts/head.php';
       </div>
       <!-- HDD一覧表示 -->
       <div class="hdd-list table-container table-scroll">
-        <table>
+        <table class="table-sort">
           <thead>
             <tr>
               <th></th>
               <!-- <th>ID</th> -->
-              <th>HDD No.</th>
-              <th>容量</th>
-              <th>メモ</th>
+              <th onclick="sortTable(this, 1)">HDD No. <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 2)">容量 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 3)">メモ <i class="fa-solid fa-sort"></i></th>
             </tr>
           </thead>
           <tbody>
