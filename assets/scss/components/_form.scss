@@ -106,8 +106,8 @@ select {
   display: none !important;
 }
 
-.flatpickr-monthSelect-months {
-  padding-bottom: 40px;
+.flatpickr-calendar {
+  padding-bottom: 40px !important;
 }
 
 .flatpickr-reset-button {
@@ -115,16 +115,17 @@ select {
   bottom: 10px;
   right: 10px;
   background-color: transparent;
-  color: gray;
+  color: #959ea9;
   font-size: .7rem;
-  border: 1px solid gray;
+  border: 1px solid #959ea9;
   height: 26px;
   line-height: 26px;
   padding: 0px 7px;
   width: max-content;
 
   &:hover {
-    opacity: .7;
+    color: #fff;
+    background-color: #959ea9;
   }
 }
 

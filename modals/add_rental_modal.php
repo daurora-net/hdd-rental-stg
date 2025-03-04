@@ -27,11 +27,11 @@
       <div class="flex">
         <div class="form-content w-150px">
           <label for="addRentalStart" class="required">開始日</label>
-          <input type="date" id="addRentalStart" name="rentalStart" required>
+          <input type="text" id="addRentalStart" name="rentalStart" required>
         </div>
         <div class="form-content w-150px">
           <label for="addRentalEnd" class="required">終了予定日</label>
-          <input type="date" id="addRentalEnd" name="rentalEnd" required>
+          <input type="text" id="addRentalEnd" name="rentalEnd" required>
         </div>
       </div>
 
@@ -39,7 +39,6 @@
         <div class="form-content w-200px">
           <label for="addRentalHdd" class="required">HDD No.</label>
           <div class="custom-select-wrapper">
-            <!-- ▼ 初期状態では空。JSで fetch し、<option> を注入 -->
             <select id="addRentalHdd" name="rentalHdd" required></select>
           </div>
         </div>
@@ -69,7 +68,7 @@
       <div class="flex">
         <div class="form-content w-150px">
           <label for="addReturnDate">返却日</label>
-          <input type="date" id="addReturnDate" class="js-date-field" name="returnDate">
+          <input type="text" id="addReturnDate" class="js-date-field" name="returnDate" required>
         </div>
         <div class="form-content w-150px">
           <label for="addRentalDuration">使用日数</label>
@@ -90,3 +89,49 @@
     </form>
   </div>
 </div>
+
+<script>
+  // ---------------------------------------------
+  //  カレンダーをflatpickrでカスタマイズ
+  // ---------------------------------------------
+  // 共通の初期化関数
+  function attachFlatpickrWithReset(selector) {
+    flatpickr(selector, {
+      locale: "ja",
+      dateFormat: "Y-m-d",
+      clickOpens: false,
+      onReady: function (selectedDates, dateStr, instance) {
+        instance.input.addEventListener("click", function () {
+          if (instance.isOpen) {
+            instance.close();
+          } else {
+            instance.open();
+          }
+        });
+
+        const resetBtn = document.createElement("button");
+        resetBtn.type = "button";
+        resetBtn.textContent = "リセット";
+        resetBtn.className = "flatpickr-reset-button";
+        resetBtn.style.position = "absolute";
+        resetBtn.style.right = "10px";
+        resetBtn.style.bottom = "10px";
+
+        resetBtn.addEventListener("click", function () {
+          instance.clear();
+        });
+
+        instance.calendarContainer.appendChild(resetBtn);
+      }
+    });
+  }
+
+  // ▼ 開始日
+  attachFlatpickrWithReset("#addRentalStart");
+
+  // ▼ 終了予定日
+  attachFlatpickrWithReset("#addRentalEnd");
+
+  // ▼ 返却日
+  attachFlatpickrWithReset("#addReturnDate");
+</script>

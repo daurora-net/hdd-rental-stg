@@ -4,10 +4,10 @@
       <i class="fa-solid fa-xmark"></i>
     </span>
     <form method="post" class="form" action="actions/edit_user.php">
-      <h3>USER編集</h3>
+      <h3>ユーザー編集</h3>
       <input type="hidden" id="editUserId" name="userId">
       <div class="form-content">
-        <label for="editUsername" class="required">Username</label>
+        <label for="editUsername" class="required">ユーザー名</label>
         <input type="text" id="editUsername" name="username" required>
       </div>
       <div class="flex">
