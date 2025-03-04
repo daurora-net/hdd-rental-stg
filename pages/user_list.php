@@ -21,7 +21,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html>
 
 <?php
-$pageTitle = 'USER';
+$pageTitle = 'ユーザー';
 include '../parts/head.php';
 ?>
 

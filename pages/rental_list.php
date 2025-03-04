@@ -81,7 +81,7 @@ if (!in_array($currentUserRole, [1, 2])) {
 <html>
 
 <?php
-$pageTitle = 'SCHEDULE';
+$pageTitle = 'スケジュール';
 include '../parts/head.php';
 ?>
 

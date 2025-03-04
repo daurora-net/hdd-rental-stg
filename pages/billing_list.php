@@ -70,7 +70,7 @@ $billingList = $stmtMain->fetchAll(PDO::FETCH_ASSOC);
 <html>
 
 <?php
-$pageTitle = 'BILLING';
+$pageTitle = '料金';
 include '../parts/head.php';
 ?>
 
