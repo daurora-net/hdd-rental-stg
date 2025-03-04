@@ -353,17 +353,30 @@ document.addEventListener('DOMContentLoaded', function () {
         eventObj.extendedProps.notes || "";
     },
 
+    // ---------------------------------------------
+    // 「使用場所」項目に応じたクラス名を付与
+    // ---------------------------------------------
     eventClassNames: function (arg) {
+      var classes = [];
       if (arg.event.extendedProps.is_returned == 1) {
-        return ['returned-event'];
+        classes.push('returned-event');
       }
-      return [];
+      var loc = arg.event.extendedProps.location;
+      if (loc === '104') {
+        classes.push('location-104');
+      } else if (loc === '外部') {
+        classes.push('location-gaibu');
+      }
+      return classes;
     }
   });
 
   window.calendar = calendar;
   calendar.render();
+
+  // ---------------------------------------------
   // hdd_rentalsテーブルにデータが存在する月全てを取得してセレクトボックスに表示
+  // ---------------------------------------------
   (function () {
     var todayButton = document.querySelector('.fc-today-button');
     if (!todayButton) return;
