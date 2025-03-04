@@ -119,10 +119,13 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
           // ▼ 修正：より明確に判定
           if (data.trim() === 'OK') {
-            // 成功 → ページリロード
-            window.location.reload();
+            // 成功 → モーダルを閉じ、カレンダーのイベントを再読み込み
+            document.getElementById("addRentalModal").style.display = "none";
+            addRentalForm.reset();
+            if (window.calendar) {
+              window.calendar.refetchEvents();
+            }
           } else {
-            // "登録できません" や "エラー" 等が含まれていたらalert
             alert(data);
           }
         })
