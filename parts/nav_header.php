@@ -25,7 +25,7 @@ if (isset($_SESSION['username'])) {
       $roleColor = 'cadetblue';
       break;
     case 3:
-      // 精算の場合
+      // 料金の場合
       $roleColor = '#ab8cb6';
       break;
     default:

@@ -43,10 +43,10 @@ include '../parts/head.php';
             <tr>
               <th></th>
               <th onclick="sortTable(this, 1)">ID <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 2)">Username <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 3)">Email <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 2)">ユーザー名 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 3)">メールアドレス <i class="fa-solid fa-sort"></i></th>
               <th onclick="sortTable(this, 4)">認証 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 5)">Role <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 5)">権限 <i class="fa-solid fa-sort"></i></th>
             </tr>
           </thead>
           <tbody>
@@ -67,7 +67,7 @@ include '../parts/head.php';
                   $roles = [
                     1 => '管理者',
                     2 => '一般',
-                    3 => '精算'
+                    3 => '料金'
                   ];
                   echo htmlspecialchars($roles[$user['role']]);
                   ?>
