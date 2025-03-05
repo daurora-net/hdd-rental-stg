@@ -101,7 +101,7 @@ include '../parts/head.php';
             <!-- <a href="pages/export_billing_csv.php?ym=<?php echo urlencode($selectedYm); ?>" class="csv-btn">CSV出力</a> -->
           </div>
           <!-- テーブル検索機能 -->
-          <div class="table-search w-150px ml-10">
+          <div class="no-print table-search w-150px ml-10">
             <input type="text" id="billingTableSearchInput" placeholder="&#xf002;">
           </div>
         </form>
@@ -112,15 +112,15 @@ include '../parts/head.php';
         <table class="table-sort">
           <thead>
             <tr>
-              <th onclick="sortTable(this, 0)">ID <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 1)">番組名 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 2)">担当者 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 3)">HDD No. <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 4)">容量 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 5)">使用場所 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 6)">開始日 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 7)">返却日 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 8)">使用日数 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 0)">ID <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 1)">番組名 <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 2)">担当者 <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 3)">HDD No. <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 4)">容量 <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 5)">使用場所 <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 6)">開始日 <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 7)">返却日 <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 8)">使用日数 <i class="fa-solid fa-sort no-print"></i></th>
             </tr>
           </thead>
           <tbody>

@@ -44,6 +44,10 @@ select {
   .no-print {
     display: none !important;
   }
+  .table-scroll {
+    overflow: visible !important;
+    height: auto !important;
+  }
 }
 /*========= margin ===============*/
 .ml-10 {
@@ -473,27 +477,17 @@ body {
 
 /* 日にち */
 .fc .fc-timeline-slot-cushion {
-  color: #9a9a9a;
-  font-weight: normal;
-  font-size: 13px;
   font-size: 0.7rem;
+  font-weight: normal;
+  color: #9a9a9a;
+  padding: 4px 5px 0;
 }
 
 /* 年月 */
-/* .fc .fc-timeline-slot-frame {
-  align-items: end;
-  display: flex;
-  justify-content: left;
+.fc-scrollgrid-sync-inner.fc-sticky {
+  font-size: 1rem !important;
 }
-.fc .fc-timeline-slot-cushion {
-  left: 8px;
-  right: 379.258px;
-  top: 0px;
-  text-align: left;
-  color: #403f3b;
-  font-weight: bold;
-  font-size: 15px;
-} */
+
 /* HDD No. タイトル */
 .fc .fc-datagrid-header .fc-datagrid-cell-frame {
   color: #9a9a9a;
@@ -524,7 +518,7 @@ body {
 
 .flatpickr-reset-button {
   position: absolute;
-  bottom: 10px;
+  bottom: 15px;
   right: 10px;
   background-color: transparent;
   color: #959ea9;
@@ -539,6 +533,10 @@ body {
 .flatpickr-reset-button:hover {
   color: #fff;
   background-color: #959ea9;
+}
+
+.flatpickr-monthSelect-theme-light {
+  width: 280px !important;
 }
 
 .flatpickr-monthSelect-month {

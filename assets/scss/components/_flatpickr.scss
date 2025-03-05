@@ -12,7 +12,7 @@
 // リセットボタン
 .flatpickr-reset-button {
   position: absolute;
-  bottom: 10px;
+  bottom: 15px;
   right: 10px;
   background-color: transparent;
   color: #959ea9;
@@ -29,8 +29,14 @@
   }
 }
 
+// 月選択カレンダー
+.flatpickr-monthSelect-theme-light {
+  width: 280px !important;
+}
+
 // billingページ：セレクトボタン
 // .flatpickr-billing-month-select {}
+
 
 // billingページ：カレンダーのセルサイズ
 .flatpickr-monthSelect-month {

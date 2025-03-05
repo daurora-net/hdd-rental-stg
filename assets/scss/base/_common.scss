@@ -41,10 +41,16 @@ select {
   @page {
     size: A4 landscape;
     margin: 0;
+    // padding: 20px;
   }
 
   .no-print {
     display: none !important;
+  }
+
+  .table-scroll {
+    overflow: visible !important;
+    height: auto !important;
   }
 }
 

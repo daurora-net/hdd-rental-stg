@@ -42,11 +42,11 @@ include '../parts/head.php';
           <thead>
             <tr>
               <th></th>
-              <th onclick="sortTable(this, 1)">ID <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 2)">ユーザー名 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 3)">メールアドレス <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 4)">認証 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 5)">権限 <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 1)">ID <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 2)">ユーザー名 <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 3)">メールアドレス <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 4)">認証 <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 5)">権限 <i class="fa-solid fa-sort no-print"></i></th>
             </tr>
           </thead>
           <tbody>

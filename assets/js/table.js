@@ -7,7 +7,7 @@ function sortTable(header, n) {
   thElements.forEach(function (th) {
     var icon = th.querySelector("i");
     if (icon) {
-      icon.className = "fa-solid fa-sort";
+      icon.className = "fa-solid fa-sort no-print";
     }
   });
 

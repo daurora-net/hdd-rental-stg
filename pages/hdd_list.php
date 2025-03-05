@@ -59,9 +59,9 @@ include '../parts/head.php';
             <tr>
               <th></th>
               <!-- <th>ID</th> -->
-              <th onclick="sortTable(this, 1)">HDD No. <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 2)">容量 <i class="fa-solid fa-sort"></i></th>
-              <th onclick="sortTable(this, 3)">メモ <i class="fa-solid fa-sort"></i></th>
+              <th onclick="sortTable(this, 1)">HDD No. <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 2)">容量 <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 3)">メモ <i class="fa-solid fa-sort no-print"></i></th>
             </tr>
           </thead>
           <tbody>
