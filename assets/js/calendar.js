@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
       var addRentalModal = document.getElementById("addRentalModal");
       if (addRentalModal) {
         document.getElementById("addRentalStart").value = info.dateStr.slice(0, 10);
-
+        // クリックされた箇所のリソース（HDD）IDを取得（存在する場合）
+        var clickedResourceId = info.resource ? info.resource.id : null;
         fetch('actions/fetch_available_resources.php?current_rental_id=0')
           .then(response => response.json())
           .then(data => {
@@ -38,6 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 option.textContent = resource.name;
                 hddSelect.appendChild(option);
               });
+              // クリックされたリソースIDが取得できていれば選択状態にする
+              if (clickedResourceId) {
+                hddSelect.value = clickedResourceId;
+              }
             }
             addRentalModal.style.display = "block";
           })
