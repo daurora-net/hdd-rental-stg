@@ -46,13 +46,15 @@
 
 // ガントチャートページ：月移動ボタン
 input.flatpickr-month-select {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
   height: auto;
   border-radius: 0;
   border: none;
   background-color: #839ec2;
-  width: 80px;
+  width: 70px;
   text-align: center;
-  padding-top: 7px;
+  font-size: 17px !important;
   color: #fff;
 
   &::placeholder {

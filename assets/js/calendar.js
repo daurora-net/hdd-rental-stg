@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function () {
   calendar.render();
 
   // ---------------------------------------------
-  // hdd_rentalsテーブルにデータが存在する月全てを取得してセレクトボックスに表示
+  // 月セレクトボタン
   // ---------------------------------------------
   (function () {
     var todayButton = document.querySelector('.fc-today-button');
@@ -376,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
     monthSelectInput.id = 'monthSelect';
     monthSelectInput.className = "flatpickr-month-select";
     monthSelectInput.name = 'ym';
-    monthSelectInput.placeholder = "月 移動";
+    monthSelectInput.placeholder = "\uf274";
 
     flatpickr(monthSelectInput, {
       locale: "ja",
@@ -404,7 +404,7 @@ document.addEventListener('DOMContentLoaded', function () {
         resetBtn.type = "button";
         resetBtn.addEventListener("click", function () {
           instance.clear();
-          instance.input.value = "";
+          instance.input.value = "\uf274";
           var now = new Date();
           var currentYear = now.getFullYear();
           calendar.gotoDate(new Date(currentYear, now.getMonth() + 1, 1));
@@ -418,6 +418,8 @@ document.addEventListener('DOMContentLoaded', function () {
           // 選択された月が1ヶ月前になる問題を回避
           var adjustedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 1);
           calendar.gotoDate(adjustedDate);
+          // 常に表示をカレンダーアイコン固定
+          instance.input.value = "\uf274";
         }
       }
     });
