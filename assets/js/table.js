@@ -82,9 +82,9 @@ function sortTable(header, n) {
 
   if (icon) {
     if (dir === "asc") {
-      icon.className = "fa-solid fa-arrow-down-short-wide";
+      icon.className = "fa-solid fa-arrow-down-short-wide no-print";
     } else {
-      icon.className = "fa-solid fa-arrow-down-wide-short";
+      icon.className = "fa-solid fa-arrow-down-wide-short no-print";
     }
   }
 }

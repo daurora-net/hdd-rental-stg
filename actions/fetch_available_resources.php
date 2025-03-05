@@ -42,25 +42,8 @@ if (!empty($startParam) && !empty($endParam)) {
   $stmt->bindValue(':end', $endParam, PDO::PARAM_STR);
   $stmt->execute();
 } else {
-  // ▼ 従来のロジック: is_returned=1 or 履歴が無い
-  $query = "
-    SELECT r.id, r.name
-    FROM hdd_resources r
-    LEFT JOIN (
-      SELECT hr.resource_id, hr.is_returned
-      FROM hdd_rentals hr
-      WHERE hr.deleted_at IS NULL
-      GROUP BY hr.resource_id
-    ) latest ON r.id = latest.resource_id
-    WHERE r.deleted_at IS NULL
-      AND (
-        r.id = :currentResourceId
-        OR latest.resource_id IS NULL
-        OR latest.is_returned = 1
-      )
-  ";
+  $query = "SELECT r.id, r.name FROM hdd_resources r WHERE r.deleted_at IS NULL";
   $stmt = $conn->prepare($query);
-  $stmt->bindValue(':currentResourceId', $currentResourceId, PDO::PARAM_INT);
   $stmt->execute();
 }
 

@@ -63,6 +63,12 @@
   }
 }
 
+.hdd-list.table-container,
+.user-list.table-container,
+.billing-list.table-container {
+  max-height: calc(85vh - 65px) !important;
+}
+
 /*========= editボタン ===============*/
 .edit-btn {
   color: #939393;

@@ -22,6 +22,7 @@ textarea {
   background-color: #fff;
   font-size: .9rem !important;
   padding: 6px 10px;
+  color: #393939;
 }
 
 input,
@@ -39,7 +40,8 @@ select {
 
 @media print {
   @page {
-    size: A4 landscape;
+    // size: A4 landscape;
+    size: A4;
     margin: 0;
     // padding: 20px;
   }

@@ -164,6 +164,9 @@ include '../parts/head.php';
             instance.open();
           }
         });
+        if (!instance.input.value) {
+          instance.input.value = "すべて";
+        }
         // リセットボタン
         var resetBtn = document.createElement("button");
         resetBtn.className = "flatpickr-reset-button";

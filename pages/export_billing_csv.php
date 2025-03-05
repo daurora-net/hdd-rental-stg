@@ -40,7 +40,7 @@ $billingList = $stmtMain->fetchAll(PDO::FETCH_ASSOC);
 
 // CSV 出力用ヘッダー設定
 header('Content-Type: text/csv; charset=UTF-8');
-$filename = 'billing_list';
+$filename = 'HDD_billing_list';
 if (!empty($selectedYm)) {
   $filename .= '_' . str_replace('-', '_', $selectedYm);
 }
