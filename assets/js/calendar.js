@@ -91,21 +91,16 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("editEventTitle").value = movedEvent.title;
       document.getElementById("editEventManager").value = movedEvent.extendedProps.manager || "";
       document.getElementById("editEventStart").value = startStr;
-      document.getElementById("editEventEnd").value = endStr;
-      document.getElementById("editEventNotes").value = movedEvent.extendedProps.notes || "";
-      document.getElementById("editRentalLocation").value
-        = movedEvent.extendedProps.location || "";
-      document.getElementById("editRentalCable").value
-        = movedEvent.extendedProps.cable || "";
-
-      var returnDateField = document.getElementById("editReturnDate");
-      if (returnDateField) {
-        if (movedEvent.extendedProps.return_date) {
-          returnDateField.value = movedEvent.extendedProps.return_date.slice(0, 10);
-        } else {
-          returnDateField.value = '';
+      if (movedEvent.extendedProps.return_date) {
+        // 返却日が設定済みの場合は、終了予定日は元のデータがあればそのまま表示
+        if (movedEvent.extendedProps.real_end) {
+          document.getElementById("editEventEnd").value = movedEvent.extendedProps.real_end.slice(0, 10);
         }
-        returnDateField.dispatchEvent(new Event("input"));
+        // 返却日は新しい日付に更新
+        document.getElementById("editReturnDate").value = endStr;
+        document.getElementById("editReturnDate").dispatchEvent(new Event("input"));
+      } else {
+        document.getElementById("editEventEnd").value = endStr;
       }
 
       // HDDリストの再取得→新HDDを選択
@@ -165,21 +160,16 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("editEventTitle").value = resizedEvent.title;
       document.getElementById("editEventManager").value = resizedEvent.extendedProps.manager || "";
       document.getElementById("editEventStart").value = startStr;
-      document.getElementById("editEventEnd").value = endStr;
-      document.getElementById("editEventNotes").value = resizedEvent.extendedProps.notes || "";
-      document.getElementById("editRentalLocation").value
-        = resizedEvent.extendedProps.location || "";
-      document.getElementById("editRentalCable").value
-        = resizedEvent.extendedProps.cable || "";
-
-      var returnDateField = document.getElementById("editReturnDate");
-      if (returnDateField) {
-        if (resizedEvent.extendedProps.return_date) {
-          returnDateField.value = resizedEvent.extendedProps.return_date.slice(0, 10);
-        } else {
-          returnDateField.value = '';
+      if (resizedEvent.extendedProps.return_date) {
+        // 返却日が設定済みの場合は、終了予定日は元のデータがあればそのまま表示
+        if (resizedEvent.extendedProps.real_end) {
+          document.getElementById("editEventEnd").value = resizedEvent.extendedProps.real_end.slice(0, 10);
         }
-        returnDateField.dispatchEvent(new Event("input"));
+        // 返却日は新しい日付に更新
+        document.getElementById("editReturnDate").value = endStr;
+        document.getElementById("editReturnDate").dispatchEvent(new Event("input"));
+      } else {
+        document.getElementById("editEventEnd").value = endStr;
       }
 
       // HDDセレクト（リソースIDは変わらない想定）

@@ -131,18 +131,3 @@ body {
 .fc-event-main {
   padding-left: 6px;
 }
-
-input.flatpickr-month-select {
-  height: auto;
-  border-radius: 0;
-  border: none;
-  background-color: #839ec2;
-  width: 80px;
-  text-align: center;
-  padding-top: 7px;
-  color: #fff;
-
-  &::placeholder {
-    color: #fff;
-  }
-}

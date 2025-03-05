@@ -144,6 +144,7 @@ include '../parts/head.php';
   </main>
 
   <script>
+    document.getElementById("billingMonthInput").classList.add("flatpickr-billing-month-select");
     flatpickr("#billingMonthInput", {
       locale: "ja",
       clickOpens: false,
