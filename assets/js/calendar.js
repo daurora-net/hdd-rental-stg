@@ -381,50 +381,56 @@ document.addEventListener('DOMContentLoaded', function () {
     var todayButton = document.querySelector('.fc-today-button');
     if (!todayButton) return;
 
-    var monthSelect = document.createElement('select');
-    monthSelect.id = 'monthSelect';
+    var monthSelectInput = document.createElement('input');
+    monthSelectInput.type = 'text';
+    monthSelectInput.id = 'monthSelect';
+    monthSelectInput.name = 'ym';
+    monthSelectInput.placeholder = "月 移動";
 
-    var currentDate = new Date();
-    var currentYear = currentDate.getFullYear();
-    var currentMonth = currentDate.getMonth() + 1;
-    if (currentMonth < 10) {
-      currentMonth = '0' + currentMonth;
-    }
-    var currentMonthStr = currentYear + '-' + currentMonth;
-    fetch('actions/fetch_rental_months.php')
-      .then(response => response.json())
-      .then(data => {
-        // フォーマット統一：月部分が1桁の場合は0埋めする
-        var formattedData = data.map(function (monthValue) {
-          var parts = monthValue.split('-');
-          if (parts[1].length === 1) {
-            parts[1] = '0' + parts[1];
+    flatpickr(monthSelectInput, {
+      locale: "ja",
+      clickOpens: false,
+      plugins: [
+        new monthSelectPlugin({
+          shorthand: false,
+          dateFormat: "Y-m",
+          altFormat: "Y年n月"
+        })
+      ],
+      defaultDate: "",
+      onReady: function (selectedDates, dateStr, instance) {
+        instance.input.addEventListener("click", function () {
+          if (instance.isOpen) {
+            instance.close();
+          } else {
+            instance.open();
           }
-          return parts[0] + '-' + parts[1];
         });
-        formattedData.sort(function (a, b) { return b.localeCompare(a); });
-        formattedData.forEach(function (monthValue) {
-          var option = document.createElement('option');
-          option.value = monthValue;
-          option.textContent = monthValue;
-          if (monthValue === currentMonthStr) {
-            option.selected = true;
-          }
-          monthSelect.appendChild(option);
+        // リセットで選択をクリアし、今月表示に戻す
+        var resetBtn = document.createElement("button");
+        resetBtn.className = "flatpickr-reset-button";
+        resetBtn.textContent = "リセット";
+        resetBtn.type = "button";
+        resetBtn.addEventListener("click", function () {
+          instance.clear();
+          instance.input.value = "";
+          var now = new Date();
+          var currentYear = now.getFullYear();
+          calendar.gotoDate(new Date(currentYear, now.getMonth() + 1, 1));
+          instance.close();
         });
-      })
-      .catch(error => {
-        console.error("Error fetching rental months:", error);
-      });
-
-    monthSelect.addEventListener('change', function () {
-      if (this.value !== '') {
-        var parts = this.value.split('-');
-        var newDate = new Date(Date.UTC(parseInt(parts[0]), parseInt(parts[1]) - 1, 1));
-        calendar.gotoDate(newDate);
+        instance.calendarContainer.appendChild(resetBtn);
+      },
+      onChange: function (selectedDates, dateStr, instance) {
+        if (selectedDates.length > 0) {
+          var selectedDate = selectedDates[0];
+          // 選択された月が1ヶ月前になる問題を回避
+          var adjustedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 1);
+          calendar.gotoDate(adjustedDate);
+        }
       }
     });
 
-    todayButton.parentNode.insertBefore(monthSelect, todayButton.nextSibling);
+    todayButton.parentNode.insertBefore(monthSelectInput, todayButton.nextSibling);
   })();
 });

@@ -132,10 +132,17 @@ body {
   padding-left: 6px;
 }
 
-#monthSelect {
+input.flatpickr-input {
   height: auto;
   border-radius: 0;
   border: none;
   background-color: #839ec2;
+  width: 80px;
+  text-align: center;
+  padding-top: 7px;
   color: #fff;
+
+  &::placeholder {
+    color: #fff;
+  }
 }

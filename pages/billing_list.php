@@ -163,7 +163,7 @@ include '../parts/head.php';
             instance.open();
           }
         });
-        // 追記：カレンダー内にリセットボタンを追加
+        // リセットボタン
         var resetBtn = document.createElement("button");
         resetBtn.className = "flatpickr-reset-button";
         resetBtn.textContent = "リセット";
