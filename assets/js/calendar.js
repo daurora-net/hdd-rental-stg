@@ -384,6 +384,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var monthSelectInput = document.createElement('input');
     monthSelectInput.type = 'text';
     monthSelectInput.id = 'monthSelect';
+    monthSelectInput.className = "flatpickr-month-select";
     monthSelectInput.name = 'ym';
     monthSelectInput.placeholder = "月 移動";
 

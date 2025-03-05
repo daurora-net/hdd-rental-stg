@@ -513,7 +513,7 @@ body {
   padding-left: 6px;
 }
 
-input.flatpickr-input {
+input.flatpickr-month-select {
   height: auto;
   border-radius: 0;
   border: none;
@@ -523,10 +523,10 @@ input.flatpickr-input {
   padding-top: 7px;
   color: #fff;
 }
-input.flatpickr-input::-moz-placeholder {
+input.flatpickr-month-select::-moz-placeholder {
   color: #fff;
 }
-input.flatpickr-input::placeholder {
+input.flatpickr-month-select::placeholder {
   color: #fff;
 }
 
