@@ -7,6 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $manager = trim($_POST['rentalManager'] ?? '');
   $start = $_POST['rentalStart'] ?? null;
   $end = $_POST['rentalEnd'] ?? null;
+  // $start = trim($_POST['rentalStart'] ?? '');
+  // $end = trim($_POST['rentalEnd'] ?? '');
+  // if (empty($start) || empty($end)) {
+  //   echo "開始日と終了予定日は必須です。";
+  //   exit();
+  // }
   $hddId = $_POST['rentalHdd'] ?? null;
   $location = $_POST['rentalLocation'] ?? null;
   $cable = $_POST['rentalCable'] ?? null;

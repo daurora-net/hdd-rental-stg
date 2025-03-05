@@ -15,26 +15,37 @@
       <h3>スケジュール追加</h3>
       <div class="flex">
         <div class="form-content w-300px">
-          <label for="addRentalTitle" class="required">番組名</label>
-          <input type="text" id="addRentalTitle" name="rentalTitle" required>
+          <div class="error-message-wrap">
+            <label for="addRentalTitle" class="required">番組名</label>
+            <div id="rentalTitleErrorMessage" class="error-message"></div>
+          </div>
+          <input type="text" id="addRentalTitle" name="rentalTitle">
         </div>
         <div class="form-content w-200px">
-          <label for="addRentalManager" class="required">担当者</label>
-          <input type="text" id="addRentalManager" name="rentalManager" required>
+          <div class="error-message-wrap">
+            <label for="addRentalManager" class="required">担当者</label>
+            <div id="rentalManagerErrorMessage" class="error-message"></div>
+          </div>
+          <input type="text" id="addRentalManager" name="rentalManager">
         </div>
       </div>
 
       <div class="flex">
-        <div class="form-content w-150px">
-          <label for="addRentalStart" class="required">開始日</label>
-          <input type="text" id="addRentalStart" name="rentalStart" required>
+        <div class="form-content w-200px">
+          <div class="error-message-wrap">
+            <label for="addRentalStart" class="required">開始日</label>
+            <div id="rentalStartErrorMessage" class="error-message"></div>
+          </div>
+          <input type="text" id="addRentalStart" name="rentalStart">
         </div>
-        <div class="form-content w-150px">
-          <label for="addRentalEnd" class="required">終了予定日</label>
-          <input type="text" id="addRentalEnd" name="rentalEnd" required>
+        <div class="form-content w-200px">
+          <div class="error-message-wrap">
+            <label for="addRentalEnd" class="required">終了予定日</label>
+            <div id="rentalEndErrorMessage" class="error-message"></div>
+          </div>
+          <input type="text" id="addRentalEnd" name="rentalEnd">
         </div>
       </div>
-
       <div class="flex">
         <div class="form-content w-200px">
           <label for="addRentalHdd" class="required">HDD No.</label>

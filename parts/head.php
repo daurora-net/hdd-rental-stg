@@ -16,6 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
   <link rel="stylesheet" href="css/style.css">
   <script src="assets/js/calendar.js"></script>
+  <script src="assets/js/error.js"></script>
   <script src="assets/js/modal.js"></script>
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/table.js"></script>

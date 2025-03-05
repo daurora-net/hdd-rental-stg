@@ -106,10 +106,21 @@ document.addEventListener('DOMContentLoaded', function () {
   //       アラートを出して保存中断する
   // ---------------------------------------------
   var addRentalForm = document.getElementById('addRentalForm');
+  var errorContainer = document.getElementById('addRentalErrorMessage');
   if (addRentalForm) {
     addRentalForm.addEventListener('submit', function (e) {
-      e.preventDefault(); // 通常のフォーム送信を抑制
-
+      // エラー表示の処理は error.js に移行済みの validateRentalForm() 関数を利用
+      if (!validateRentalForm()) {
+        e.preventDefault();
+        return;
+      }
+      // HTML5の標準チェック
+      if (!addRentalForm.checkValidity()) {
+        addRentalForm.reportValidity();
+        e.preventDefault();
+        return;
+      }
+      e.preventDefault();
       var formData = new FormData(addRentalForm);
       fetch('actions/add_rental.php', {
         method: 'POST',
@@ -118,26 +129,10 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.text())
         .then(data => {
           if (data.trim() === 'OK') {
-            // 成功 → モーダルを閉じ、フォームリセット
-            document.getElementById("addRentalModal").style.display = "none";
-            addRentalForm.reset();
-            // 更新：カレンダーがある場合は refetchEvents、なければテーブル tbody を再読み込み
-            if (window.calendar) {
-              window.calendar.refetchEvents();
-            } else {
-              fetch(window.location.href, { method: 'GET' })
-                .then(response => response.text())
-                .then(html => {
-                  var parser = new DOMParser();
-                  var doc = parser.parseFromString(html, 'text/html');
-                  var newTbody = doc.querySelector('.rental-list table tbody');
-                  if (newTbody) {
-                    document.querySelector('.rental-list table tbody').innerHTML = newTbody.innerHTML;
-                  }
-                });
-            }
+            window.location.reload();
           } else {
-            alert(data);
+            // サーバーからエラーメッセージが返された場合、フォーム上に表示
+            errorContainer.textContent = data;
           }
         })
         .catch(error => {
@@ -343,6 +338,12 @@ document.addEventListener('DOMContentLoaded', function () {
   var editEventForm = document.getElementById('editEventForm');
   if (editEventForm) {
     editEventForm.addEventListener('submit', function (e) {
+      // 編集モーダル用バリデーション
+      if (!validateEditEventForm()) {
+        e.preventDefault();
+        return;
+      }
+
       e.preventDefault();  // 通常のフォーム送信を防止
       var formData = new FormData(editEventForm);
       if (e.submitter && e.submitter.name) {
@@ -355,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.text())
         .then(data => {
           if (data.trim() === 'OK') {
-            // 正常時 → モーダル閉じ
+            // 正常時 → モーダル閉じ & カレンダー更新
             document.getElementById('editEventModal').style.display = 'none';
             if (window.calendar) {
               window.calendar.refetchEvents();
@@ -365,10 +366,7 @@ document.addEventListener('DOMContentLoaded', function () {
               var row = document.querySelector("tr[data-id='" + editedId + "']");
               if (row) {
                 var cells = row.getElementsByTagName("td");
-                // セルの順番（例）:
-                // 0: 編集ボタン, 1: ID, 2: 番組名, 3: 担当者, 4: HDD No.,
-                // 5: HDD容量, 6: 開始日, 7: 終了予定日, 8: 使用場所, 9: ケーブル,
-                // 10: 返却済, 11: 返却日, 12: 使用日数, 13: メモ
+                // セルの順番例（各セルの内容を適宜更新してください）
                 cells[2].textContent = document.getElementById("editEventTitle").value;
                 cells[3].textContent = document.getElementById("editEventManager").value;
                 cells[6].textContent = document.getElementById("editEventStart").value;
@@ -413,4 +411,54 @@ document.addEventListener('DOMContentLoaded', function () {
       window.currentCalendarAction = null;
     });
   }
+
+  // ---------------------------------------------
+  //  モーダルを閉じるときにフォームをリセット
+  // ---------------------------------------------
+  // モーダル以外をクリック時
+  window.addEventListener('click', function (event) {
+    document.querySelectorAll('.modal').forEach(function (modal) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+        var form = modal.querySelector('form');
+        if (form) form.reset();
+        var errorElements = modal.querySelectorAll('.error-message');
+        errorElements.forEach(function (el) {
+          el.innerHTML = "";
+        });
+      }
+    });
+  });
+
+  // キャンセルボタンクリック時
+  document.querySelectorAll('.cancel-btn').forEach(function (cancelBtn) {
+    cancelBtn.addEventListener("click", function () {
+      var modal = cancelBtn.closest('.modal');
+      if (modal) {
+        modal.style.display = "none";
+        var form = modal.querySelector('form');
+        if (form) form.reset();
+        var errorElements = modal.querySelectorAll('.error-message');
+        errorElements.forEach(function (el) {
+          el.innerHTML = "";
+        });
+      }
+    });
+  });
+
+  // 閉じるボタンクリック時
+  document.querySelectorAll('.close').forEach(function (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      var modal = closeBtn.closest('.modal');
+      if (modal) {
+        modal.style.display = "none";
+        var form = modal.querySelector('form');
+        if (form) form.reset();
+        var errorElements = modal.querySelectorAll('.error-message');
+        errorElements.forEach(function (el) {
+          el.innerHTML = "";
+        });
+      }
+    });
+  });
 });

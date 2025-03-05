@@ -52,6 +52,19 @@
   padding-left: 3px;
 }
 
+.error-message-wrap {
+  display: flex !important;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.error-message {
+  color: #1cda61;
+  font-size: small;
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
   .modal-content {
     min-width: 100%;

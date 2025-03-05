@@ -52,7 +52,7 @@ include 'parts/head.php';
     <h1>株式会社いちまるよん<br><span>編集部 HDD管理</span></h1>
     <form method="post" class="form">
       <?php if (!empty($error_message)): ?>
-        <div class="error-message">
+        <div class="login-error-message">
           <?php echo htmlspecialchars($error_message); ?>
         </div>
       <?php endif; ?>

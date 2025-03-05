@@ -9,23 +9,35 @@
 
       <div class="flex">
         <div class="form-content w-300px">
-          <label for="editEventTitle" class="required">番組名</label>
-          <input type="text" id="editEventTitle" name="eventTitle" required>
+          <div class="error-message-wrap">
+            <label for="editEventTitle" class="required">番組名</label>
+            <div id="editEventTitleErrorMessage" class="error-message"></div>
+          </div>
+          <input type="text" id="editEventTitle" name="eventTitle">
         </div>
         <div class="form-content w-200px">
-          <label for="editEventManager" class="required">担当者</label>
-          <input type="text" id="editEventManager" name="eventManager" required>
+          <div class="error-message-wrap">
+            <label for="editEventManager" class="required">担当者</label>
+            <div id="editEventManagerErrorMessage" class="error-message"></div>
+          </div>
+          <input type="text" id="editEventManager" name="eventManager">
         </div>
       </div>
 
       <div class="flex">
-        <div class="form-content w-150px">
-          <label for="editEventStart" class="required">開始日</label>
-          <input type="text" id="editEventStart" name="eventStart" required>
+        <div class="form-content w-200px">
+          <div class="error-message-wrap">
+            <label for="editEventStart" class="required">開始日</label>
+            <div id="editEventStartErrorMessage" class="error-message"></div>
+          </div>
+          <input type="text" id="editEventStart" name="eventStart">
         </div>
-        <div class="form-content w-150px">
-          <label for="editEventEnd" class="required">終了予定日</label>
-          <input type="text" id="editEventEnd" name="eventEnd" required>
+        <div class="form-content w-200px">
+          <div class="error-message-wrap">
+            <label for="editEventEnd" class="required">終了予定日</label>
+            <div id="editEventEndErrorMessage" class="error-message"></div>
+          </div>
+          <input type="text" id="editEventEnd" name="eventEnd">
         </div>
       </div>
 
