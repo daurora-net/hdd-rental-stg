@@ -101,16 +101,18 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ---------------------------------------------
-  //  追記：レンタル追加フォームを非同期送信し、
-  //       サーバー側( add_rental.php )が"登録できません"などを返したら
-  //       アラートを出して保存中断する
+  //  レンタル追加フォームを非同期送信し、
+  //    サーバー側( add_rental.php )が"登録できません"などを返したら
+  //     アラートを出して保存中断する
   // ---------------------------------------------
   var addRentalForm = document.getElementById('addRentalForm');
   var errorContainer = document.getElementById('addRentalErrorMessage');
   if (addRentalForm) {
     addRentalForm.addEventListener('submit', function (e) {
-      // エラー表示の処理は error.js に移行済みの validateRentalForm() 関数を利用
-      if (!validateRentalForm()) {
+      // 基本項目と日付順序のバリデーション
+      const isRequiredOk = validateRentalForm();
+      const isDateOrderOk = validateRentalDateOrder();
+      if (!isRequiredOk || !isDateOrderOk) {
         e.preventDefault();
         return;
       }
@@ -338,8 +340,10 @@ document.addEventListener('DOMContentLoaded', function () {
   var editEventForm = document.getElementById('editEventForm');
   if (editEventForm) {
     editEventForm.addEventListener('submit', function (e) {
-      // 編集モーダル用バリデーション
-      if (!validateEditEventForm()) {
+      // 基本項目と日付順序のバリデーション
+      const isRequiredOk = validateEditEventForm();
+      const isDateOrderOk = validateEditEventDateOrder();
+      if (!isRequiredOk || !isDateOrderOk) {
         e.preventDefault();
         return;
       }

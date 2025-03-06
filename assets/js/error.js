@@ -1,4 +1,6 @@
-// 汎用のバリデーション関数
+// -----------------------------
+// 必須
+// -----------------------------
 function validateFields(fields) {
   let hasError = false;
   fields.forEach(function (field) {
@@ -9,9 +11,8 @@ function validateFields(fields) {
     }
     if (!inputEl || !inputEl.value.trim()) {
       if (errorEl) {
-        errorEl.innerHTML = "⚠️ 必須です";
+        errorEl.innerHTML = "⚠️ 必須";
       }
-      // 最初のエラー項目にフォーカス（存在する場合）
       if (!hasError && inputEl) {
         inputEl.focus();
       }
@@ -21,7 +22,7 @@ function validateFields(fields) {
   return !hasError;
 }
 
-// レンタル追加フォーム用バリデーション
+// addRental
 function validateRentalForm() {
   return validateFields([
     { inputId: 'addRentalTitle', errorId: 'rentalTitleErrorMessage' },
@@ -31,7 +32,7 @@ function validateRentalForm() {
   ]);
 }
 
-// 編集イベントフォーム用バリデーション
+// editEvent
 function validateEditEventForm() {
   return validateFields([
     { inputId: 'editEventTitle', errorId: 'editEventTitleErrorMessage' },
@@ -40,3 +41,62 @@ function validateEditEventForm() {
     { inputId: 'editEventEnd', errorId: 'editEventEndErrorMessage' }
   ]);
 }
+
+// -----------------------------
+// 日付順序
+// -----------------------------
+const validateDateOrder = ({ startId, endId, returnId, endErrorId, returnErrorId, messages }) => {
+  let isValid = true;
+  const startInput = document.getElementById(startId);
+  const endInput = document.getElementById(endId);
+  const returnInput = returnId ? document.getElementById(returnId) : null;
+
+  if (startInput && endInput && startInput.value && endInput.value) {
+    const startDate = new Date(startInput.value);
+    const endDate = new Date(endInput.value);
+    if (startDate >= endDate) {
+      const endError = document.getElementById(endErrorId);
+      if (endError) endError.innerHTML = messages.end;
+      isValid = false;
+    }
+  }
+
+  if (returnInput && startInput && startInput.value && returnInput.value) {
+    const startDate = new Date(startInput.value);
+    const returnDate = new Date(returnInput.value);
+    if (returnDate <= startDate) {
+      const returnError = document.getElementById(returnErrorId);
+      if (returnError) returnError.innerHTML = messages.return;
+      isValid = false;
+    }
+  }
+  return isValid;
+};
+
+// addRental
+const validateRentalDateOrder = () =>
+  validateDateOrder({
+    startId: 'addRentalStart',
+    endId: 'addRentalEnd',
+    returnId: 'addReturnDate',
+    endErrorId: 'rentalEndErrorMessage',
+    returnErrorId: 'addReturnErrorMessage',
+    messages: {
+      end: "⚠️ 開始日より後",
+      return: "⚠️ 開始日より後"
+    }
+  });
+
+// editEvent
+const validateEditEventDateOrder = () =>
+  validateDateOrder({
+    startId: 'editEventStart',
+    endId: 'editEventEnd',
+    returnId: 'editReturnDate',
+    endErrorId: 'editEventEndErrorMessage',
+    returnErrorId: 'editReturnErrorMessage',
+    messages: {
+      end: "⚠️ 開始日より後",
+      return: "⚠️ 開始日より後"
+    }
+  });

@@ -73,8 +73,11 @@
       </div>
 
       <div class="flex">
-        <div class="form-content w-150px">
-          <label for="editReturnDate">返却日</label>
+        <div class="form-content w-200px">
+          <div class="error-message-wrap">
+            <label for="editReturnDate">返却日</label>
+            <div id="editReturnErrorMessage" class="error-message"></div>
+          </div>
           <input type="text" id="editReturnDate" class="js-date-field" name="returnDate" required>
         </div>
         <div class="form-content w-150px">
