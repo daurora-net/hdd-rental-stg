@@ -390,6 +390,10 @@ document.addEventListener('DOMContentLoaded', function () {
       if (e.submitter && e.submitter.name) {
         formData.append(e.submitter.name, e.submitter.value);
       }
+
+      // 削除ボタンからの送信かどうかを判定
+      const isDeleteAction = (e.submitter && e.submitter.name === 'delete' && e.submitter.value === '1');
+
       fetch('actions/edit_event.php', {
         method: 'POST',
         body: formData
@@ -399,26 +403,37 @@ document.addEventListener('DOMContentLoaded', function () {
           if (data.trim() === 'OK') {
             // 正常時 → モーダル閉じ & カレンダー更新
             document.getElementById('editEventModal').style.display = 'none';
-            if (window.calendar) {
-              window.calendar.refetchEvents();
+
+            if (isDeleteAction) {
+              // 削除の場合 → レコード行をテーブルから除去
+              var deletedId = document.getElementById("editEventId").value;
+              var deletedRow = document.querySelector("tr[data-id='" + deletedId + "']");
+              if (deletedRow) {
+                deletedRow.remove();
+              }
             } else {
-              // 編集対象の行を手動で更新（対象の<tr>に data-id 属性が設定されている前提）
-              var editedId = document.getElementById("editEventId").value;
-              var row = document.querySelector("tr[data-id='" + editedId + "']");
-              if (row) {
-                var cells = row.getElementsByTagName("td");
-                // セルの順番例（各セルの内容を適宜更新してください）
-                cells[2].textContent = document.getElementById("editEventTitle").value;
-                cells[3].textContent = document.getElementById("editEventManager").value;
-                cells[6].textContent = document.getElementById("editEventStart").value;
-                cells[7].textContent = document.getElementById("editEventEnd").value;
-                cells[8].textContent = document.getElementById("editRentalLocation").value;
-                cells[9].textContent = document.getElementById("editRentalCable").value;
-                cells[11].textContent = document.getElementById("editReturnDate").value;
-                cells[12].textContent = document.getElementById("editRentalDuration").value;
-                cells[13].textContent = document.getElementById("editEventNotes").value;
-                var returnDate = document.getElementById("editReturnDate").value;
-                cells[10].textContent = returnDate ? '✔︎' : '';
+              // 更新の場合 → カレンダー or テーブルをリフレッシュ
+              if (window.calendar) {
+                window.calendar.refetchEvents();
+              } else {
+                // 編集対象の行を手動で更新（対象の<tr>に data-id 属性が設定されている前提）
+                var editedId = document.getElementById("editEventId").value;
+                var row = document.querySelector("tr[data-id='" + editedId + "']");
+                if (row) {
+                  var cells = row.getElementsByTagName("td");
+                  // セルの順番例（各セルの内容を適宜更新してください）
+                  cells[2].textContent = document.getElementById("editEventTitle").value;
+                  cells[3].textContent = document.getElementById("editEventManager").value;
+                  cells[6].textContent = document.getElementById("editEventStart").value;
+                  cells[7].textContent = document.getElementById("editEventEnd").value;
+                  cells[8].textContent = document.getElementById("editRentalLocation").value;
+                  cells[9].textContent = document.getElementById("editRentalCable").value;
+                  cells[11].textContent = document.getElementById("editReturnDate").value;
+                  cells[12].textContent = document.getElementById("editRentalDuration").value;
+                  cells[13].textContent = document.getElementById("editEventNotes").value;
+                  var returnDate = document.getElementById("editReturnDate").value;
+                  cells[10].textContent = returnDate ? '✔︎' : '';
+                }
               }
             }
           } else {

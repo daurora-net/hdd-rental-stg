@@ -50,13 +50,13 @@
         <div class="form-content w-200px">
           <label for="addRentalHdd" class="required">HDD No.</label>
           <div class="custom-select-wrapper">
-            <select id="addRentalHdd" name="rentalHdd" required></select>
+            <select id="addRentalHdd" name="rentalHdd"></select>
           </div>
         </div>
         <div class="form-content w-200px">
           <label for="addRentalLocation" class="required">使用場所</label>
           <div class="custom-select-wrapper">
-            <select id="addRentalLocation" name="rentalLocation" required>
+            <select id="addRentalLocation" name="rentalLocation">
               <option value="104" selected>104</option>
               <option value="外部">外部</option>
             </select>

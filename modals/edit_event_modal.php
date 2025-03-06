@@ -46,13 +46,13 @@
           <label for="editRentalHdd" class="required">HDD No.</label>
           <div class="custom-select-wrapper">
             <!-- ▼ JSで options を動的に注入 -->
-            <select id="editRentalHdd" name="rentalHdd" required></select>
+            <select id="editRentalHdd" name="rentalHdd"></select>
           </div>
         </div>
         <div class="form-content w-200px">
           <label for="editRentalLocation" class="required">使用場所</label>
           <div class="custom-select-wrapper">
-            <select id="editRentalLocation" name="rentalLocation" required>
+            <select id="editRentalLocation" name="rentalLocation">
               <option value="104" selected>104</option>
               <option value="外部">外部</option>
             </select>

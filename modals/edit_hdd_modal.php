@@ -19,7 +19,7 @@
       <div class="form-content w-100px">
         <label for="editHddCapacity" class="required">容量</label>
         <div class="custom-select-wrapper">
-          <select id="editHddCapacity" name="hddCapacity" required>
+          <select id="editHddCapacity" name="hddCapacity">
             <option value="1TB">1TB</option>
             <option value="2TB">2TB</option>
             <option value="4TB">4TB</option>
