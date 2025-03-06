@@ -91,6 +91,8 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(url)
           .then(response => response.json())
           .then(data => {
+            // 文字数値の昇順でソート
+            data.sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
             var hddSelect = document.getElementById("addRentalHdd");
             if (!hddSelect) return;
             hddSelect.innerHTML = ''; // クリア
@@ -206,6 +208,8 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(url)
           .then(response => response.json())
           .then(data => {
+            // 文字数値の昇順でソート
+            data.sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
             var hddSelect = document.getElementById("editRentalHdd");
             hddSelect.innerHTML = '';
 

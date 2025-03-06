@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
       fetch(`actions/fetch_available_resources.php?current_rental_id=${movedEvent.id}`)
         .then(response => response.json())
         .then(data => {
+          fetch(`actions/fetch_available_resources.php?current_rental_id=${movedEvent.id}`)
           var hddSelect = document.getElementById("editRentalHdd");
           if (!hddSelect) return;
           hddSelect.innerHTML = '';
@@ -181,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
       fetch(`actions/fetch_available_resources.php?current_rental_id=${resizedEvent.id}`)
         .then(response => response.json())
         .then(data => {
+          data.sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
           var hddSelect = document.getElementById("editRentalHdd");
           if (!hddSelect) return;
           hddSelect.innerHTML = '';
@@ -288,6 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(`actions/fetch_available_resources.php?current_rental_id=${eventObj.id}`)
           .then(response => response.json())
           .then(data => {
+            data.sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
             var hddSelect = document.getElementById("editRentalHdd");
             hddSelect.innerHTML = ''; // 既存のオプションをクリア
 
