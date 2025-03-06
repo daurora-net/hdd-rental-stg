@@ -22,7 +22,7 @@ function validateFields(fields) {
   return !hasError;
 }
 
-// addRental
+// レンタル追加
 function validateRentalForm() {
   return validateFields([
     { inputId: 'addRentalTitle', errorId: 'rentalTitleErrorMessage' },
@@ -32,13 +32,34 @@ function validateRentalForm() {
   ]);
 }
 
-// editEvent
+// レンタル編集
 function validateEditEventForm() {
   return validateFields([
     { inputId: 'editEventTitle', errorId: 'editEventTitleErrorMessage' },
     { inputId: 'editEventManager', errorId: 'editEventManagerErrorMessage' },
     { inputId: 'editEventStart', errorId: 'editEventStartErrorMessage' },
     { inputId: 'editEventEnd', errorId: 'editEventEndErrorMessage' }
+  ]);
+}
+
+// HDD追加
+function validateAddHddForm() {
+  return validateFields([
+    { inputId: 'hddName', errorId: 'addHddNameErrorMessage' }
+  ]);
+}
+
+// HDD編集
+function validateEditHddForm() {
+  return validateFields([
+    { inputId: 'editHddName', errorId: 'editHddNameErrorMessage' }
+  ]);
+}
+
+// ユーザー編集
+function validateEditUserForm() {
+  return validateFields([
+    { inputId: 'editUsername', errorId: 'editUsernameErrorMessage' }
   ]);
 }
 
@@ -73,7 +94,7 @@ const validateDateOrder = ({ startId, endId, returnId, endErrorId, returnErrorId
   return isValid;
 };
 
-// addRental
+// レンタル追加
 const validateRentalDateOrder = () =>
   validateDateOrder({
     startId: 'addRentalStart',
@@ -87,7 +108,7 @@ const validateRentalDateOrder = () =>
     }
   });
 
-// editEvent
+// レンタル編集
 const validateEditEventDateOrder = () =>
   validateDateOrder({
     startId: 'editEventStart',

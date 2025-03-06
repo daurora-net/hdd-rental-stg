@@ -3,12 +3,15 @@
     <span class="close" onclick="document.getElementById('editUserModal').style.display='none'">
       <i class="fa-solid fa-xmark"></i>
     </span>
-    <form method="post" class="form" action="actions/edit_user.php">
+    <form id="editUserForm" method="post" class="form" action="actions/edit_user.php">
       <h3>ユーザー編集</h3>
       <input type="hidden" id="editUserId" name="userId">
       <div class="form-content">
-        <label for="editUsername" class="required">ユーザー名</label>
-        <input type="text" id="editUsername" name="username" required>
+        <div class="error-message-wrap">
+          <label for="editUsername" class="required">ユーザー名</label>
+          <div id="editUsernameErrorMessage" class="error-message"></div>
+        </div>
+        <input type="text" id="editUsername" name="username">
       </div>
       <div class="flex">
         <button type="submit" class="modal-btn">保存</button>

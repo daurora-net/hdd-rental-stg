@@ -2,13 +2,16 @@
   <div class="modal-content">
     <span class="close" onclick="document.getElementById('addHddModal').style.display='none'"><i
         class="fa-solid fa-xmark"></i></span>
-    <form method="post" class="form" action="actions/add_hdd.php">
+    <form id="addHddForm" method="post" class="form" action="actions/add_hdd.php">
       <h3>HDD追加</h3>
 
       <div class="flex">
         <div class="form-content w-300px">
-          <label for="hddName" class="required">HDD No.</label>
-          <input type="text" id="hddName" name="hddName" required>
+          <div class="error-message-wrap">
+            <label for="hddName" class="required">HDD No.</label>
+            <div id="addHddNameErrorMessage" class="error-message"></div>
+          </div>
+          <input type="text" id="hddName" name="hddName">
         </div>
       </div>
       <div class="form-content w-200px">

@@ -13,6 +13,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // バリデーション
+  var addHddForm = document.getElementById('addHddForm');
+  if (addHddForm) {
+    addHddForm.addEventListener('submit', function (e) {
+      if (!validateAddHddForm()) {
+        e.preventDefault();
+        return;
+      }
+    });
+  }
+
   // ---------------------------------------------
   //  HDD編集モーダル
   // ---------------------------------------------
@@ -37,6 +48,17 @@ document.addEventListener('DOMContentLoaded', function () {
         // モーダル表示
         editHddModal.style.display = "block";
       });
+    });
+  }
+
+  // バリデーション
+  var editHddForm = document.getElementById('editHddForm');
+  if (editHddForm) {
+    editHddForm.addEventListener('submit', function (e) {
+      if (!validateEditHddForm()) {
+        e.preventDefault();
+        return;
+      }
     });
   }
 
@@ -224,6 +246,17 @@ document.addEventListener('DOMContentLoaded', function () {
           editUserModal.style.display = "block";
         }
       });
+    });
+  }
+
+  // バリデーション
+  var editUserForm = document.getElementById('editUserForm');
+  if (editUserForm) {
+    editUserForm.addEventListener('submit', function (e) {
+      if (!validateEditUserForm()) {
+        e.preventDefault();
+        return;
+      }
     });
   }
 
