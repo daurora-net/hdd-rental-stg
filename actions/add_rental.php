@@ -7,12 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $manager = trim($_POST['rentalManager'] ?? '');
   $start = $_POST['rentalStart'] ?? null;
   $end = $_POST['rentalEnd'] ?? null;
-  // $start = trim($_POST['rentalStart'] ?? '');
-  // $end = trim($_POST['rentalEnd'] ?? '');
-  // if (empty($start) || empty($end)) {
-  //   echo "開始日と終了予定日は必須です。";
-  //   exit();
-  // }
   $hddId = $_POST['rentalHdd'] ?? null;
   $location = $_POST['rentalLocation'] ?? null;
   $cable = $_POST['rentalCable'] ?? null;
@@ -21,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $returnDate = $_POST['returnDate'] ?? null;
   $created_by = $_SESSION['username'] ?? 'unknown';
 
-  // 返却日が未入力ならNULLをセット
+  // 返却日が未入力ならNULL
   if (empty($returnDate)) {
     $returnDate = null;
   }
@@ -29,10 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // 必須項目のバリデーション
   if ($title && $manager && $hddId) {
     try {
-      // ▼ 日時重複チェック
-      //    overlap条件: NOT (既存.end < 新規.start OR 既存.start > 新規.end)
-      //    →「(既存.start <= 新規.end) AND (既存.end >= 新規.start)」で重複
-      //    deleted_at IS NULL が対象
       $overlapSql = "
         SELECT COUNT(*) 
         FROM hdd_rentals
@@ -49,15 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $countOverlap = $stmtOverlap->fetchColumn();
 
       if ($countOverlap > 0) {
-        // 重複あり → エラーを出して中断
+        // 重複あり → エラー
         echo "登録できません：指定された期間が既存レンタルと重複しています。";
         exit;
       }
 
-      // ▼ 返却日があるかどうかで is_returned を設定
+      // 返却日があるかどうかで is_returned を設定
       $isReturned = !empty($returnDate) ? 1 : 0;
 
-      // ▼ レンタルデータをINSERT
+      // レンタルデータをINSERT
       $stmt = $conn->prepare("
         INSERT INTO hdd_rentals
           (title, manager, start, end, resource_id,
@@ -83,18 +73,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // 挿入されたレンタルIDが必要なら取得
       $rentalId = $conn->lastInsertId();
 
-      // ▼ 正常終了の場合は「OK」と返す
+      // 正常終了の場合は「OK」
       echo "OK";
       exit;
 
     } catch (PDOException $e) {
-      // エラーログに記録
       error_log("レンタル追加エラー: " . $e->getMessage());
       echo "エラーが発生しました。管理者に連絡してください。";
       exit();
     }
   } else {
-    // 必須項目が不足している場合
     echo "必要な項目が入力されていません。";
     exit();
   }

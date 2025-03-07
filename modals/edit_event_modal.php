@@ -45,7 +45,6 @@
         <div class="form-content w-200px">
           <label for="editRentalHdd" class="required">HDD No.</label>
           <div class="custom-select-wrapper">
-            <!-- ▼ JSで options を動的に注入 -->
             <select id="editRentalHdd" name="rentalHdd"></select>
           </div>
         </div>
@@ -138,12 +137,12 @@
     });
   }
 
-  // ▼ 開始日
+  // 開始日
   attachFlatpickrWithReset("#editEventStart");
 
-  // ▼ 終了予定日
+  // 終了予定日
   attachFlatpickrWithReset("#editEventEnd");
 
-  // ▼ 返却日
+  // 返却日
   attachFlatpickrWithReset("#editReturnDate");
 </script>

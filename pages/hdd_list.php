@@ -10,9 +10,6 @@ if (!in_array($currentUserRole, [1, 2])) {
   header("Location: /hdd-rental/billing_list");
   exit();
 }
-
-// HDDリソース情報を取得
-// ▼ 「deleted_at IS NULL」を条件に追加する
 $stmt = $conn->prepare("
   SELECT id, name, capacity, notes 
   FROM hdd_resources

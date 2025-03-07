@@ -1,6 +1,6 @@
 <?php
 include 'common/config.php';
-require __DIR__ . '/vendor/autoload.php'; // PHPMailerのオートローダーをインクルード
+require __DIR__ . '/vendor/autoload.php'; // PHPMailer
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -11,8 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = $_POST['username'];
   $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
   $email = $_POST['email'];
-  $verification_code = bin2hex(random_bytes(16)); // ランダムな認証コードを生成
-  $verification_expiry = date('Y-m-d H:i:s', strtotime('+1 hour')); // 現在時刻から1時間後を設定
+  // ランダムな認証コードを生成
+  $verification_code = bin2hex(random_bytes(16));
+  // 現在時刻から1時間後を設定
+  $verification_expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
   // ユーザー情報をデータベースに挿入
   $sql = "INSERT INTO users (username, password, email, verification_code, verification_expiry) VALUES (?, ?, ?, ?, ?)";
@@ -34,6 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail->CharSet = 'UTF-8';
     $mail->Encoding = 'base64';
 
+    // ---------------------------------------------
+    //  メール内容
+    // ---------------------------------------------
     // Recipients
     $mail->setFrom('daurora.net@gmail.com', 'HDD Rental');
     $mail->addAddress($email, $username);
@@ -42,7 +47,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail->isHTML(true);
     $mail->Subject = 'メールアドレス認証';
     $mail->Body = "HDD Rentalシステムに新規ユーザー登録されます。<br>以下のリンクをクリックして、認証を完了してください。<br><br><a href='https://daurora.xsrv.jp/hdd-rental/verify.php?code=$verification_code'>こちらをクリック</a>";
+    // ---------------------------------------------
 
+
+    // ---------------------------------------------
+    //  ブラウザ表示
+    // ---------------------------------------------
     $mail->send();
     $_SESSION['verification_message'] = 'メール認証用リンクを送信しました。メールを確認し、リンクをクリックしてアカウントを有効化してください。';
     header("Location: /hdd-rental/message.php");
@@ -50,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
   }
+  // ---------------------------------------------
 }
 ?>
 

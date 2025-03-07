@@ -18,7 +18,7 @@ $stmtRes->execute([$currentRentalId]);
 $resRow = $stmtRes->fetch(PDO::FETCH_ASSOC);
 $currentResourceId = $resRow ? (int) $resRow['resource_id'] : 0;
 
-// ▼ start/end が指定されていれば、日時重複チェックで除外
+// start/end が指定されていれば、日時重複チェックで除外
 //    start or end が空なら従来の「is_returned=1 or 未使用」抽出に fallback
 if (!empty($startParam) && !empty($endParam)) {
   // Overlap判定: NOT(end < :start OR start > :end)
@@ -49,5 +49,4 @@ if (!empty($startParam) && !empty($endParam)) {
 
 $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// 結果を JSON で返す
 echo json_encode($resources);

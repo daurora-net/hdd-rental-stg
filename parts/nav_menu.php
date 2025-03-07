@@ -1,13 +1,7 @@
 <?php
-// parts/nav_menu.php
-
-// 例えば、nav_menu.php は以下のように記述します。
-// 必要に応じて DB 接続など（ユーザーの role 判定）が行われます。
-// このファイルは、各ページで事前に $activePage を設定してからインクルードしてください。
-
 include_once __DIR__ . '/../common/db.php';
 
-// 現在のユーザーの role を取得
+// 現在のユーザーのroleを取得
 $stmt = $conn->prepare("SELECT role FROM users WHERE username = ?");
 $stmt->execute([$_SESSION['username']]);
 $userRole = $stmt->fetchColumn();

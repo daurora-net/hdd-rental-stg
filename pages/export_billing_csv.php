@@ -1,10 +1,8 @@
 <?php
 include '../common/db.php';
 
-// ▼ GET パラメータから年月フィルターを取得
 $selectedYm = isset($_GET['ym']) ? $_GET['ym'] : '';
 
-// ▼ メインの SELECT (billing_list と同様)
 $sqlMain = "
   SELECT
     hr.id,
@@ -38,7 +36,7 @@ if (!empty($selectedYm)) {
 $stmtMain->execute();
 $billingList = $stmtMain->fetchAll(PDO::FETCH_ASSOC);
 
-// CSV 出力用ヘッダー設定
+// CSV出力用ヘッダー
 header('Content-Type: text/csv; charset=UTF-8');
 $filename = 'HDD_billing_list';
 if (!empty($selectedYm)) {
@@ -46,9 +44,9 @@ if (!empty($selectedYm)) {
 }
 header('Content-Disposition: attachment; filename="' . $filename . '.csv"');
 
-// 出力ストリームをオープン
+// 出力ストリーム
 $output = fopen('php://output', 'w');
-// 追加: UTF-8 BOM を出力してExcelでの文字化け対策
+// Excelでの文字化け対策
 fwrite($output, "\xEF\xBB\xBF");
 
 // ヘッダ行の書き出し

@@ -1,7 +1,7 @@
 @import 'base/common';
+@import 'base/fonts';
 @import 'base/mixin';
 @import 'base/reset';
-@import 'base/fonts';
 @import 'base/variables';
 
 @import 'components/button';
@@ -13,12 +13,8 @@
 @import 'components/pagination';
 @import 'components/table';
 
-@import 'layout/footer';
 @import 'layout/header';
 @import 'layout/main';
 @import 'layout/nav';
 
-@import 'pages/hdd-list-page';
-@import 'pages/index-page';
-@import 'pages/login-page';
 @import 'pages/user-list-page';

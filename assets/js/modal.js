@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // モーダルを表示する（先に表示してもOK）
       addRentalModal.style.display = "block";
 
-      // ▼ リソース取得用の関数
+      // リソース取得用の関数
       function fetchHddListForAdd() {
         var startVal = document.getElementById("addRentalStart").value;
         var endVal = document.getElementById("addRentalEnd").value;
@@ -109,10 +109,10 @@ document.addEventListener('DOMContentLoaded', function () {
           });
       }
 
-      // ▼ まず一度呼び出す
+      // まず一度呼び出す
       fetchHddListForAdd();
 
-      // ▼ 開始日・終了予定日が変わるたびに再呼び出し
+      // 開始日・終了予定日が変わるたびに再呼び出し
       var addRentalStart = document.getElementById("addRentalStart");
       var addRentalEnd = document.getElementById("addRentalEnd");
       if (addRentalStart && addRentalEnd) {
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var returnDate = editBtn.getAttribute('data-return-date') || "";
         var notes = editBtn.getAttribute('data-notes') || "";
 
-        // ▼ フォームへセット
+        // フォームへセット
         document.getElementById("editEventId").value = rentalId;
         document.getElementById("editEventTitle").value = title;
         document.getElementById("editEventManager").value = manager;
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("editReturnDate").dispatchEvent(new Event("input"));
         document.getElementById("editEventNotes").value = notes;
 
-        // ▼ 「未使用HDD + 現在のresourceId」を取得
+        // 「未使用HDD + 現在のresourceId」を取得
         //    current_rental_id = rentalId
         var url = 'actions/fetch_available_resources.php?current_rental_id=' + rentalId;
         fetch(url)
@@ -219,14 +219,14 @@ document.addEventListener('DOMContentLoaded', function () {
               option.textContent = resource.name;
               hddSelect.appendChild(option);
             });
-            // ▼ このレンタルが利用中のresourceを選択状態に
+            // このレンタルが利用中のresourceを選択状態に
             hddSelect.value = resourceId;
           })
           .catch(error => {
             console.error("未使用HDD取得エラー (editEventModal):", error);
           });
 
-        // ▼ モーダル表示
+        // モーダル表示
         editEventModal.style.display = 'block';
       });
     });
@@ -342,9 +342,9 @@ document.addEventListener('DOMContentLoaded', function () {
     updateDuration();
   }
 
-  // ▼ add_rental_modal の使用日数計算
+  // add_rental_modal の使用日数計算
   calculateDuration('addRentalStart', 'addReturnDate', 'addRentalDuration');
-  // ▼ edit_event_modal の使用日数計算
+  // edit_event_modal の使用日数計算
   calculateDuration('editEventStart', 'editReturnDate', 'editRentalDuration');
 
   // ---------------------------------------------
@@ -416,12 +416,10 @@ document.addEventListener('DOMContentLoaded', function () {
               if (window.calendar) {
                 window.calendar.refetchEvents();
               } else {
-                // 編集対象の行を手動で更新（対象の<tr>に data-id 属性が設定されている前提）
                 var editedId = document.getElementById("editEventId").value;
                 var row = document.querySelector("tr[data-id='" + editedId + "']");
                 if (row) {
                   var cells = row.getElementsByTagName("td");
-                  // セルの順番例（各セルの内容を適宜更新してください）
                   cells[2].textContent = document.getElementById("editEventTitle").value;
                   cells[3].textContent = document.getElementById("editEventManager").value;
                   cells[6].textContent = document.getElementById("editEventStart").value;
@@ -456,7 +454,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var editEventModal = document.getElementById("editEventModal");
       editEventModal.style.display = "none";
 
-      // ▼ ドラッグ/リサイズ後の info があれば revert()
+      // ドラッグ/リサイズ後の info があれば revert()
       if (window.currentCalendarAction &&
         (window.currentCalendarAction.type === 'drop'
           || window.currentCalendarAction.type === 'resize')) {

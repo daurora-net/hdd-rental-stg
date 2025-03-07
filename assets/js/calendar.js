@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
-  var resourcesData = {}; // リソースデータを保持する変数
+  var resourcesData = {};
 
-  // ▼ ドラッグ or リサイズした際の info を一時的に保存しておき、
-  //   キャンセル時に revert() するための変数
-  window.currentCalendarAction = null; // { type: 'drop'|'resize', info: ... }
+  window.currentCalendarAction = null;
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
     timeZone: 'UTC',
@@ -75,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var newEnd = movedEvent.end;
       var startStr = newStart ? newStart.toISOString().slice(0, 10) : '';
 
-      // ▼ 1日多い問題を修正：end から1日引く
+      // 1日多い問題を修正：end から1日引く
       var adjustedEnd = newEnd ? new Date(newEnd.getTime()) : null;
       if (adjustedEnd) {
         adjustedEnd.setDate(adjustedEnd.getDate() - 1);
@@ -145,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       var startStr = newStart ? newStart.toISOString().slice(0, 10) : '';
 
-      // ▼ 1日多い問題を修正：end から1日引く
+      // 1日多い問題を修正：end から1日引く
       var adjustedEnd = newEnd ? new Date(newEnd.getTime()) : null;
       if (adjustedEnd) {
         adjustedEnd.setDate(adjustedEnd.getDate() - 1);
@@ -178,7 +176,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("editEventEnd").value = endStr;
       }
 
-      // HDDセレクト（リソースIDは変わらない想定）
       fetch(`actions/fetch_available_resources.php?current_rental_id=${resizedEvent.id}`)
         .then(response => response.json())
         .then(data => {
@@ -209,7 +206,6 @@ document.addEventListener('DOMContentLoaded', function () {
       fetch('actions/fetch_resources.php')
         .then(response => response.json())
         .then(data => {
-          // 名前順（abc順）と番号順にソート
           data.sort((a, b) => {
             const aNameMatch = a.name.match(/^([A-Za-z]+)(\d+)$/);
             const bNameMatch = b.name.match(/^([A-Za-z]+)(\d+)$/);
@@ -254,7 +250,6 @@ document.addEventListener('DOMContentLoaded', function () {
       meridiem: false
     },
     eventContent: function (arg) {
-      // イベントに関連付けられたリソースを取得
       var resources = arg.event.getResources();
       var resourceName = '';
       if (resources.length > 0) {
@@ -292,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
           .then(data => {
             data.sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
             var hddSelect = document.getElementById("editRentalHdd");
-            hddSelect.innerHTML = ''; // 既存のオプションをクリア
+            hddSelect.innerHTML = '';
 
             data.forEach(function (resource) {
               var option = document.createElement("option");
@@ -301,7 +296,6 @@ document.addEventListener('DOMContentLoaded', function () {
               hddSelect.appendChild(option);
             });
 
-            // 現在のリソースを選択状態にする
             hddSelect.value = resourceId;
           })
           .catch(error => {
@@ -426,7 +420,6 @@ document.addEventListener('DOMContentLoaded', function () {
           // 選択された月が1ヶ月前になる問題を回避
           var adjustedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 1);
           calendar.gotoDate(adjustedDate);
-          // 常に表示をカレンダーアイコン固定
           instance.input.value = "\uf274";
         }
       }

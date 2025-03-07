@@ -1,11 +1,3 @@
-<?php
-// modals/add_rental_modal.php
-// ※ DB接続は不要（JSでfetchするため）
-//   もし従来の「PHPで直接SELECT→<option>生成」だった場合、そちらを削除する
-
-// ※ ここでは <select> は空の状態で用意し、JSで動的に埋め込む
-?>
-
 <div id="addRentalModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="document.getElementById('addRentalModal').style.display='none'">
@@ -140,12 +132,12 @@
     });
   }
 
-  // ▼ 開始日
+  // 開始日
   attachFlatpickrWithReset("#addRentalStart");
 
-  // ▼ 終了予定日
+  // 終了予定日
   attachFlatpickrWithReset("#addRentalEnd");
 
-  // ▼ 返却日
+  // 返却日
   attachFlatpickrWithReset("#addReturnDate");
 </script>

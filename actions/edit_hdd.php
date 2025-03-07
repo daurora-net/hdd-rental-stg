@@ -8,9 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $hddCapacity = $_POST['hddCapacity'] ?? null;
   $hddNotes = $_POST['hddNotes'] ?? null;
 
-  // ▼ 「削除ボタン」が押されたかチェック
   if (isset($_POST['delete']) && $_POST['delete'] == '1') {
-    // 【論理削除】deleted_at に現在日時をセット
     try {
       $stmt = $conn->prepare("
         UPDATE hdd_resources
@@ -19,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ");
       $stmt->execute([$hddId]);
 
-      // 削除後はリダイレクト
       header("Location: " . $_SERVER['HTTP_REFERER']);
       exit();
 
@@ -30,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
   } else {
-    // ▼ 通常の更新処理
     if ($hddId && $hddName !== null && $hddNotes !== null) {
       try {
         $stmt = $conn->prepare("

@@ -2,13 +2,12 @@
 include 'common/config.php';
 session_start();
 
-$error_message = ''; // エラー文言を格納する変数
+$error_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = $_POST['email'];
   $password = $_POST['password'];
 
-  // ▼ 修正ポイント：「deleted_at IS NULL」を追加
   $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND deleted_at IS NULL");
   $stmt->execute([$email]);
   $user = $stmt->fetch();

@@ -1,21 +1,17 @@
 <?php
 include '../common/db.php';
-session_start(); // セッションを開始
+session_start();
 
-// (1) 「delete」キーが送信されていれば論理削除、それ以外は更新
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $eventId = $_POST['eventId'] ?? null;
 
-  // ▼ 追加: 「削除ボタン」が押されたかどうか
   if (isset($_POST['delete']) && $_POST['delete'] == '1') {
-    // 【論理削除】deleted_at に現在日時をセット
     try {
       $stmt = $conn->prepare("UPDATE hdd_rentals
                               SET deleted_at = NOW()
                               WHERE id = ?");
       $stmt->execute([$eventId]);
 
-      // 完了後リダイレクト
       echo "OK";
       exit;
 
@@ -26,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
   } else {
-    // ▼ 通常の更新処理
     $title = trim($_POST['eventTitle'] ?? '');
     $manager = trim($_POST['eventManager'] ?? '');
     $start = $_POST['eventStart'] ?? null;
@@ -49,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $returnDate = null;
     }
 
-    //    overlap条件: NOT (既存.end < 新.start OR 既存.start > 新.end)
-    //    → (既存.start <= 新.end) AND (既存.end >= 新.start) で重複
+    // overlap条件: NOT (既存.end < 新.start OR 既存.start > 新.end)
+    // → (既存.start <= 新.end) AND (既存.end >= 新.start) で重複
     $overlapSql = "
       SELECT COUNT(*) 
       FROM hdd_rentals
@@ -65,7 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $countOverlap = $stmtOverlap->fetchColumn();
 
       if ($countOverlap > 0) {
-        // 重複あり → エラーを返して中断
         echo "登録済みのデータと日付が被っています。選び直してください。";
         exit;
       }

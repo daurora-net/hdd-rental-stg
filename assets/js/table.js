@@ -1,9 +1,7 @@
 // テーブルソート
 function sortTable(header, n) {
-  // 日付文字列(YYYY-MM-DD)をパースする関数
   function parseDateString(dateStr) {
     // 正規表現で YYYY-MM-DD 形式かざっくり判定
-    // (さらに厳密化したい場合は別途チェックを追加)
     if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
       var parts = dateStr.split('-');
       var year = parseInt(parts[0], 10);
@@ -50,7 +48,7 @@ function sortTable(header, n) {
       var xVal = x.innerText.toLowerCase();
       var yVal = y.innerText.toLowerCase();
 
-      // ▼ 日付比較を優先
+      // 日付比較を優先
       var xDate = parseDateString(xVal);
       var yDate = parseDateString(yVal);
       if (xDate && yDate) {
@@ -68,7 +66,7 @@ function sortTable(header, n) {
         }
       } else {
 
-        // ▼ 数値としてパース
+        // 数値としてパース
         var xNum = parseFloat(xVal);
         var yNum = parseFloat(yVal);
         var xIsNum = !isNaN(xNum);

@@ -14,10 +14,8 @@ $currentUserRole = $stmtRole->fetchColumn();
 //   exit();
 // }
 
-// デフォルトは「先月」の年月（YYYY-MM形式）
 $selectedYm = isset($_GET['ym']) ? $_GET['ym'] : date('Y-m', strtotime('first day of last month'));
 
-// ▼ まず「返却年-月」の一覧を取得 (null以外)
 $sqlMonths = "
   SELECT DISTINCT DATE_FORMAT(return_date, '%Y-%m') AS ym
   FROM hdd_rentals
@@ -28,7 +26,6 @@ $stmtMonths = $conn->prepare($sqlMonths);
 $stmtMonths->execute();
 $monthList = $stmtMonths->fetchAll(PDO::FETCH_COLUMN);
 
-// ▼ メインの SELECT (hdd_rentals + hdd_resources JOIN)
 $sqlMain = "
   SELECT
     hr.id,
@@ -45,7 +42,6 @@ $sqlMain = "
   WHERE hr.return_date IS NOT NULL
 ";
 
-// ▼ 選択があれば、YEAR() と MONTH() で絞り込み
 if (!empty($selectedYm)) {
   list($year, $month) = explode('-', $selectedYm);
   $sqlMain .= "
@@ -98,7 +94,6 @@ include '../parts/head.php';
             <button type="button"
               onclick="window.location.href='pages/export_billing_csv.php?ym=<?php echo urlencode($selectedYm); ?>'"
               class="csv-btn">CSV出力</button>
-            <!-- <a href="pages/export_billing_csv.php?ym=<?php echo urlencode($selectedYm); ?>" class="csv-btn">CSV出力</a> -->
           </div>
           <!-- テーブル検索機能 -->
           <div class="no-print table-search w-150px ml-10">
@@ -107,7 +102,7 @@ include '../parts/head.php';
         </form>
       </div>
 
-      <!-- ▼ テーブル表示 -->
+      <!-- テーブル表示 -->
       <div class="billing-list table-container table-scroll">
         <table class="table-sort">
           <thead>

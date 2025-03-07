@@ -14,9 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       header("Location: ../hdd_list");
       exit();
     } catch (PDOException $e) {
-      // エラーメッセージをログに記録
       error_log("HDD追加エラー: " . $e->getMessage());
-      // エラーメッセージをユーザーに表示（開発環境のみ推奨）
       echo "エラーが発生しました。管理者に連絡してください。";
     }
   } else {
