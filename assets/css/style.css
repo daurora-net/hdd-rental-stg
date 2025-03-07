@@ -152,6 +152,18 @@ input[type=date]:required:valid::-webkit-datetime-edit-year-field {
   opacity: 0;
 }
 
+.ibm-plex-sans-jp-regular, body {
+  font-family: "IBM Plex Sans JP", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.ibm-plex-sans-jp-medium {
+  font-family: "IBM Plex Sans JP", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
 *,
 *::before,
 *::after {
@@ -221,18 +233,6 @@ textarea:not([rows]) {
 
 :target {
   scroll-margin-block: 5ex;
-}
-
-.ibm-plex-sans-jp-regular, body {
-  font-family: "IBM Plex Sans JP", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.ibm-plex-sans-jp-medium {
-  font-family: "IBM Plex Sans JP", serif;
-  font-weight: 500;
-  font-style: normal;
 }
 
 button {
@@ -1234,10 +1234,6 @@ aside nav.nav ul li a span.icon {
     font-size: unset;
   }
 }
-/*========= hdd_list page ===============*/
-/* ID */
-/* HDD No. */
-/*========= index ===============*/
 /*========= hdd_list page ===============*/
 .user-list {
   margin-top: 60px;
