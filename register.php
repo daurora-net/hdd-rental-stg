@@ -22,21 +22,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // 認証メールを送信
   $mail = new PHPMailer(true);
   try {
-    // Server settings
     $mail->isSMTP();
-    $mail->Host = 'sv12068.xserver.jp'; // SMTPサーバー
-    $mail->Username = 'dev@daurora.xsrv.jp'; // SMTPユーザー名
-    $mail->Password = 'wendy110483';   // SMTPパスワード
-    $mail->Port = 587;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
+    $mail->Username = 'daurora.net@gmail.com';
+    $mail->Password = 'vglq oqfs dvbs kamx';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
 
     // 文字化け解消
     $mail->CharSet = 'UTF-8';
     $mail->Encoding = 'base64';
 
     // Recipients
-    $mail->setFrom('dev@daurora.xsrv.jp', 'HDD Rental');
+    $mail->setFrom('daurora.net@gmail.com', 'HDD Rental');
     $mail->addAddress($email, $username);
 
     // Content
