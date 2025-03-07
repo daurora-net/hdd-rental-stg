@@ -100,7 +100,7 @@ include '../parts/head.php';
               </select>
             </div>
             <!-- 表示件数セレクトボックス -->
-            <div class="custom-select-wrapper w-150px ml-10">
+            <div class="custom-select-wrapper w-100px ml-10">
               <select name="perPage" id="perPage" onchange="this.form.submit();">
                 <?php
                 $options = [30, 50, 70, 100];

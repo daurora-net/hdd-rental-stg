@@ -40,6 +40,7 @@ $sqlMain = "
   FROM hdd_rentals hr
   JOIN hdd_resources r ON hr.resource_id = r.id
   WHERE hr.return_date IS NOT NULL
+  AND hr.deleted_at IS NULL
 ";
 
 if (!empty($selectedYm)) {
