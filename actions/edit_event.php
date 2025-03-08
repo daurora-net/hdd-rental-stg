@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $countOverlap = $stmtOverlap->fetchColumn();
 
       if ($countOverlap > 0) {
-        echo "登録済みのデータと日付が被っています。選び直してください。";
+        echo "⚠️ 設定し直してください！期間またはHDDが既存の予約と重複しています";
         exit;
       }
     } catch (PDOException $e) {

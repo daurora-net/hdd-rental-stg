@@ -39,8 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $countOverlap = $stmtOverlap->fetchColumn();
 
       if ($countOverlap > 0) {
-        // 重複あり → エラー
-        echo "登録できません：指定された期間が既存レンタルと重複しています。";
+        echo "⚠️ 設定し直してください！期間またはHDDが既存の予約と重複しています";
         exit;
       }
 

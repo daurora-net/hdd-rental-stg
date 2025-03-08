@@ -5,6 +5,9 @@
     </span>
     <form id="editEventForm" method="post" class="form">
       <h3>スケジュール編集</h3>
+      <div class="error-message-wrap">
+        <div id="editEventErrorMessage" class="error-message"></div>
+      </div>
       <input type="hidden" id="editEventId" name="eventId">
 
       <div class="flex">

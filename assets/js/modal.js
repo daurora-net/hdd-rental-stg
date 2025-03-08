@@ -63,8 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ---------------------------------------------
   //  レンタル追加モーダル
-  //   - 「未使用HDD」リストを取得して <select> に注入
-  //   - 開始日/終了予定日が入力される度に再取得
   // ---------------------------------------------
   var addRentalBtn = document.getElementById("addRentalBtn");
   if (addRentalBtn) {
@@ -108,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
           });
       }
 
-      // まず一度呼び出す
       fetchHddListForAdd();
 
       // 開始日・終了予定日が変わるたびに再呼び出し
@@ -124,12 +121,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ---------------------------------------------
-  //  レンタル追加フォームを非同期送信し、
-  //    サーバー側( add_rental.php )が"登録できません"などを返したら
-  //     アラートを出して保存中断する
+  //  レンタル追加モーダルのフォームを非同期送信
   // ---------------------------------------------
   var addRentalForm = document.getElementById('addRentalForm');
-  var errorContainer = document.getElementById('addRentalErrorMessage');
+  var addRentalErrorMessage = document.getElementById('addRentalErrorMessage');
   if (addRentalForm) {
     addRentalForm.addEventListener('submit', function (e) {
       // 基本項目と日付順序のバリデーション
@@ -156,8 +151,10 @@ document.addEventListener('DOMContentLoaded', function () {
           if (data.trim() === 'OK') {
             window.location.reload();
           } else {
-            // サーバーからエラーメッセージが返された場合、フォーム上に表示
-            errorContainer.textContent = data;
+            // エラーをフォーム上表示
+            addRentalErrorMessage.textContent = data;
+            // エラーをアラート表示
+            // alert(data);
           }
         })
         .catch(error => {
@@ -168,9 +165,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ---------------------------------------------
   //  レンタル編集モーダル
-  //   「未使用HDD + このレンタルのリソース」を取得して <select> に注入
   // ---------------------------------------------
-  var editEventBtns = document.querySelectorAll(".edit-event-btn"); // レンタル編集ボタン
+  var editEventBtns = document.querySelectorAll(".edit-event-btn");
   if (editEventBtns.length > 0) {
     editEventBtns.forEach(function (editBtn) {
       editBtn.addEventListener("click", function () {
@@ -228,6 +224,77 @@ document.addEventListener('DOMContentLoaded', function () {
         // モーダル表示
         editEventModal.style.display = 'block';
       });
+    });
+  }
+
+  // ---------------------------------------------
+  //  レンタル編集モーダルのフォームを非同期送信する処理
+  // ---------------------------------------------
+  var editEventForm = document.getElementById('editEventForm');
+  var editEventErrorMessage = document.getElementById('editEventErrorMessage');
+  if (editEventForm) {
+    editEventForm.addEventListener('submit', function (e) {
+      // 基本項目と日付順序のバリデーション
+      if (e.submitter && e.submitter.name === 'delete' && e.submitter.value === '1') {
+        return;
+      }
+
+      e.preventDefault();  // 通常のフォーム送信を防止
+      var formData = new FormData(editEventForm);
+      if (e.submitter && e.submitter.name) {
+        formData.append(e.submitter.name, e.submitter.value);
+      }
+
+      fetch('actions/edit_event.php', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.text())
+        .then(data => {
+          if (data.trim() === 'OK') {
+            // 正常時 → モーダル閉じ & カレンダー更新
+            document.getElementById('editEventModal').style.display = 'none';
+
+            if (isDeleteAction) {
+              // 削除の場合 → レコード行をテーブルから除去
+              var deletedId = document.getElementById("editEventId").value;
+              var deletedRow = document.querySelector("tr[data-id='" + deletedId + "']");
+              if (deletedRow) {
+                deletedRow.remove();
+              }
+            } else {
+              // 更新の場合 → カレンダー or テーブルをリフレッシュ
+              if (window.calendar) {
+                window.calendar.refetchEvents();
+              } else {
+                var editedId = document.getElementById("editEventId").value;
+                var row = document.querySelector("tr[data-id='" + editedId + "']");
+                if (row) {
+                  var cells = row.getElementsByTagName("td");
+                  cells[2].textContent = document.getElementById("editEventTitle").value;
+                  cells[3].textContent = document.getElementById("editEventManager").value;
+                  cells[6].textContent = document.getElementById("editEventStart").value;
+                  cells[7].textContent = document.getElementById("editEventEnd").value;
+                  cells[8].textContent = document.getElementById("editRentalLocation").value;
+                  cells[9].textContent = document.getElementById("editRentalCable").value;
+                  cells[11].textContent = document.getElementById("editReturnDate").value;
+                  cells[12].textContent = document.getElementById("editRentalDuration").value;
+                  cells[13].textContent = document.getElementById("editEventNotes").value;
+                  var returnDate = document.getElementById("editReturnDate").value;
+                  cells[10].textContent = returnDate ? '✔︎' : '';
+                }
+              }
+            }
+          } else {
+            // エラーをフォーム上表示
+            editEventErrorMessage.textContent = data;
+            // エラーをアラート表示
+            // alert(data);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     });
   }
 
@@ -368,76 +435,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // 値が変わる度に判定し直す
     field.addEventListener("input", updateEmptyClass);
   });
-
-  // ---------------------------------------------
-  //  編集イベントモーダルのフォームを非同期送信する処理
-  // ---------------------------------------------
-  var editEventForm = document.getElementById('editEventForm');
-  if (editEventForm) {
-    editEventForm.addEventListener('submit', function (e) {
-      // 基本項目と日付順序のバリデーション
-      if (e.submitter && e.submitter.name === 'delete' && e.submitter.value === '1') {
-        return;
-      }
-
-      e.preventDefault();  // 通常のフォーム送信を防止
-      var formData = new FormData(editEventForm);
-      if (e.submitter && e.submitter.name) {
-        formData.append(e.submitter.name, e.submitter.value);
-      }
-
-      // 削除ボタンからの送信かどうかを判定
-      const isDeleteAction = (e.submitter && e.submitter.name === 'delete' && e.submitter.value === '1');
-
-      fetch('actions/edit_event.php', {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => response.text())
-        .then(data => {
-          if (data.trim() === 'OK') {
-            // 正常時 → モーダル閉じ & カレンダー更新
-            document.getElementById('editEventModal').style.display = 'none';
-
-            if (isDeleteAction) {
-              // 削除の場合 → レコード行をテーブルから除去
-              var deletedId = document.getElementById("editEventId").value;
-              var deletedRow = document.querySelector("tr[data-id='" + deletedId + "']");
-              if (deletedRow) {
-                deletedRow.remove();
-              }
-            } else {
-              // 更新の場合 → カレンダー or テーブルをリフレッシュ
-              if (window.calendar) {
-                window.calendar.refetchEvents();
-              } else {
-                var editedId = document.getElementById("editEventId").value;
-                var row = document.querySelector("tr[data-id='" + editedId + "']");
-                if (row) {
-                  var cells = row.getElementsByTagName("td");
-                  cells[2].textContent = document.getElementById("editEventTitle").value;
-                  cells[3].textContent = document.getElementById("editEventManager").value;
-                  cells[6].textContent = document.getElementById("editEventStart").value;
-                  cells[7].textContent = document.getElementById("editEventEnd").value;
-                  cells[8].textContent = document.getElementById("editRentalLocation").value;
-                  cells[9].textContent = document.getElementById("editRentalCable").value;
-                  cells[11].textContent = document.getElementById("editReturnDate").value;
-                  cells[12].textContent = document.getElementById("editRentalDuration").value;
-                  cells[13].textContent = document.getElementById("editEventNotes").value;
-                  var returnDate = document.getElementById("editReturnDate").value;
-                  cells[10].textContent = returnDate ? '✔︎' : '';
-                }
-              }
-            }
-          } else {
-            alert(data);
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    });
-  }
 
   // ---------------------------------------------
   //  「ドラッグ or リサイズしてモーダル表示」 → 「キャンセル」 で元に戻る

@@ -5,6 +5,9 @@
     </span>
     <form id="addRentalForm" method="post" class="form">
       <h3>スケジュール追加</h3>
+      <div class="error-message-wrap">
+        <div id="addRentalErrorMessage" class="error-message"></div>
+      </div>
       <div class="flex">
         <div class="form-content w-300px">
           <div class="error-message-wrap">
