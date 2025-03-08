@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var editHddModal = document.getElementById("editHddModal");
         if (!editHddModal) return;
 
-        // ボタンの data-* 属性から情報を取得してフォームへセット
         var hddId = editBtn.getAttribute("data-id");
         var hddName = editBtn.getAttribute("data-name");
         var hddCapacity = editBtn.getAttribute("data-capacity") || "";
@@ -45,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("editHddCapacity").value = hddCapacity;
         document.getElementById("editHddNotes").value = hddNotes;
 
-        // モーダル表示
         editHddModal.style.display = "block";
       });
     });
@@ -70,10 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
       var addRentalModal = document.getElementById("addRentalModal");
       if (!addRentalModal) return;
 
-      // モーダルを表示する（先に表示してもOK）
       addRentalModal.style.display = "block";
 
-      // リソース取得用の関数
       function fetchHddListForAdd() {
         var startVal = document.getElementById("addRentalStart").value;
         var endVal = document.getElementById("addRentalEnd").value;
@@ -88,11 +84,10 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(url)
           .then(response => response.json())
           .then(data => {
-            // 文字数値の昇順でソート
             data.sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
             var hddSelect = document.getElementById("addRentalHdd");
             if (!hddSelect) return;
-            hddSelect.innerHTML = ''; // クリア
+            hddSelect.innerHTML = '';
 
             data.forEach(function (resource) {
               var option = document.createElement("option");
@@ -173,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var editEventModal = document.getElementById("editEventModal");
         if (!editEventModal) return;
 
-        // ボタンの data-* 属性から各データを取得
         var rentalId = editBtn.getAttribute('data-id');
         var title = editBtn.getAttribute('data-title');
         var manager = editBtn.getAttribute('data-manager');
@@ -185,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var returnDate = editBtn.getAttribute('data-return-date') || "";
         var notes = editBtn.getAttribute('data-notes') || "";
 
-        // フォームへセット
         document.getElementById("editEventId").value = rentalId;
         document.getElementById("editEventTitle").value = title;
         document.getElementById("editEventManager").value = manager;
@@ -198,12 +191,11 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("editEventNotes").value = notes;
 
         // 「未使用HDD + 現在のresourceId」を取得
-        //    current_rental_id = rentalId
+        //  current_rental_id = rentalId
         var url = 'actions/fetch_available_resources.php?current_rental_id=' + rentalId;
         fetch(url)
           .then(response => response.json())
           .then(data => {
-            // 文字数値の昇順でソート
             data.sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
             var hddSelect = document.getElementById("editRentalHdd");
             hddSelect.innerHTML = '';
@@ -214,14 +206,12 @@ document.addEventListener('DOMContentLoaded', function () {
               option.textContent = resource.name;
               hddSelect.appendChild(option);
             });
-            // このレンタルが利用中のresourceを選択状態に
             hddSelect.value = resourceId;
           })
           .catch(error => {
             console.error("未使用HDD取得エラー (editEventModal):", error);
           });
 
-        // モーダル表示
         editEventModal.style.display = 'block';
       });
     });
@@ -234,12 +224,12 @@ document.addEventListener('DOMContentLoaded', function () {
   var editEventErrorMessage = document.getElementById('editEventErrorMessage');
   if (editEventForm) {
     editEventForm.addEventListener('submit', function (e) {
-      // 基本項目と日付順序のバリデーション
-      if (e.submitter && e.submitter.name === 'delete' && e.submitter.value === '1') {
-        return;
+      const isDeleteAction = (e.submitter && e.submitter.name === 'delete' && e.submitter.value === '1');
+
+      if (!isDeleteAction) {
+        e.preventDefault();
       }
 
-      e.preventDefault();  // 通常のフォーム送信を防止
       var formData = new FormData(editEventForm);
       if (e.submitter && e.submitter.name) {
         formData.append(e.submitter.name, e.submitter.value);
@@ -356,6 +346,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (editEventModal && event.target === editEventModal) {
       editEventModal.style.display = "none";
       editEventModal.querySelector('form').reset();
+
+      // revert
+      if (window.currentCalendarAction
+        && (window.currentCalendarAction.type === 'drop'
+          || window.currentCalendarAction.type === 'resize')) {
+        window.currentCalendarAction.info.revert();
+      }
+      window.currentCalendarAction = null;
     }
     if (editUserModal && event.target === editUserModal) {
       editUserModal.style.display = "none";
@@ -364,13 +362,45 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ---------------------------------------------
-  //  モーダル内の「×」閉じるボタン
+  //  「×」閉じるボタン
   // ---------------------------------------------
   document.querySelectorAll('.close').forEach(function (closeBtn) {
     closeBtn.addEventListener("click", function () {
-      closeBtn.closest('.modal').style.display = "none";
+      const modal = closeBtn.closest('.modal');
+      if (!modal) return;
+      modal.style.display = "none";
+
+      // revert
+      if (modal.id === 'editEventModal') {
+        if (window.currentCalendarAction
+          && (window.currentCalendarAction.type === 'drop'
+            || window.currentCalendarAction.type === 'resize')) {
+          window.currentCalendarAction.info.revert();
+        }
+        window.currentCalendarAction = null;
+      }
     });
   });
+
+  // ---------------------------------------------
+  //  「キャンセル」ボタン
+  // ---------------------------------------------
+  var editEventCancelBtn = document.getElementById("editEventCancelBtn");
+  if (editEventCancelBtn) {
+    editEventCancelBtn.addEventListener("click", function () {
+      var editEventModal = document.getElementById("editEventModal");
+      editEventModal.style.display = "none";
+
+      // revert
+      if (window.currentCalendarAction &&
+        (window.currentCalendarAction.type === 'drop'
+          || window.currentCalendarAction.type === 'resize')) {
+        window.currentCalendarAction.info.revert();
+      }
+
+      window.currentCalendarAction = null;
+    });
+  }
 
   // ---------------------------------------------
   // 「使用日数」自動計算（開始日と返却日から）
@@ -403,7 +433,6 @@ document.addEventListener('DOMContentLoaded', function () {
     startEl.addEventListener('input', updateDuration);
     returnDateEl.addEventListener('change', updateDuration);
     returnDateEl.addEventListener('input', updateDuration);
-    // 初回にも計算実行
     updateDuration();
   }
 
@@ -413,50 +442,21 @@ document.addEventListener('DOMContentLoaded', function () {
   calculateDuration('editEventStart', 'editReturnDate', 'editRentalDuration');
 
   // ---------------------------------------------
-  //  カレンダーplaceholder非表示（必須項目以外：js-date-fieldクラス付与）
+  //  カレンダーplaceholder非表示
   // ---------------------------------------------
-  // すべての date 入力要素を取得（必須・任意問わず）
   const dateFields = document.querySelectorAll("input.js-date-field");
 
   dateFields.forEach(field => {
     function updateEmptyClass() {
       if (!field.value) {
-        // 未入力なら .is-empty を付与
         field.classList.add("is-empty");
       } else {
-        // 値があるならクラスを外す
         field.classList.remove("is-empty");
       }
     }
-
-    // 初期表示時に判定
     updateEmptyClass();
-
-    // 値が変わる度に判定し直す
     field.addEventListener("input", updateEmptyClass);
   });
-
-  // ---------------------------------------------
-  //  「ドラッグ or リサイズしてモーダル表示」 → 「キャンセル」 で元に戻る
-  // ---------------------------------------------
-  var editEventCancelBtn = document.getElementById("editEventCancelBtn");
-  if (editEventCancelBtn) {
-    editEventCancelBtn.addEventListener("click", function () {
-      // モーダル閉じる
-      var editEventModal = document.getElementById("editEventModal");
-      editEventModal.style.display = "none";
-
-      // ドラッグ/リサイズ後の info があれば revert()
-      if (window.currentCalendarAction &&
-        (window.currentCalendarAction.type === 'drop'
-          || window.currentCalendarAction.type === 'resize')) {
-        window.currentCalendarAction.info.revert(); // 元の位置に戻す
-      }
-
-      // 使い終わったらクリア
-      window.currentCalendarAction = null;
-    });
-  }
 
   // ---------------------------------------------
   //  モーダルを閉じるときにフォームをリセット
