@@ -11,7 +11,7 @@
             <label for="hddName" class="required">HDD No.</label>
             <div id="addHddNameErrorMessage" class="error-message"></div>
           </div>
-          <input type="text" id="hddName" name="hddName">
+          <input type="text" id="hddName" name="hddName" placeholder="10文字以内">
         </div>
       </div>
       <div class="form-content w-200px">

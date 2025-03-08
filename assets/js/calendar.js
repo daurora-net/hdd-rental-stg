@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     editable: true, // イベントをドラッグ移動、リサイズできる
     resourceAreaHeaderContent: 'HDD No.',
     resourceOrder: 'name',
+    resourceAreaWidth: "200px",
 
     selectable: true,
     dateClick: function (info) {

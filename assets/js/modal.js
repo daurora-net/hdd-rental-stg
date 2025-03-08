@@ -55,8 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var editHddForm = document.getElementById('editHddForm');
   if (editHddForm) {
     editHddForm.addEventListener('submit', function (e) {
-      if (!validateEditHddForm()) {
-        e.preventDefault();
+      if (e.submitter && e.submitter.name === 'delete' && e.submitter.value === '1') {
         return;
       }
     });
@@ -257,8 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var editUserForm = document.getElementById('editUserForm');
   if (editUserForm) {
     editUserForm.addEventListener('submit', function (e) {
-      if (!validateEditUserForm()) {
-        e.preventDefault();
+      if (e.submitter && e.submitter.name === 'delete' && e.submitter.value === '1') {
         return;
       }
     });
@@ -378,10 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (editEventForm) {
     editEventForm.addEventListener('submit', function (e) {
       // 基本項目と日付順序のバリデーション
-      const isRequiredOk = validateEditEventForm();
-      const isDateOrderOk = validateEditEventDateOrder();
-      if (!isRequiredOk || !isDateOrderOk) {
-        e.preventDefault();
+      if (e.submitter && e.submitter.name === 'delete' && e.submitter.value === '1') {
         return;
       }
 

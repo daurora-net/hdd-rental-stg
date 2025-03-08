@@ -682,6 +682,14 @@ input[type=date]::-webkit-calendar-picker-indicator {
   z-index: 2;
 }
 
+input::-moz-placeholder {
+  color: #ccc;
+}
+
+input::placeholder {
+  color: #ccc;
+}
+
 /*========= remember me ===============*/
 .rememberme-content {
   display: flex;

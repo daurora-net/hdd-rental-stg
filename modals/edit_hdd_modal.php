@@ -12,7 +12,7 @@
             <label for="editHddName" class="required">HDD No.</label>
             <div id="editHddNameErrorMessage" class="error-message"></div>
           </div>
-          <input type="text" id="editHddName" name="hddName">
+          <input type="text" id="editHddName" name="hddName" placeholder="10文字以内">
         </div>
       </div>
 

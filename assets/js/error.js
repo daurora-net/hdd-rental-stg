@@ -44,16 +44,32 @@ function validateEditEventForm() {
 
 // HDD追加
 function validateAddHddForm() {
-  return validateFields([
+  let isValid = validateFields([
     { inputId: 'hddName', errorId: 'addHddNameErrorMessage' }
   ]);
+  let hddNameEl = document.getElementById('hddName');
+  if (hddNameEl && hddNameEl.value.trim().length > 10) {
+    let errorEl = document.getElementById('addHddNameErrorMessage');
+    if (errorEl) errorEl.innerHTML = "⚠️ 10文字以内";
+    hddNameEl.focus();
+    isValid = false;
+  }
+  return isValid;
 }
 
 // HDD編集
 function validateEditHddForm() {
-  return validateFields([
+  let isValid = validateFields([
     { inputId: 'editHddName', errorId: 'editHddNameErrorMessage' }
   ]);
+  let hddNameEl = document.getElementById('editHddName');
+  if (hddNameEl && hddNameEl.value.trim().length > 10) {
+    let errorEl = document.getElementById('editHddNameErrorMessage');
+    if (errorEl) errorEl.innerHTML = "⚠️ 10文字以内";
+    hddNameEl.focus();
+    isValid = false;
+  }
+  return isValid;
 }
 
 // ユーザー編集
