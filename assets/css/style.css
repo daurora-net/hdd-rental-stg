@@ -445,6 +445,8 @@ button.cancel-btn:hover {
 .fc-h-event .fc-event-main {
   color: #37352f;
   font-size: 0.6rem;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .fc .fc-scrollgrid-section-sticky > * {

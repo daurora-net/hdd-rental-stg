@@ -58,6 +58,8 @@
 .fc-h-event .fc-event-main {
   color: $main-text-color;
   @include fz(6);
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .fc .fc-scrollgrid-section-sticky>* {
