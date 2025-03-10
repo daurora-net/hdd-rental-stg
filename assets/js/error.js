@@ -91,7 +91,7 @@ const validateDateOrder = ({ startId, endId, returnId, endErrorId, returnErrorId
   if (startInput && endInput && startInput.value && endInput.value) {
     const startDate = new Date(startInput.value);
     const endDate = new Date(endInput.value);
-    if (startDate >= endDate) {
+    if (startDate > endDate) {
       const endError = document.getElementById(endErrorId);
       if (endError) endError.innerHTML = messages.end;
       isValid = false;
