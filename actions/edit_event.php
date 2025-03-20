@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       FROM hdd_rentals
       WHERE deleted_at IS NULL
         AND resource_id = ?
-        AND NOT (end < ? OR start > ?)
+        AND NOT (IFNULL(return_date, end) <= ? OR ? <= start)
         AND id <> ?
     ";
     try {

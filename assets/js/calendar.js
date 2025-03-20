@@ -97,6 +97,9 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("editEventTitle").value = movedEvent.title;
       document.getElementById("editEventManager").value = movedEvent.extendedProps.manager || "";
       document.getElementById("editEventStart").value = startStr;
+      document.getElementById("editReturnDate").value = movedEvent.extendedProps.return_date
+        ? movedEvent.extendedProps.return_date.slice(0, 10)
+        : "";
       if (movedEvent.extendedProps.return_date) {
         // 返却日が設定済みの場合は、終了予定日は元のデータがあればそのまま表示
         if (movedEvent.extendedProps.real_end) {
@@ -164,6 +167,9 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("editEventTitle").value = resizedEvent.title;
       document.getElementById("editEventManager").value = resizedEvent.extendedProps.manager || "";
       document.getElementById("editEventStart").value = startStr;
+      document.getElementById("editReturnDate").value = resizedEvent.extendedProps.return_date
+        ? resizedEvent.extendedProps.return_date.slice(0, 10)
+        : "";
       if (resizedEvent.extendedProps.return_date) {
         // 返却日が設定済みの場合は、終了予定日は元のデータがあればそのまま表示
         if (resizedEvent.extendedProps.real_end) {
