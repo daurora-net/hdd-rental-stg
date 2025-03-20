@@ -60,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function () {
       // info.newResource は移動先リソース
       // info.oldResource は元リソース
       // ここではモーダルを出し、新日付・HDDをセット
+      console.log("eventDrop => ID:", info.event.id);
+      console.log("extendedProps:", info.event.extendedProps);
 
       // まず revert() 用に info を保管
       window.currentCalendarAction = { type: 'drop', info: info };
@@ -100,9 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (movedEvent.extendedProps.real_end) {
           document.getElementById("editEventEnd").value = movedEvent.extendedProps.real_end.slice(0, 10);
         }
-        // 返却日は新しい日付に更新
-        document.getElementById("editReturnDate").value = endStr;
-        document.getElementById("editReturnDate").dispatchEvent(new Event("input"));
       } else {
         document.getElementById("editEventEnd").value = endStr;
       }
@@ -170,9 +169,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (resizedEvent.extendedProps.real_end) {
           document.getElementById("editEventEnd").value = resizedEvent.extendedProps.real_end.slice(0, 10);
         }
-        // 返却日は新しい日付に更新
-        document.getElementById("editReturnDate").value = endStr;
-        document.getElementById("editReturnDate").dispatchEvent(new Event("input"));
       } else {
         document.getElementById("editEventEnd").value = endStr;
       }

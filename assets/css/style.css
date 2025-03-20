@@ -900,6 +900,27 @@ body.page-login .login-wrap .login-error-message {
   color: gray;
 }
 
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+    padding: 0;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .table-scroll {
+    overflow: visible !important;
+    height: auto !important;
+  }
+  .table-container table tbody td:nth-of-type(3),
+  .table-container table tbody td:nth-of-type(4) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 5ch;
+  }
+}
 /*========= table-container ===============*/
 .table-container {
   position: relative;
