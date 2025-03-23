@@ -1,6 +1,6 @@
 <?php
 include '../common/db.php';
-session_start(); // セッションを開始
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $title = trim($_POST['rentalTitle'] ?? '');
@@ -46,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // 返却日があるかどうかで is_returned を設定
       $isReturned = !empty($returnDate) ? 1 : 0;
 
-      // レンタルデータをINSERT
       $stmt = $conn->prepare("
         INSERT INTO hdd_rentals
           (title, manager, start, end, resource_id,
@@ -69,10 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $created_by
       ]);
 
-      // 挿入されたレンタルIDが必要なら取得
       $rentalId = $conn->lastInsertId();
 
-      // 正常終了の場合は「OK」
       echo "OK";
       exit;
 

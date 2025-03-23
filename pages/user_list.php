@@ -6,10 +6,10 @@ $stmtRole->execute([$_SESSION['username']]);
 $currentUserRole = $stmtRole->fetchColumn();
 
 // role=1のみアクセス可能
-// if ($currentUserRole != 1) {
-//   header("Location: /hdd-rental/");
-//   exit();
-// }
+if ($currentUserRole != 1) {
+  header("Location: /hdd-rental/");
+  exit();
+}
 
 // 【データ取得】deleted_at が NULL のユーザーのみ取得
 $stmt = $conn->prepare("SELECT * FROM users WHERE deleted_at IS NULL");

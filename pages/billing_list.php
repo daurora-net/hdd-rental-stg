@@ -9,10 +9,10 @@ $stmtRole->execute([$_SESSION['username']]);
 $currentUserRole = $stmtRole->fetchColumn();
 
 // role=3のみアクセス可能
-// if ($currentUserRole != 3) {
-//   header("Location: /hdd-rental/");
-//   exit();
-// }
+if ($currentUserRole != 3) {
+  header("Location: /hdd-rental/");
+  exit();
+}
 
 $selectedYm = isset($_GET['ym']) ? $_GET['ym'] : date('Y-m', strtotime('first day of last month'));
 

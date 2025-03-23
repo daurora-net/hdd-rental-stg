@@ -1,7 +1,6 @@
 <?php
 include_once __DIR__ . '/../common/db.php';
 
-// 現在のユーザーのroleを取得
 $stmt = $conn->prepare("SELECT role FROM users WHERE username = ?");
 $stmt->execute([$_SESSION['username']]);
 $userRole = $stmt->fetchColumn();
@@ -32,39 +31,24 @@ $userRole = $stmt->fetchColumn();
             <span class="icon">HDD</span>
           </a>
         </li>
-
-        <!-- 後で削除 -->
-        <li class="list <?php echo (isset($activePage) && $activePage == 'user_list') ? 'active' : ''; ?>">
-          <a href="user_list">
-            <span class="icon">ユーザー</span>
-          </a>
-        </li>
-        <li class="list <?php echo (isset($activePage) && $activePage == 'billing_list') ? 'active' : ''; ?>">
-          <a href="billing_list">
-            <span class="icon">料金</span>
-          </a>
-        </li>
-        <!-- 後で削除ここまで -->
-
       <?php }
-
 
       // 管理者 (role=1) のみ表示
       if ($userRole == 1) { ?>
-        <!-- <li class="list <?php echo (isset($activePage) && $activePage == 'user_list') ? 'active' : ''; ?>">
+        <li class="list <?php echo (isset($activePage) && $activePage == 'user_list') ? 'active' : ''; ?>">
           <a href="user_list">
             <span class="icon">USER</span>
           </a>
-        </li> -->
+        </li>
       <?php }
 
       // 料金 (role=3) のみ表示（billing_list ページ）
       if ($userRole == 3) { ?>
-        <!-- <li class="list <?php echo (isset($activePage) && $activePage == 'billing_list') ? 'active' : ''; ?>">
+        <li class="list <?php echo (isset($activePage) && $activePage == 'billing_list') ? 'active' : ''; ?>">
           <a href="billing_list">
             <span class="icon">BILLING</span>
           </a>
-        </li> -->
+        </li>
       <?php } ?>
     </ul>
     <div class="nav-logout sp">

@@ -1,14 +1,9 @@
 <?php
-// fetch_events.php
-// -------------------------------------------------------
 include '../common/db.php';
-
-// JSON以外の出力をしないよう、echoやHTMLタグを入れない
 
 header('Content-Type: application/json; charset=utf-8');
 
 try {
-  // データベースから情報を取得
   $stmt = $conn->prepare("
         SELECT
           hr.id, hr.title, hr.manager,
@@ -28,7 +23,7 @@ try {
   foreach ($events as $event) {
     // DB上の終了予定日
     $dbEnd = $event['end'];
-    // 2) DBに保存されている返却日
+    // DBに保存されている返却日
     $dbReturn = $event['return_date'];
 
     // 「返却日が入力されていれば返却日優先、返却日が無ければ終了予定日」
@@ -61,7 +56,6 @@ try {
     ];
   }
 
-  // JSONとして出力
   echo json_encode($formatted_events);
 
 } catch (PDOException $e) {

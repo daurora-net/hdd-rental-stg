@@ -19,9 +19,7 @@ $resRow = $stmtRes->fetch(PDO::FETCH_ASSOC);
 $currentResourceId = $resRow ? (int) $resRow['resource_id'] : 0;
 
 // start/end が指定されていれば、日時重複チェックで除外
-//    start or end が空なら従来の「is_returned=1 or 未使用」抽出に fallback
 if (!empty($startParam) && !empty($endParam)) {
-  // Overlap判定: NOT(end < :start OR start > :end)
   $query = "
     SELECT r.id, r.name
     FROM hdd_resources r

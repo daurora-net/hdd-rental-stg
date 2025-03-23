@@ -146,9 +146,9 @@ document.addEventListener('DOMContentLoaded', function () {
           if (data.trim() === 'OK') {
             window.location.reload();
           } else {
-            // エラーをフォーム上表示
+            // エラーをフォーム上表示 //
             addRentalErrorMessage.textContent = data;
-            // エラーをアラート表示
+            // エラーをアラート表示 //
             // alert(data);
           }
         })
@@ -276,9 +276,9 @@ document.addEventListener('DOMContentLoaded', function () {
               }
             }
           } else {
-            // エラーをフォーム上表示
+            // エラーをフォーム上表示 //
             editEventErrorMessage.textContent = data;
-            // エラーをアラート表示
+            // エラーをアラート表示 //
             // alert(data);
           }
         })

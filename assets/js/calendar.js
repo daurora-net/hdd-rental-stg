@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var resourcesData = {};
 
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++
-  // 追記: 「編集モーダルのキャンセル」が発火したらイベントをrevert & refetch
+  // 「編集モーダルのキャンセル」が発火したらイベントをrevert & refetch
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++
   window.addEventListener('cancelEditEventModal', function () {
     // currentCalendarActionがドラッグorリサイズ由来なら revert() と refetchEvents() する
@@ -11,18 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
       && (window.currentCalendarAction.type === 'drop'
         || window.currentCalendarAction.type === 'resize')) {
 
-      // 1) revert() でUI上のイベントを元に戻す
       window.currentCalendarAction.info.revert();
 
-      // 2) DBと不整合が起きないよう強制的にサーバー再取得
-      //    → 「HDD_id=2に更新済み」の正しいデータを再描画し、
-      //       古いHDD_id=1のゴーストが残らないようにする
       if (window.calendar) {
         window.calendar.refetchEvents();
       }
     }
 
-    // revert後は不要なのでリセット
     window.currentCalendarAction = null;
   });
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -48,16 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // ドラッグで日付範囲を選択したときのコールバック
     // ---------------------------------------------
     select: function (info) {
-      // ★ポイント★
-      // デフォルトでは "ドラッグ範囲=仮イベント" として表示されがちですが、
-      // ここで明示的に「unselect()」することで仮イベントを消し、勝手に残らないようにします。
-      // 必要であれば以下で「addRentalModalを開き、start/endに値をセット」など可能。
-
-      // 選択状態クリア (仮イベントを消す)
       calendar.unselect();
 
-      // 例：ドラッグした範囲で 1日多い分を調整しつつ、
-      //     addRentalModal の日付フィールドに値を入れてモーダルを開く
       var startDateStr = info.startStr.slice(0, 10);
       var endDateObj = new Date(info.endStr);
       endDateObj.setDate(endDateObj.getDate() - 1); // FullCalendarの都合で+1日されている
@@ -108,13 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // イベントをドラッグ移動した直後のコールバック
     // ---------------------------------------------
     eventDrop: function (info) {
-      // info.event は移動後のイベント
-      // info.newResource は移動先リソース
-      // info.oldResource は元リソース
-      // ここではモーダルを出し、新日付・HDDをセット
-      console.log("eventDrop => ID:", info.event.id);
-      console.log("extendedProps:", info.event.extendedProps);
-
       // まず revert() 用に info を保管
       window.currentCalendarAction = { type: 'drop', info: info };
 
@@ -128,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
       var newEnd = movedEvent.end;
       var startStr = newStart ? newStart.toISOString().slice(0, 10) : '';
 
-      // 1日多い問題を修正：end から1日引く
       var adjustedEnd = newEnd ? new Date(newEnd.getTime()) : null;
       if (adjustedEnd) {
         adjustedEnd.setDate(adjustedEnd.getDate() - 1);
@@ -198,7 +177,6 @@ document.addEventListener('DOMContentLoaded', function () {
       var newStart = resizedEvent.start;
       var newEnd = resizedEvent.end;
 
-      // リソースは変わってないはず
       var resources = resizedEvent.getResources();
       var resourceId = resources.length > 0 ? resources[0].id : null;
 
