@@ -2,6 +2,31 @@ document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
   var resourcesData = {};
 
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // 追記: 「編集モーダルのキャンセル」が発火したらイベントをrevert & refetch
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++
+  window.addEventListener('cancelEditEventModal', function () {
+    // currentCalendarActionがドラッグorリサイズ由来なら revert() と refetchEvents() する
+    if (window.currentCalendarAction
+      && (window.currentCalendarAction.type === 'drop'
+        || window.currentCalendarAction.type === 'resize')) {
+
+      // 1) revert() でUI上のイベントを元に戻す
+      window.currentCalendarAction.info.revert();
+
+      // 2) DBと不整合が起きないよう強制的にサーバー再取得
+      //    → 「HDD_id=2に更新済み」の正しいデータを再描画し、
+      //       古いHDD_id=1のゴーストが残らないようにする
+      if (window.calendar) {
+        window.calendar.refetchEvents();
+      }
+    }
+
+    // revert後は不要なのでリセット
+    window.currentCalendarAction = null;
+  });
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++
+
   window.currentCalendarAction = null;
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -19,6 +44,33 @@ document.addEventListener('DOMContentLoaded', function () {
     resourceAreaWidth: "200px",
 
     selectable: true,
+    // ---------------------------------------------
+    // ドラッグで日付範囲を選択したときのコールバック
+    // ---------------------------------------------
+    select: function (info) {
+      // ★ポイント★
+      // デフォルトでは "ドラッグ範囲=仮イベント" として表示されがちですが、
+      // ここで明示的に「unselect()」することで仮イベントを消し、勝手に残らないようにします。
+      // 必要であれば以下で「addRentalModalを開き、start/endに値をセット」など可能。
+
+      // 選択状態クリア (仮イベントを消す)
+      calendar.unselect();
+
+      // 例：ドラッグした範囲で 1日多い分を調整しつつ、
+      //     addRentalModal の日付フィールドに値を入れてモーダルを開く
+      var startDateStr = info.startStr.slice(0, 10);
+      var endDateObj = new Date(info.endStr);
+      endDateObj.setDate(endDateObj.getDate() - 1); // FullCalendarの都合で+1日されている
+      var endDateStr = endDateObj.toISOString().slice(0, 10);
+
+      var addRentalModal = document.getElementById("addRentalModal");
+      if (addRentalModal) {
+        document.getElementById("addRentalStart").value = startDateStr;
+        document.getElementById("addRentalEnd").value = endDateStr;
+        addRentalModal.style.display = "block";
+      }
+    },
+
     dateClick: function (info) {
       // 新規追加モーダルを開く。開始日にクリックした日付を設定
       var addRentalModal = document.getElementById("addRentalModal");
@@ -81,6 +133,10 @@ document.addEventListener('DOMContentLoaded', function () {
       if (adjustedEnd) {
         adjustedEnd.setDate(adjustedEnd.getDate() - 1);
       }
+      var adjustedEnd = newEnd ? new Date(newEnd.getTime()) : null;
+      if (adjustedEnd) {
+        adjustedEnd.setDate(adjustedEnd.getDate() - 1);
+      }
       var endStr = adjustedEnd
         ? adjustedEnd.toISOString().slice(0, 10)
         : startStr;
@@ -96,16 +152,18 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("editEventId").value = movedEvent.id;
       document.getElementById("editEventTitle").value = movedEvent.title;
       document.getElementById("editEventManager").value = movedEvent.extendedProps.manager || "";
-      document.getElementById("editEventStart").value = startStr;
-      document.getElementById("editReturnDate").value = movedEvent.extendedProps.return_date
-        ? movedEvent.extendedProps.return_date.slice(0, 10)
-        : "";
+      // 返却日があるかで処理を分ける
       if (movedEvent.extendedProps.return_date) {
-        // 返却日が設定済みの場合は、終了予定日は元のデータがあればそのまま表示
+        // 既に返却日があれば「開始日と返却日だけ」を変更し、終了予定日は変更しない
+        document.getElementById("editEventStart").value = startStr;
+        document.getElementById("editReturnDate").value = endStr;
+        // 終了予定日は元の値を表示させたいので、real_end から再セット
         if (movedEvent.extendedProps.real_end) {
-          document.getElementById("editEventEnd").value = movedEvent.extendedProps.real_end.slice(0, 10);
+          document.getElementById("editEventEnd").value = movedEvent.extendedProps.real_end;
         }
       } else {
+        // 返却日がなければ「開始日と終了予定日」を変更し、返却日は空のまま
+        document.getElementById("editEventStart").value = startStr;
         document.getElementById("editEventEnd").value = endStr;
       }
 
@@ -166,16 +224,18 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("editEventId").value = resizedEvent.id;
       document.getElementById("editEventTitle").value = resizedEvent.title;
       document.getElementById("editEventManager").value = resizedEvent.extendedProps.manager || "";
-      document.getElementById("editEventStart").value = startStr;
-      document.getElementById("editReturnDate").value = resizedEvent.extendedProps.return_date
-        ? resizedEvent.extendedProps.return_date.slice(0, 10)
-        : "";
+      // 返却日があるかで処理を分ける
       if (resizedEvent.extendedProps.return_date) {
-        // 返却日が設定済みの場合は、終了予定日は元のデータがあればそのまま表示
+        // 既に返却日がある場合は、開始日と返却日のみ変更
+        document.getElementById("editEventStart").value = startStr;
+        document.getElementById("editReturnDate").value = endStr;
+        // 終了予定日は元のままにする（real_end があれば戻す）
         if (resizedEvent.extendedProps.real_end) {
-          document.getElementById("editEventEnd").value = resizedEvent.extendedProps.real_end.slice(0, 10);
+          document.getElementById("editEventEnd").value = resizedEvent.extendedProps.real_end;
         }
       } else {
+        // 返却日がなければ終了予定日を更新
+        document.getElementById("editEventStart").value = startStr;
         document.getElementById("editEventEnd").value = endStr;
       }
 

@@ -391,6 +391,8 @@ document.addEventListener('DOMContentLoaded', function () {
       var editEventModal = document.getElementById("editEventModal");
       editEventModal.style.display = "none";
 
+      window.dispatchEvent(new Event("cancelEditEventModal"));
+
       // revert
       if (window.currentCalendarAction &&
         (window.currentCalendarAction.type === 'drop'
