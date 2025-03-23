@@ -14,7 +14,7 @@ if ($page < 1) {
   $page = 1;
 }
 
-$sql = "SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.cable, hr.is_returned, hr.return_date, hr.duration, hr.notes, hr.resource_id, r.name as hdd_name, r.capacity as hdd_capacity 
+$sql = "SELECT hr.id, hr.title, hr.manager, hr.start, hr.end, hr.location, hr.cable, hr.is_returned, hr.return_date, hr.duration, hr.notes, hr.created_by, hr.resource_id, r.name as hdd_name, r.capacity as hdd_capacity 
         FROM hdd_rentals hr
         JOIN hdd_resources r ON hr.resource_id = r.id
         WHERE hr.deleted_at IS NULL";
@@ -138,6 +138,7 @@ include '../parts/head.php';
               <th onclick="sortTable(this, 11)">返却日 <i class="fa-solid fa-sort no-print"></i></th>
               <th onclick="sortTable(this, 12)">使用日数 <i class="fa-solid fa-sort no-print"></i></th>
               <th onclick="sortTable(this, 13)">メモ <i class="fa-solid fa-sort no-print"></i></th>
+              <th onclick="sortTable(this, 14)">作成ユーザー <i class="fa-solid fa-sort no-print"></i></th>
             </tr>
           </thead>
           <tbody>
@@ -176,6 +177,7 @@ include '../parts/head.php';
                   <?php endif; ?>
                 </td>
                 <td><?php echo htmlspecialchars($rental['notes']); ?></td>
+                <td><?php echo htmlspecialchars($rental['created_by']); ?></td>
               </tr>
             <?php } ?>
           </tbody>
